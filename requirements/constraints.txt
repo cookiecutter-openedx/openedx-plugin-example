@@ -1,0 +1,99 @@
+# mcdaniel feb-2022
+# copied from edx-platform lilac.master
+#
+# Version constraints for pip-installation.
+#
+# This file doesn't install any packages. It specifies version constraints
+# that will be applied if a package is needed.
+#
+# When pinning something here, please provide an explanation of why.  Ideally,
+# link to other information that will help people in the future to remove the
+# pin when possible.  Writing an issue against the offending project and
+# linking to it here is good.
+
+
+# This file contains all common constraints for edx-repos
+-c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+
+# celert>5.0.0 hasn't been tested yet, so the constraint will be removed after testing latest version
+celery<5.0.0
+
+# edx-platform currently only supported for Django 2.2.x
+django<2.3
+
+# Newer versions need celery >= 5.0
+django-celery-results<2.1
+
+# We do not support version django-config-models<1.0.0
+django-config-models>=1.0.0
+
+# The CORS_ORIGIN_WHITELIST changes in a backwards incompatible way in 3.0.0, needs matching configuration repo changes
+django-cors-headers<3.0.0
+
+# django-storages version 1.9 drops support for boto storage backend.
+django-storages<1.9
+
+# The team that owns this package will manually bump this package rather than having it pulled in automatically.
+# This is to allow them to better control its deployment and to do it in a process that works better
+# for them.
+edx-enterprise==3.27.21
+
+# Newer versions need a more recent version of python-dateutil
+freezegun==0.3.12
+
+# 4.5.1 introduced a bug when used together with xmlsec: https://bugs.launchpad.net/lxml/+bug/1880251
+# Tests passed, but hit a problem in stage
+lxml<4.5.1
+
+# oauthlib>3.0.1 causes test failures ( also remove the django-oauth-toolkit constraint when this is fixed )
+oauthlib==3.0.1
+
+# django-auth-toolkit==1.3.3 requires oauthlib>=3.1.0 which is pinned because of test failures
+django-oauth-toolkit<=1.3.2
+
+# Upgrading to 2.5.3 on 2020-01-03 triggered "'tzlocal' object has no attribute '_std_offset'" errors in production
+python-dateutil==2.4.0
+# matplotlib>=3.4.0 requires python-dateutil>=2.7
+matplotlib<3.4.0
+# pandas>0.22.0 requires python-dateutil>=2.5.0
+pandas==0.22.0
+# networkx>=2.6 requires pandas>=1.1
+networkx<2.6
+
+# Constraint from astroid 2.3.3
+wrapt==1.11.*
+
+# tests failing for pymongo==3.11
+pymongo<3.11
+
+# sympy latest version causing test failures.
+# may be related to python35 version drop in 1.7.0. Needs to be tested before removing.
+sympy==1.6.2
+
+# python3-saml==1.10.0 version started breaking a11y tests
+python3-saml<1.10.0
+
+# With greater version these tests `common.djangoapps.terrain.stubs.tests` becomes flaky on jenkins.
+httpretty<1.0
+
+# latest version of diff-cover conflicts with pygments version see https://github.com/Bachmann1234/diff_cover/commit/01f91760321cee1ad28cfa0d801c4acd8b9765a6
+diff-cover==4.0.0
+
+# transifex-client==0.14.2(latest) requires python-slugify<5.0.0 for Python 2.0 support.
+# This can be removed once transifex-client drops support for Python 2.0 and removes the required constraint.
+python-slugify<5.0.0
+
+# greater version has breaking changes and requires some migration steps.
+django-webpack-loader==0.7.0
+
+# edx-proctoring==3.11.4 (latest) requires PyJWT<2.0.0
+PyJWT[crypto]<2.0.0
+social-auth-core<4.0.0  # social-auth-core>=4.0.0 requires PYJWT>=2.0.0
+
+# celery requires click<8.0.0 which would be fixed once https://github.com/celery/celery/issues/6753 is done.
+click<8.0.0
+
+# constraints present due to Python35 support. Need to be tested and removed independently.
+
+# jsonfield2 will be replaced with jsonfield in https://openedx.atlassian.net/browse/BOM-1917.
+jsonfield2<3.1.0        # jsonfield2 3.1.0 drops support for python 3.5

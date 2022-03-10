@@ -1,0 +1,4 @@
+pre-commit==2.14.0  #
+black==21.7b0       # Github Actions CI runs this on each push.
+flake8==3.9.2       # ditto
+ipython

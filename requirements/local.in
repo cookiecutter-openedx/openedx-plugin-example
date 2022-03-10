@@ -1,0 +1,13 @@
+#------------------------------------------------------
+# These can be installed manually using:
+#
+#    pip install -r requirements/local.txt
+
+-c ./constraints.txt
+-r ./common.txt
+
+pre-commit          # to link cornflakes
+black               # Github Actions CI runs this on each push.
+flake8              # ditto
+
+ipython             # ditto
