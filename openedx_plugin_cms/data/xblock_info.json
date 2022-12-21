@@ -1,0 +1,58 @@
+{
+    "id": "block-v1:edX+DemoX+Demo_Course+type@course+block@course",
+    "display_name": "Demonstration Course",
+    "category": "course",
+    "has_children": true,
+    "edited_on": "Oct 13, 2021 at 23: 47 UTC", 
+    "published": true, 
+    "published_on": "Sep 22, 2021 at 21: 33 UTC", 
+    "studio_url": "/course/course-v1:edX+DemoX+Demo_Course", 
+    "released_to_students": true, 
+    "release_date": "Feb 05, 2013 at 05: 00 UTC", 
+    "visibility_state": null, 
+    "has_explicit_staff_lock": false, 
+    "start": "2013-02-05T05: 00: 00Z", 
+    "graded": false, 
+    "due_date": "", 
+    "due": null, 
+    "format": null, 
+    "course_graders": ["Homework", "Exam"],
+    "has_changes": null,
+    "actions": {
+        "deletable": true,
+        "draggable": true,
+        "childAddable": true,
+        "duplicable": true
+    },
+    "explanatory_message": null,
+    "group_access": {},
+    "user_partitions": [
+        {
+            "id": 50,
+            "name": "Enrollment Track Groups",
+            "scheme": "enrollment_track",
+            "groups": [
+                {
+                    "id": 1,
+                    "name": "Audit",
+                    "selected": false,
+                    "deleted": false
+                }
+            ]
+        }
+    ],
+    "show_correctness": "always",
+    "highlights_enabled_for_messaging": false,
+    "highlights_enabled": true,
+    "highlights_preview_only": false,
+    "highlights_doc_url": "http: //edx.readthedocs.io/projects/open-edx-building-and-running-a-course/en/open-release-lilac.master/developing_course/course_sections.html#set-section-highlights-for-weekly-course-highlight-messages",
+    "ancestor_info": {
+        "ancestors": []
+    },
+    "ancestor_has_staff_lock": false,
+    "user_partition_info": {
+        "selectable_partitions": [],
+        "selected_partition_index": -1,
+        "selected_groups_label": ""
+    }
+}

@@ -41,9 +41,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "example_host",
-                    models.URLField(
-                        blank=True, help_text="the URL pointing to some server.", max_length=255
-                    ),
+                    models.URLField(blank=True, help_text="the URL pointing to some server.", max_length=255),
                 ),
             ],
             options={

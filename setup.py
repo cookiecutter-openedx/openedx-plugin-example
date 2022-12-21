@@ -2,7 +2,6 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 import os
-
 from setuptools import find_packages, setup
 from version import __version__
 
@@ -58,10 +57,10 @@ setup(
     long_description="",
     author="Lawrence McDaniel",
     author_email="lpm0073@gmail.com",
-    url="https://github.com/Turn-The-Bus/example-openedx-plugin",
+    url="https://github.com/lpm0073/example-openedx-plugin",
     install_requires=load_requirements("requirements/common.in"),
     zip_safe=False,
-    keywords="Django, Open edX, example",
+    keywords="Django, Open edX",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Framework :: Django",
@@ -83,11 +82,14 @@ setup(
         #            and also that you are not introducing any name collisions.
         # https://github.com/openedx/edx-platform/blob/master/setup.py#L88
         "lms.djangoapp": [
-            "openedx_plugin = openedx_plugin.apps:StepwisePluginConfig",
+            "openedx_plugin = openedx_plugin.apps:CustomPluginConfig",
+            "openedx_plugin_api = openedx_plugin_api.apps:CustomPluginAPIConfig",
         ],
-        "cms.djangoapp": [],
+        "cms.djangoapp": [
+            "openedx_plugin_cms = openedx_plugin_cms.apps:CustomPluginCMSConfig",
+        ],
     },
     extras_require={
-        "Django": ["Django>=2.2,<2.3"],
+        "Django": ["Django>=3.2"],
     },
 )

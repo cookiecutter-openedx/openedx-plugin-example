@@ -1,0 +1,180 @@
+<%page expression_filter="h"/>
+<%inherit file="base.html" />
+<%def name="online_help_token()"><% return "course_audit" %></%def>
+<%namespace name='static' file='static_content.html'/>
+<%!
+  from django.conf import settings
+  from django.utils.translation import ugettext as _
+  from openedx.core.djangolib.markup import HTML, Text
+  from cms-plugin_cms.utils import get_xblock_attribute, log_date
+
+%>
+
+<%block name="title">Course Audit</%block>
+
+<%block name="header_extras">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        /* 
+            hide default open edx system menu 
+            hide footer
+            hide footer menu
+        */
+        .nav-skip,
+        #view-top,
+        .wrapper-footer,
+        .wrapper-sock {
+            visibility: hidden;
+            height: 0;
+        }
+        
+        #cms-plugin-table > tbody {
+            white-space: nowrap;
+        }
+        .table>thead {
+            vertical-align: bottom;
+            border-top-width: 3px;
+            border-top-color: black;
+            background-color: #f5f5f5;
+        }
+        .table>:not(caption)>*>* {
+            border-right-width: 0.5px;
+        }
+        .refresh-message {
+            font-size: 10pt;
+            font-weight: lighter;
+            font-style: italic;
+        }
+        .refresh-failed {
+            color: red;
+        }
+        .refresh-success {
+            color: green;
+        }
+    </style>
+    <script type="text/javascript">
+        function csvDownload() {
+            window.open("${csv_url}");
+        }
+        function backgroundRefresh() {
+            msg = document.getElementById("report-message");
+            msg.innerHTML = "Initiating a report refresh request to the server..."
+            msg.classList.remove('refresh-sucess');
+            msg.classList.remove('refresh-failed');
+
+            fetch("${refresh_url}")
+            .then(response => response.json())
+            .then(data => { 
+                console.log(data); 
+                msg.innerHTML = data.description;
+                msg.classList.add('refresh-success');
+            })
+            .catch(err => {
+                console.log(err); 
+                msg.innerHTML = err.description;
+                msg.classList.add('refresh-failed');
+            });
+        }
+    </script>
+
+</%block>
+
+<%block name="content">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<section id="cms-plugin">
+    <div id="cms-plugin-wrapper" class="m-1 p-1">
+        <div class="text-center mb-5">
+            <h1>cms-plugin Course Audit</h1>
+            <h2>${course_id}</h2>
+            <h3>${report_as_of} GMT</h3>
+            <h6 id="report-message" class="refresh-message"></h6>
+        </div>
+
+        <div id="cms-plugin_audit" class="mx-1 mb-5 p-1">
+            <button type="button" class="btn btn-primary" onclick="csvDownload()">Export to CSV</button>
+            <button type="button" class="btn btn-primary" onclick="backgroundRefresh()">Refresh Report Data</button>
+
+            <table id="cms-plugin-table" class="table my-5 p-5">
+                <thead>
+                    <tr>
+                        <th scope="col" title="Order">Order</th>
+                        <th scope="col" title="Course">Course</th>
+                        <th scope="col" title="Module">Module</th>
+                        <th scope="col" title="Section">Section</th>
+                        <th scope="col" title="Unit">Unit</th>
+                        <th scope="col" title="Block Type">Block Type</th>
+                        <th scope="col" title="Graded">Graded (Y/N)</th>
+                        <th scope="col" title="Section Weight">Section Weight</th>
+                        <th scope="col" title="Number of graded sections"># Graded Sections</th>
+                        <th scope="col" title="Component Type">Component Type</th>
+                        <th scope="col" title="Non-Standard Element">Non-Standard Element</th>
+                        <th scope="col" title="Points">Points</th>
+                        <th scope="col" title="iFrame URL">iFrame URL</th>
+                        <th scope="col" title="External Links">External Links</th>
+                        <th scope="col" title="Asset-Type">Asset-Type</th>
+                        <th scope="col" title="Unit LMS">Unit LMS</th>
+                        <th scope="col" title="Unit Studio">Unit Studio</th>
+                        <th scope="col" title="Xml Filename">Xml Filename</th>
+                        <th scope="col" title="Publication Date">Publication Date</th>
+                        <th scope="col" title="Edited by">Edited by</th>
+                        <th scope="col" title="Change made">Change made</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    %for audit_record in page_obj:
+                    <tr class="">
+                        <div scope="row">
+                            <td class="">${audit_record.a_order}</td>
+                            <td class="">${audit_record.b_course}</td>
+                            <td class="">${audit_record.c_module}</td>
+                            <td class="">${audit_record.d_section}</td>
+                            <td class="">${audit_record.e_unit}</td>
+                            <td class="">${audit_record.e2_block_type}</td>
+                            <td class="">${audit_record.f_graded}</td>
+                            <td class="">${str(audit_record.g_section_weight).replace("None", "")}</td>
+                            <td class="">${str(audit_record.h_number_graded_sections).replace("None", "")}</td>
+                            <td class="">${audit_record.i_component_type}</td>
+                            <td class="">${str(audit_record.j_non_standard_element).replace("None", "")}</td>
+                            <td class="">${str(audit_record.k_problem_weight).replace("None", "")}</td>
+                            <td class="">${str(audit_record.m_iframe_external_url).replace("None", "")}</td>
+                            <td class="">${str(audit_record.m_external_links).replace("None", "")}</td>
+                            <td class="">${audit_record.n_asset_type}</td>
+                            <td class=""><a target="_blank" href="${audit_record.o_unit_url}">LMS URL</a></td>
+                            <td class=""><a target="_blank" href="${audit_record.p_studio_url}">Studio URL</a></td>
+                            <td class="">${audit_record.q_xml_filename}</td>
+                            <td class="">${audit_record.r_publication_date.strftime("%d-%b-%Y, %H:%M") if audit_record.r_publication_date is not None else ""}</td>
+                            <td class="">${str(audit_record.s_changed_by).replace("None", "")}</td>
+                            <td class="">${audit_record.t_change_made.strftime("%d-%b-%Y, %H:%M") if audit_record.t_change_made is not None else ""}</td>
+                        </div>
+                    </tr>
+                    %endfor
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="cms-plugin-footer mt-5 p-5">
+            <div class="pagination">
+                <span class="step-links text-center w-100">
+                    <a href="?page=1">&laquo; first</a>
+                    %if page_previous > 0:
+                        <a href="?page=${page_previous}">previous</a>
+                    %endif
+            
+                    <span class="current">
+                        Page ${ page_obj.number } of ${ page_obj.paginator.num_pages }.
+                    </span>
+            
+                    %if page_next > 0:
+                        <a href="?page=${page_next}">next</a>
+                    %endif
+                    <a href="?page=${page_obj.paginator.num_pages}">last &raquo;</a>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+</%block>

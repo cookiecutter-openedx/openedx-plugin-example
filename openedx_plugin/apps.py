@@ -14,7 +14,7 @@ from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 log = logging.getLogger(__name__)
 
 
-class StepwisePluginConfig(AppConfig):
+class CustomPluginConfig(AppConfig):
     name = "openedx_plugin"
     label = "openedx_plugin"
 
@@ -28,7 +28,7 @@ class StepwisePluginConfig(AppConfig):
         PluginURLs.CONFIG: {
             ProjectType.LMS: {
                 PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^example/",
+                PluginURLs.REGEX: "^plugin/",
                 PluginURLs.RELATIVE_PATH: "urls",
             }
         },
