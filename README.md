@@ -16,41 +16,31 @@ A curated collection of code examples for extending the functionality of an Open
 
 ## Getting Started
 
-### Install
+### Install using Tutor
 
-#### Native
-
-```bash
-# where github-plugin is defined in .ssh/config
-git clone git@github-plugin:Turn-The-Bus/example-openedx-plugin.git -b main  /home/ubuntu/openedx_plugin
-
-sudo -H -u edxapp bash
-source /edx/app/edxapp/edxapp_env
-source /edx/app/edxapp/venvs/edxapp/bin/activate
-pip install /home/ubuntu/openedx_plugin
-```
-
-```python
-# DO NOT!! add this near the bottom of /edx/app/edxapp/edx-platform/lms/envs/common.py
-
-# NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO!
-INSTALLED_APPS.extend('openedx_plugin')    # DO NOT DO THIS!!!!!!
-# NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO!
-
-# it turns out that Open edX finds this package of its own accord.
-# magical!!! :O
-```
-
+See [Installing extra xblocks and requirements](https://docs.tutor.overhang.io/configuration.html)
 
 ```bash
-# to run tests
-sudo -H -u edxapp bash
-source /edx/app/edxapp/edxapp_env
-source /edx/app/edxapp/venvs/edxapp/bin/activate
-pip install -r requirements/edx/testing.txt
-cd ~/edx-platform
-./manage.py lms test openedx_plugin --settings=test
+tutor config save       # to ensure that tutor's root folder system has been created
+echo "git+https://github.com/lpm0073/openedx-plugin-example.git" >> "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
+cat "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
+tutor images build openedx
+tutor local quickstart
+
+# you'll also need to run this on your very first install
+# -----------------------------------------------------------------------------
+
+# 1. run migrations
+tutor local run lms ./manage.py lms makemigrations
+tutor local run lms ./manage.py lms migrate
+tutor local run cms ./manage.py cms makemigrations
+tutor local run cms ./manage.py cms migrate
+
+# 2. add configuration data to custom models
+tutor local run lms ./manage.py lms create_oauth_application_client_config
+tutor local run lms ./manage.py lms initialize
 ```
+
 
 
 ### Local development
