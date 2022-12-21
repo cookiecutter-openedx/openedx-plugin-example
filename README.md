@@ -12,6 +12,26 @@ A curated collection of code examples for extending the functionality of an Open
 * Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
 * Create a custom third party auth [Oauth2 provider](./openedx_plugin_api/custom_oauth2_backend.py).
 
+Technical features that are showcased in this repo include:
+
+* semantic version control
+* pip configuration, requirements, constraints, setup.py, pyproject.toml
+* How to house multiple plugins in a single pip package
+* How to override default Open edX urls in lms and cms
+* How to add tests to plugin code
+* Django app setup
+* Open edX Django configuration settings
+* Open edX Django urls
+* Open edX Django logging
+* Open edX Django signals
+* Open edX Django RestFramework custom api
+* Django models
+* Django templating
+* Django static assets
+* Django Admin
+* Django middleware
+* Django manage.py custom commands
+* Python environment variables
 
 
 ## Getting Started
