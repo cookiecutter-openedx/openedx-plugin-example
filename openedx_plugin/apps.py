@@ -4,6 +4,7 @@ Feb-2022
 
 example plugin for Open edX - App Configuration
 """
+from __future__ import absolute_import, unicode_literals
 import logging
 
 from django.apps import AppConfig
