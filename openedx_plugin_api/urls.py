@@ -1,7 +1,6 @@
 from django.urls import path
 
 from . import api
-from .views import EdxApiFragmentView
 
 urlpatterns = [
     path("meta/", api.APIInfoView.as_view(), name="openedx_plugin_api_meta"),
@@ -27,11 +26,6 @@ urlpatterns = [
         "course/<str:course_key>/users/active/",
         api.CourseActiveStudentsAPIView.as_view(),
         name="openedx_plugin_api_active_student_count",
-    ),
-    path(
-        "api_fragment_view",
-        EdxApiFragmentView.as_view(),
-        name="api_fragment_view",
     ),
     path(
         "course/rerun/",

@@ -12,7 +12,7 @@ Note the following features:
 
 ## Sample URLs
 
-- http://yourdomain.edu/plugin/api/meta
-- http://yourdomain.edu/plugin/api/users
-- http://yourdomain.edu/plugin/api/token
-- http://yourdomain.edu/plugin/api/api_fragment_view
+- http://yourdomain.edu/openedx_plugin/api/meta
+- http://yourdomain.edu/openedx_plugin/api/users
+- http://yourdomain.edu/openedx_plugin/api/token
+- http://yourdomain.edu/openedx_plugin/api/api_fragment_view
