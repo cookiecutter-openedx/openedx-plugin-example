@@ -1,1 +1,1 @@
-default_app_config = "plugin_api.apps.CustomPluginAPIConfig"
+default_app_config = "openedx_plugin_api.apps.CustomPluginAPIConfig"

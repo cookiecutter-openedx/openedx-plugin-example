@@ -30,8 +30,8 @@ class CustomPluginCMSConfig(AppConfig):
         # The three dict attributes literally equate to the following
         # lines of code being injected into edx-platform/lms/urls.py:
         #
-        # import openedx_plugin_api.urls.py
-        # url(r"^openedx_plugin_api/", include((urls, "openedx_plugin_api"), namespace="openedx_plugin_api")),
+        # import openedx_plugin_cms.urls.py
+        # url(r"^openedx_plugin_cms/", include((urls, "openedx_plugin_cms"), namespace="openedx_plugin_cms")),
         PluginURLs.CONFIG: {
             ProjectType.CMS: {
                 PluginURLs.NAMESPACE: name,

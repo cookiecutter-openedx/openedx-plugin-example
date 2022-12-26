@@ -1,4 +1,3 @@
-import os
 import logging
 
 from django.apps import AppConfig
@@ -23,11 +22,6 @@ class CustomPluginAPIConfig(AppConfig):
 
     # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html
     plugin_app = {
-        # editorial note: view_context_config appears to be VERY esoteric. i haven't yet found
-        # any real-world uses of it.
-        "view_context_config": {
-            "lms.djangoapp": {"course_dashboard": "openedx_plugin_api.context_api.get_dashboard_context"}
-        },
         # mcdaniel Sep-2021
         # this is how you inject a python list of urls into lms.urls.py
         #

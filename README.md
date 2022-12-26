@@ -15,10 +15,11 @@ A curated collection of code examples for extending the functionality of an Open
 Technical features that are showcased in this repo include:
 
 * semantic version control
+* pre-commit with linting by flake8 and black
 * pip configuration, requirements, constraints, setup.py, pyproject.toml
-* How to house multiple plugins in a single pip package
-* How to override default Open edX urls in lms and cms
-* How to add tests to plugin code
+* How to bundle multiple plugins in a single pip package
+* How to redirect Open edX urls in lms and cms to endpoints created in this plugin
+* adding unit tests to plugin code
 * Django app setup
 * Open edX Django configuration settings
 * Open edX Django urls
