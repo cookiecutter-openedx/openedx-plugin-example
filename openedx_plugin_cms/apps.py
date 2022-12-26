@@ -15,12 +15,14 @@ from ..version import __version__
 
 log = logging.getLogger(__name__)
 
+log.info("openedx_plugin_cms %s", __version__)
+
 
 class CustomPluginCMSConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "openedx_plugin_cms"
     label = "openedx_plugin_cms"
-    verbose_name = "Cabinet Office Course Change Audit Log"
+    verbose_name = "Course Change Audit Log"
 
     # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html
     plugin_app = {

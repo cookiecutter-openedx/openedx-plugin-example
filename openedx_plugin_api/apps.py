@@ -16,7 +16,6 @@ log.info("openedx_plugin_api %s", __version__)
 
 
 class CustomPluginAPIConfig(AppConfig):
-    default_auto_field = "django.db.models.BigAutoField"
     name = "openedx_plugin_api"
     label = "openedx_plugin_api"
 
@@ -36,11 +35,6 @@ class CustomPluginAPIConfig(AppConfig):
                 PluginURLs.REGEX: "^openedx_plugin/api/",
                 PluginURLs.RELATIVE_PATH: "urls",
             },
-            ProjectType.CMS: {
-                PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^openedx_plugin/api/",
-                PluginURLs.RELATIVE_PATH: "urls",
-            },
         },
         # mcdaniel Sep-2021
         # this is how you inject settings into lms.envs.common.py and lms.envs.production.py
@@ -52,11 +46,6 @@ class CustomPluginAPIConfig(AppConfig):
         PluginSettings.CONFIG: {
             ProjectType.LMS: {
                 SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: "settings.production"},
-                SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: "settings.common"},
-            },
-            ProjectType.CMS: {
-                SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: "settings.production"},
-                SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: "settings.common"},
             },
         },
     }

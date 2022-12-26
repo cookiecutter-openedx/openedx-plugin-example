@@ -7,8 +7,6 @@ Tests of the openedx_plugin_api
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from common.djangoapps.course_modes.models import CourseMode
-from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 
@@ -27,11 +25,5 @@ class TestAPIEndpoints(SharedModuleStoreTestCase, APITestCase):
     def setUp(self):
         super().setUp()
 
-        self.response = self.client.get(reverse("edxapi_meta"))
-        assert self.response.status_code == 200
-
-        self.response = self.client.get(reverse("edxapi_users"))
-        assert self.response.status_code == 200
-
-        self.response = self.client.get(reverse("edxapi_token"))
+        self.response = self.client.get(reverse("openedx_plugin/api/edxapi_meta"))
         assert self.response.status_code == 200
