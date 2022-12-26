@@ -31,11 +31,11 @@ class CustomPluginCMSConfig(AppConfig):
         # lines of code being injected into edx-platform/lms/urls.py:
         #
         # import openedx_plugin_cms.urls.py
-        # url(r"^openedx_plugin_cms/", include((urls, "openedx_plugin_cms"), namespace="openedx_plugin_cms")),
+        # url(r"^openedx_plugin/cms", include((urls, "openedx_plugin_cms"), namespace="openedx_plugin_cms")),
         PluginURLs.CONFIG: {
             ProjectType.CMS: {
                 PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^plugin/cms/",
+                PluginURLs.REGEX: "^openedx_plugin/cms/",
                 PluginURLs.RELATIVE_PATH: "urls",
             }
         },

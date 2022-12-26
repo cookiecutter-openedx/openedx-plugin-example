@@ -17,8 +17,8 @@ log.info("openedx_plugin_api %s", __version__)
 
 class CustomPluginAPIConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "plugin_api"
-    label = "plugin_api"
+    name = "openedx_plugin_api"
+    label = "openedx_plugin_api"
 
     # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html
     plugin_app = {
@@ -29,16 +29,16 @@ class CustomPluginAPIConfig(AppConfig):
         # lines of code being injected into edx-platform/lms/urls.py:
         #
         # import openedx_plugin_api.urls.py
-        # url(r"^plugin/api/", include((urls, "openedx_plugin_api"), namespace="openedx_plugin_api")),
+        # url(r"^openedx_plugin/api/", include((urls, "openedx_plugin_api"), namespace="openedx_plugin_api")),
         PluginURLs.CONFIG: {
             ProjectType.LMS: {
                 PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^plugin/api/",
+                PluginURLs.REGEX: "^openedx_plugin/api/",
                 PluginURLs.RELATIVE_PATH: "urls",
             },
             ProjectType.CMS: {
                 PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^plugin/api/",
+                PluginURLs.REGEX: "^openedx_plugin/api/",
                 PluginURLs.RELATIVE_PATH: "urls",
             },
         },
@@ -62,6 +62,6 @@ class CustomPluginAPIConfig(AppConfig):
     }
 
     def ready(self):
-        from plugin_api.receivers import listen_for_passing_grade
+        from openedx_plugin_api.receivers import listen_for_passing_grade
 
         log.info("{label} is ready.".format(label=self.label))
