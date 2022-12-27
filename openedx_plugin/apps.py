@@ -4,7 +4,7 @@ Feb-2022
 
 example plugin for Open edX
 """
-import json
+# import json
 import logging
 
 from django.apps import AppConfig
@@ -15,8 +15,21 @@ from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType,
 
 from .version import __version__
 from .waffle import waffle_switches
-from .signals import OPENEDX_SIGNALS, SIGNALS_RECEIVERS, signals_enabled
-from .utils import PluginJSONEncoder
+
+# from .utils import PluginJSONEncoder
+
+OPENEDX_SIGNALS = "openedx_events.learning.signals"
+STUDENT_REGISTRATION_COMPLETED = "STUDENT_REGISTRATION_COMPLETED"
+SESSION_LOGIN_COMPLETED = "SESSION_LOGIN_COMPLETED"
+COURSE_ENROLLMENT_CREATED = "COURSE_ENROLLMENT_CREATED"
+COURSE_ENROLLMENT_CHANGED = "COURSE_ENROLLMENT_CHANGED"
+COURSE_UNENROLLMENT_COMPLETED = "COURSE_UNENROLLMENT_COMPLETED"
+PERSISTENT_GRADE_SUMMARY_CHANGED = "PERSISTENT_GRADE_SUMMARY_CHANGED"
+CERTIFICATE_CREATED = "CERTIFICATE_CREATED"
+CERTIFICATE_CHANGED = "CERTIFICATE_CHANGED"
+CERTIFICATE_REVOKED = "CERTIFICATE_REVOKED"
+COHORT_MEMBERSHIP_CHANGED = "COHORT_MEMBERSHIP_CHANGED"
+COURSE_DISCUSSIONS_CHANGED = "COURSE_DISCUSSIONS_CHANGED"
 
 log = logging.getLogger(__name__)
 log.info("openedx_plugin %s", __version__)
@@ -30,7 +43,7 @@ class CustomPluginConfig(AppConfig):
     # This is the text that appears in the Django admin console in all caps
     # as the title box encapsulating all Django app models that are registered
     # in admin.py.
-    verbose_name = "lms.example.edu plugin for Open edX"
+    verbose_name = "Example plugin for Open edX"
 
     # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html
     plugin_app = {
@@ -43,7 +56,6 @@ class CustomPluginConfig(AppConfig):
         },
         PluginSettings.CONFIG: {
             ProjectType.LMS: {
-                # uncomment these to activate
                 SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: "settings.production"},
                 SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: "settings.common"},
             }
@@ -51,7 +63,54 @@ class CustomPluginConfig(AppConfig):
         PluginSignals.CONFIG: {
             ProjectType.LMS: {
                 PluginSignals.RELATIVE_PATH: "signals",
-                PluginSignals.RECEIVERS: SIGNALS_RECEIVERS(),
+                PluginSignals.RECEIVERS: [
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: STUDENT_REGISTRATION_COMPLETED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + STUDENT_REGISTRATION_COMPLETED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: SESSION_LOGIN_COMPLETED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + SESSION_LOGIN_COMPLETED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_ENROLLMENT_CREATED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_ENROLLMENT_CREATED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_ENROLLMENT_CHANGED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_ENROLLMENT_CHANGED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_UNENROLLMENT_COMPLETED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_UNENROLLMENT_COMPLETED,
+                    },
+                    # mcdaniel dec-2022: this is missing from nutmeg.2
+                    #       COMING SOON?
+                    # {
+                    #    PluginSignals.RECEIVER_FUNC_NAME: PERSISTENT_GRADE_SUMMARY_CHANGED.lower(),
+                    #    PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + PERSISTENT_GRADE_SUMMARY_CHANGED,
+                    # },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_CREATED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_CREATED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_CHANGED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_CHANGED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_REVOKED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_REVOKED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: COHORT_MEMBERSHIP_CHANGED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COHORT_MEMBERSHIP_CHANGED,
+                    },
+                    {
+                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_DISCUSSIONS_CHANGED.lower(),
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_DISCUSSIONS_CHANGED,
+                    },
+                ],
             }
         },
     }
@@ -68,9 +127,9 @@ class CustomPluginConfig(AppConfig):
                 log.info("{label} WaffleSwitch {switch} is enabled.".format(label=self.label, switch=switch))
             else:
                 log.warning("{label} WaffleSwitch {switch} is not enabled.".format(label=self.label, switch=switch))
-        if signals_enabled():
-            log.info(
-                "{label} is listening for the following signals: {signals}".format(
-                    label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
-                )
-            )
+        # if signals_enabled():
+        #    log.info(
+        #        "{label} is listening for the following signals: {signals}".format(
+        #            label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
+        #        )
+        #    )
