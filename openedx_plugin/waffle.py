@@ -43,15 +43,15 @@ AUTOMATED_ENROLLMENT_WAFFLE = WaffleSwitch(OVERRIDE_OPENEDX_DJANGO_LOGIN, module
 MARKETING_REDIRECTOR = f"{WAFFLE_NAMESPACE}.marketing_redirector"
 MARKETING_REDIRECTOR_WAFFLE = WaffleSwitch(MARKETING_REDIRECTOR, module_name=__name__)
 
-# .. toggle_name: openedx_plugin.receivers
+# .. toggle_name: openedx_plugin.signals
 # .. toggle_implementation: WaffleSwitch
 # .. toggle_default: False
-# .. toggle_description: adds hooks for Django receivers (ie Signals)
+# .. toggle_description: adds hooks for Django signals
 # .. toggle_warnings:
 # .. toggle_use_cases:
 # .. toggle_creation_date: 2022-12-27
-RECEIVERS = f"{WAFFLE_NAMESPACE}.receivers"
-RECEIVERS_WAFFLE = WaffleSwitch(RECEIVERS, module_name=__name__)
+SIGNALS = f"{WAFFLE_NAMESPACE}.signals"
+SIGNALS_WAFFLE = WaffleSwitch(SIGNALS, module_name=__name__)
 
 
 waffle_switches = {
@@ -59,5 +59,5 @@ waffle_switches = {
     OVERRIDE_OPENEDX_DJANGO_LOGIN: OVERRIDE_OPENEDX_DJANGO_LOGIN_WAFFLE.is_enabled(),
     AUTOMATED_ENROLLMENT: AUTOMATED_ENROLLMENT_WAFFLE.is_enabled(),
     MARKETING_REDIRECTOR: MARKETING_REDIRECTOR_WAFFLE.is_enabled(),
-    RECEIVERS: RECEIVERS_WAFFLE.is_enabled(),
+    SIGNALS: SIGNALS_WAFFLE.is_enabled(),
 }

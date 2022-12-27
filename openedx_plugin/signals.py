@@ -14,11 +14,58 @@ from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 
 from openedx.core.djangoapps.user_authn.views.register import REGISTER_USER
+from openedx.core.djangoapps.plugins.constants import PluginSignals
 
 from .utils import serialize_course_key, PluginJSONEncoder, masked_dict
-from .waffle import waffle_switches, RECEIVERS
+from .waffle import waffle_switches, SIGNALS
+
+# Signals (aka receivers) defined in https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py
+STUDENT_REGISTRATION_COMPLETED = "STUDENT_REGISTRATION_COMPLETED"
+SESSION_LOGIN_COMPLETED = "SESSION_LOGIN_COMPLETED"
+COURSE_ENROLLMENT_CREATED = "COURSE_ENROLLMENT_CREATED"
+COURSE_ENROLLMENT_CHANGED = "COURSE_ENROLLMENT_CHANGED"
+COURSE_UNENROLLMENT_COMPLETED = "COURSE_UNENROLLMENT_COMPLETED"
+PERSISTENT_GRADE_SUMMARY_CHANGED = "PERSISTENT_GRADE_SUMMARY_CHANGED"
+CERTIFICATE_CREATED = "CERTIFICATE_CREATED"
+CERTIFICATE_CHANGED = "CERTIFICATE_CHANGED"
+CERTIFICATE_REVOKED = "CERTIFICATE_REVOKED"
+COHORT_MEMBERSHIP_CHANGED = "COHORT_MEMBERSHIP_CHANGED"
+COURSE_DISCUSSIONS_CHANGED = "COURSE_DISCUSSIONS_CHANGED"
+
+OPENEDX_SIGNALS_PATH = "openedx_events.learning.signals"
+OPENEDX_SIGNALS = [
+    STUDENT_REGISTRATION_COMPLETED,
+    SESSION_LOGIN_COMPLETED,
+    COURSE_ENROLLMENT_CREATED,
+    COURSE_ENROLLMENT_CHANGED,
+    COURSE_UNENROLLMENT_COMPLETED,
+    # PERSISTENT_GRADE_SUMMARY_CHANGED,      mcdaniel dec-2022: missing from nutmeg.2
+    CERTIFICATE_CREATED,
+    CERTIFICATE_CHANGED,
+    CERTIFICATE_REVOKED,
+    COHORT_MEMBERSHIP_CHANGED,
+    COURSE_DISCUSSIONS_CHANGED,
+]
 
 log = logging.getLogger(__name__)
+
+
+def SIGNALS_RECEIVERS() -> list:
+    def signal_dict_factory(signal) -> dict:
+        return {
+            PluginSignals.RECEIVER_FUNC_NAME: signal.lower(),
+            PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + signal,
+        }
+
+    retval = []
+    for signal in OPENEDX_SIGNALS:
+        retval.append(signal_dict_factory(signal=signal))
+    return retval
+
+
+def signals_enabled() -> bool:
+    return waffle_switches[SIGNALS]
+
 
 """
 -------------------------------------------------------------------------------
@@ -29,7 +76,7 @@ log = logging.getLogger(__name__)
 
 @receiver(user_logged_in, dispatch_uid="example_user_logged_in")
 def post_login(sender, request, user, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     log.info("openedx_plugin received user_logged_in signal for {username}".format(username=user.username))
@@ -37,7 +84,7 @@ def post_login(sender, request, user, **kwargs):  # lint-amnesty, pylint: disabl
 
 @receiver(user_logged_out, dispatch_uid="example_user_logged_out")
 def post_logout(sender, request, user, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     log.info("openedx_plugin received user_logged_out signal for {username}".format(username=user.username))
@@ -45,7 +92,7 @@ def post_logout(sender, request, user, **kwargs):  # lint-amnesty, pylint: disab
 
 @receiver(REGISTER_USER, dispatch_uid="example_REGISTER_USER")
 def register_user(sender, user, registration, **kwargs):  # pylint: disable=unused-argument
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     log.info("openedx_plugin received REGISTER_USER signal for {username}".format(username=user.username))
@@ -92,7 +139,7 @@ def student_registration_completed(user, **kwargs):  # pylint: disable=unused-ar
     'event_metadata_sourcelib': [0, 6, 0]
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     user_info = asdict(user)
@@ -121,7 +168,21 @@ def session_login_completed(user, **kwargs):
     event_data: UserData
 
     """
-    pass
+    if not signals_enabled():
+        return
+
+    user_info = asdict(user)
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "user": user_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received SESSION_LOGIN_COMPLETED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
 
 
 def course_enrollment_created(enrollment, **kwargs):
@@ -159,7 +220,7 @@ def course_enrollment_created(enrollment, **kwargs):
     'event_metadata_sourcelib': [0, 6, 0]
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     enrollment_info = asdict(
@@ -192,7 +253,7 @@ def course_enrollment_changed(enrollment, **kwargs):
     event_data: CourseEnrollmentData
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     enrollment_info = asdict(
@@ -224,7 +285,7 @@ def course_unenrollment_completed(enrollment, **kwargs):
     event_data: CourseEnrollmentData
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     enrollment_info = asdict(
@@ -256,7 +317,7 @@ def certificate_created(certificate, **kwargs):
     event_data: CertificateData
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     certificate_info = asdict(
@@ -287,7 +348,7 @@ def certificate_changed(certificate, **kwargs):
     event_description: emitted when the user's certificate update process is completed.
     event_data: CertificateData
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     certificate_info = asdict(
@@ -319,7 +380,7 @@ def certificate_revoked(certificate, **kwargs):
     event_description: emitted when the user's certificate annulation process is completed.
     event_data: CertificateData
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     certificate_info = asdict(
@@ -370,7 +431,7 @@ def persistent_grade_summary_changed(grade, **kwargs):
     'event_metadata_sourcelib': [0, 6, 0]
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     grade_info = asdict(
@@ -402,7 +463,7 @@ def cohort_membership_changed(cohort, **kwargs):
     event_data: CohortData
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     cohort_info = asdict(
@@ -435,7 +496,7 @@ def course_discussions_changed(configuration, **kwargs):  # lint-amnesty, pylint
     event_data: CourseDiscussionConfigurationData
 
     """
-    if not waffle_switches[RECEIVERS]:
+    if not signals_enabled():
         return
 
     log.info("openedx_plugin received COURSE_DISCUSSIONS_CHANGED signal")
