@@ -8,11 +8,8 @@ Usage:  To enhance the behavior of the life cycle of the user session
 """
 import json
 import logging
-
-import requests
 from attr import asdict
 
-from django.conf import settings
 from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 
@@ -22,10 +19,6 @@ from .utils import serialize_course_key, PluginJSONEncoder, masked_dict
 from .waffle import waffle_switches, RECEIVERS
 
 log = logging.getLogger(__name__)
-
-# coming in Maple
-# from openedx_events.learning.signals import SESSION_LOGIN_COMPLETED
-
 
 """
 -------------------------------------------------------------------------------
@@ -61,9 +54,11 @@ def register_user(sender, user, registration, **kwargs):  # pylint: disable=unus
 """
 -------------------------------------------------------------------------------
 --------------------------- NEW STYLE OF RECEIVER -----------------------------
+-------------------- https://github.com/openedx/openedx-events ----------------
 -------------------------------------------------------------------------------
 
     Reference:  edx-platform/docs/guides/hooks/
+                https://github.com/openedx/openedx-events
 
     I scaffolded these from https://github.com/eduNEXT/openedx-events-2-zapier
 
@@ -75,6 +70,12 @@ def student_registration_completed(user, **kwargs):  # pylint: disable=unused-ar
 
     see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
     signal_path: openedx_events.learning.signals.STUDENT_REGISTRATION_COMPLETED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L25
+
+    event_type: org.openedx.learning.student.registration.completed.v1
+    event_name: STUDENT_REGISTRATION_COMPLETED
+    event_description: emitted when the user registration process in the LMS is completed.
+    event_data: UserData
 
     example user and kwargs data:
     'user_id': 39,
@@ -108,11 +109,32 @@ def student_registration_completed(user, **kwargs):  # pylint: disable=unused-ar
     )
 
 
+def session_login_completed(user, **kwargs):
+    """
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.SESSION_LOGIN_COMPLETED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L37
+
+    event_type: org.openedx.learning.auth.session.login.completed.v1
+    event_name: SESSION_LOGIN_COMPLETED
+    event_description: emitted when the user's login process in the LMS is completed.
+    event_data: UserData
+
+    """
+    pass
+
+
 def course_enrollment_created(enrollment, **kwargs):
     """
 
     see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
     signal_path: openedx_events.learning.signals.COURSE_ENROLLMENT_CREATED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L49
+
+    event_type: org.openedx.learning.course.enrollment.created.v1
+    event_name: COURSE_ENROLLMENT_CREATED
+    event_description: emitted when the user's enrollment process is completed.
+    event_data: CourseEnrollmentData
 
     example enrollment and kwargs data:
     'enrollment_user_id': 42,
@@ -157,11 +179,172 @@ def course_enrollment_created(enrollment, **kwargs):
     )
 
 
+def course_enrollment_changed(enrollment, **kwargs):
+    """
+
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.COURSE_ENROLLMENT_CHANGED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L61
+
+    event_type: org.openedx.learning.course.enrollment.changed.v1
+    event_name: COURSE_ENROLLMENT_CHANGED
+    event_description: emitted when the user's enrollment update process is completed.
+    event_data: CourseEnrollmentData
+
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    enrollment_info = asdict(
+        enrollment,
+        value_serializer=serialize_course_key,
+    )
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "enrollment": enrollment_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received COURSE_ENROLLMENT_CREATED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
+
+
+def course_unenrollment_completed(enrollment, **kwargs):
+    """
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.COURSE_UNENROLLMENT_COMPLETED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L73
+
+    event_type: org.openedx.learning.course.unenrollment.completed.v1
+    event_name: COURSE_UNENROLLMENT_COMPLETED
+    event_description: emitted when the user's unenrollment process is completed.
+    event_data: CourseEnrollmentData
+
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    enrollment_info = asdict(
+        enrollment,
+        value_serializer=serialize_course_key,
+    )
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "enrollment": enrollment_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received COURSE_UNENROLLMENT_COMPLETED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
+
+
+def certificate_created(certificate, **kwargs):
+    """
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.COURSE_UNENROLLMENT_COMPLETED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L85
+
+    event_type: org.openedx.learning.certificate.created.v1
+    event_name: CERTIFICATE_CREATED
+    event_description: emitted when the user's certificate creation process is completed.
+    event_data: CertificateData
+
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    certificate_info = asdict(
+        certificate,
+        value_serializer=serialize_course_key,
+    )
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "certificate": certificate_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received CERTIFICATE_CREATED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
+
+
+def certificate_changed(certificate, **kwargs):
+    """
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.CERTIFICATE_CHANGED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L97
+
+    event_type: org.openedx.learning.certificate.changed.v1
+    event_name: CERTIFICATE_CHANGED
+    event_description: emitted when the user's certificate update process is completed.
+    event_data: CertificateData
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    certificate_info = asdict(
+        certificate,
+        value_serializer=serialize_course_key,
+    )
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "certificate": certificate_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received CERTIFICATE_CHANGED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
+
+
+def certificate_revoked(certificate, **kwargs):
+    """
+
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.CERTIFICATE_REVOKED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L109
+
+    event_type: org.openedx.learning.certificate.revoked.v1
+    event_name: CERTIFICATE_REVOKED
+    event_description: emitted when the user's certificate annulation process is completed.
+    event_data: CertificateData
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    certificate_info = asdict(
+        certificate,
+        value_serializer=serialize_course_key,
+    )
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "certificate": certificate_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received CERTIFICATE_REVOKED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
+
+
 def persistent_grade_summary_changed(grade, **kwargs):
     """
 
     see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
     signal_path: openedx_events.learning.signals.PERSISTENT_GRADE_SUMMARY_CHANGED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L145
 
     example grade and kwargs data:
     'grade_user_id': 42,
@@ -199,3 +382,55 @@ def persistent_grade_summary_changed(grade, **kwargs):
             payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
         )
     )
+
+
+def cohort_membership_changed(cohort, **kwargs):
+    """
+
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.COHORT_MEMBERSHIP_CHANGED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L121
+
+    event_type: org.openedx.learning.cohort_membership.changed.v1
+    event_name: COHORT_MEMBERSHIP_CHANGED
+    event_description: emitted when the user's cohort update is completed.
+    event_data: CohortData
+
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    cohort_info = asdict(
+        cohort,
+        value_serializer=serialize_course_key,
+    )
+    event_metadata = asdict(kwargs.get("metadata"))
+    payload = {
+        "cohort": cohort_info,
+        "event_metadata": event_metadata,
+    }
+
+    log.info(
+        "openedx_plugin received COHORT_MEMBERSHIP_CHANGED signal for {payload}".format(
+            payload=json.dumps(masked_dict(payload), cls=PluginJSONEncoder, indent=4)
+        )
+    )
+
+
+def course_discussions_changed(configuration, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
+    """
+    see apps.py plugin_app["signals_config"]["lms.djangoapp"]["receivers"]
+    signal_path: openedx_events.learning.signals.COHORT_MEMBERSHIP_CHANGED
+    https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L145
+
+    event_type: org.openedx.learning.discussions.configuration.changed.v1
+    event_name: COURSE_DISCUSSIONS_CHANGED
+    event_description: emitted when the configuration for a course's discussions changes in the course
+                       Warning: This event is currently incompatible with the event bus, list/dict cannot be serialized yet
+    event_data: CourseDiscussionConfigurationData
+
+    """
+    if not waffle_switches[RECEIVERS]:
+        return
+
+    log.info("openedx_plugin received COURSE_DISCUSSIONS_CHANGED signal")

@@ -53,12 +53,40 @@ class CustomPluginConfig(AppConfig):
                         "signal_path": "openedx_events.learning.signals.STUDENT_REGISTRATION_COMPLETED",
                     },
                     {
+                        "receiver_func_name": "session_login_completed",
+                        "signal_path": "openedx_events.learning.signals.SESSION_LOGIN_COMPLETED",
+                    },
+                    {
                         "receiver_func_name": "course_enrollment_created",
                         "signal_path": "openedx_events.learning.signals.COURSE_ENROLLMENT_CREATED",
                     },
                     {
+                        "receiver_func_name": "course_enrollment_changed",
+                        "signal_path": "openedx_events.learning.signals.COURSE_ENROLLMENT_CHANGED",
+                    },
+                    {
+                        "receiver_func_name": "course_unenrollment_completed",
+                        "signal_path": "openedx_events.learning.signals.COURSE_UNENROLLMENT_COMPLETED",
+                    },
+                    {
                         "receiver_func_name": "persistent_grade_summary_changed",
                         "signal_path": "openedx_events.learning.signals.PERSISTENT_GRADE_SUMMARY_CHANGED",
+                    },
+                    {
+                        "receiver_func_name": "certificate_created",
+                        "signal_path": "openedx_events.learning.signals.CERTIFICATE_CREATED",
+                    },
+                    {
+                        "receiver_func_name": "certificate_changed",
+                        "signal_path": "openedx_events.learning.signals.CERTIFICATE_CHANGED",
+                    },
+                    {
+                        "receiver_func_name": "certificate_revoked",
+                        "signal_path": "openedx_events.learning.signals.CERTIFICATE_REVOKED",
+                    },
+                    {
+                        "receiver_func_name": "cohort_membership_changed",
+                        "signal_path": "openedx_events.learning.signals.COHORT_MEMBERSHIP_CHANGED",
                     },
                 ],
             }
