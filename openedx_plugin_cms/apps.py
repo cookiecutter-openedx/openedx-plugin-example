@@ -11,7 +11,7 @@ from django.apps import AppConfig
 
 from openedx.core.djangoapps.plugins.constants import PluginURLs, PluginSettings, ProjectType, SettingsType
 
-from ..version import __version__
+from .version import __version__
 
 log = logging.getLogger(__name__)
 

@@ -36,7 +36,7 @@ from openedx.core.djangoapps.django_comment_common.models import (
 )
 from .utils import get_course_info
 from .models import CoursePoints
-from ..version import __version__
+from .version import __version__
 
 
 class ResponseSuccess(Response):

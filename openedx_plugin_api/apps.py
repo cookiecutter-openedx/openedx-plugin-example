@@ -7,7 +7,7 @@ from django.conf import settings
 from edx_django_utils.plugins import PluginSettings, PluginURLs
 from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 
-from ..version import __version__
+from .version import __version__
 
 
 log = logging.getLogger(__name__)
