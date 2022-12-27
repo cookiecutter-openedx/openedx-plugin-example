@@ -12,5 +12,5 @@ AUDIT_REPORT = f"{WAFFLE_NAMESPACE}.audit_report"
 AUDIT_REPORT_WAFFLE = WaffleSwitch(AUDIT_REPORT, module_name=__name__)
 
 waffle_switches = {
-    AUDIT_REPORT: AUDIT_REPORT_WAFFLE.is_enabled,
+    AUDIT_REPORT: AUDIT_REPORT_WAFFLE.is_enabled(),
 }
