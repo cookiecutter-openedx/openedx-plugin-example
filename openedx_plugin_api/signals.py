@@ -19,6 +19,7 @@ from openedx.core.djangoapps.signals.signals import COURSE_GRADE_NOW_PASSED
 # this repo
 
 log = logging.getLogger(__name__)
+log.info("openedx_plugin_api.signals loaded")
 
 
 @receiver(COURSE_GRADE_NOW_PASSED, dispatch_uid="plugin_passing_learner")

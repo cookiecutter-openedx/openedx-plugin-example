@@ -62,8 +62,4 @@ class CustomPluginCMSConfig(AppConfig):
         """
         from . import signals  # pylint: disable=unused-import
 
-        log.info(
-            "openedx_plugin_cms.apps.CustomPluginCMSConfig app {label} version: {version} is ready".format(
-                label=self.label, version=__version__
-            )
-        )
+        log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))

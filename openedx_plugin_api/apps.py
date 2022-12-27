@@ -52,6 +52,6 @@ class CustomPluginAPIConfig(AppConfig):
     }
 
     def ready(self):
-        from openedx_plugin_api.receivers import listen_for_passing_grade
+        from . import signals   # pylint: disable=unused-import
 
-        log.info("{label} is ready.".format(label=self.label))
+        log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))

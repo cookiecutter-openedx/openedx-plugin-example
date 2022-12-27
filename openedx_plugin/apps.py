@@ -46,4 +46,4 @@ class CustomPluginConfig(AppConfig):
     }
 
     def ready(self):
-        log.debug("{label} is ready.".format(label=self.label))
+        log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))

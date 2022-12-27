@@ -28,7 +28,7 @@ from .auditor import eval_course_block_changes, write_log_delete_course, write_l
 from .utils import get_user
 
 log = logging.getLogger(__name__)
-log.info("plugin_cms.receivers loaded")
+log.info("openedx_plugin_cms.signals loaded")
 
 
 @shared_task()
