@@ -63,7 +63,6 @@ class CustomPluginConfig(AppConfig):
                 label=self.label, plugin_app=json.dumps(CustomPluginConfig.plugin_app, cls=PluginJSONEncoder, indent=4)
             )
         )
-
         log.info(
             "{label} {waffle_switches} waffle switches detected.".format(
                 label=self.label, waffle_switches=waffle_switches.len()
@@ -76,9 +75,7 @@ class CustomPluginConfig(AppConfig):
                 log.warning("{label} WaffleSwitch {switch} is not enabled.".format(label=self.label, switch=switch))
         if signals_enabled():
             log.info(
-                "signals enabled: {signals}".format(
-                    signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
+                "{label} is listening for the following signals: {signals}".format(
+                    label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
                 )
             )
-
-            pass
