@@ -1,6 +1,4 @@
 # pylint: disable=open-builtin
-from __future__ import absolute_import, print_function, unicode_literals
-
 import os
 from setuptools import find_packages, setup
 

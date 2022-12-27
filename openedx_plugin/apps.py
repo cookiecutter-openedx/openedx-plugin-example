@@ -4,7 +4,7 @@ Feb-2022
 
 example plugin for Open edX
 """
-from __future__ import absolute_import, unicode_literals
+import json
 import logging
 
 from django.apps import AppConfig
@@ -15,7 +15,8 @@ from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType,
 
 from .version import __version__
 from .waffle import waffle_switches
-from .signals import SIGNALS_RECEIVERS
+from .signals import OPENEDX_SIGNALS, SIGNALS_RECEIVERS, signals_enabled
+from .utils import PluginJSONEncoder
 
 log = logging.getLogger(__name__)
 log.info("openedx_plugin %s", __version__)
@@ -57,8 +58,21 @@ class CustomPluginConfig(AppConfig):
 
     def ready(self):
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
+        log.info(
+            "{label} {waffle_switches} waffle switches detected.".format(
+                label=self.label, waffle_switches=waffle_switches.len()
+            )
+        )
         for switch in waffle_switches:
             if waffle_switches[switch]:
                 log.info("{label} WaffleSwitch {switch} is enabled.".format(label=self.label, switch=switch))
             else:
                 log.warning("{label} WaffleSwitch {switch} is not enabled.".format(label=self.label, switch=switch))
+        if signals_enabled():
+            log.info(
+                "signals enabled: {signals}".format(
+                    signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
+                )
+            )
+
+            pass
