@@ -2,109 +2,66 @@
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
+A curated collection of code examples for extending the functionality of an Open edX installation using its built-in plugin architecture. Contains the following code examples:
 
+* Extending Course Management Studio functionality with this [custom report](openedx_plugin_cms/README.md). Demonstrates the correct practices for adding custom url endpoints to Studio, advances usage of Mako templating within a plugin, and how to programatically iterate and introspect course content. Also includes a custom Django model, and caching.
+* Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
+* Extending the [login functionality](./openedx_plugin/student/session.py)
+* Implementing a [custom api](./openedx_plugin_api/README.md) built from snippets of Open edX's built-in rest api libraries. 
+* Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
+* Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
+* Create a custom third party auth [Oauth2 provider](./openedx_plugin_api/custom_oauth2_backend.py).
 
-## Implements the following:
+Technical features that are showcased in this repo include:
 
-### lms.example.edu Configuration API
-
-Assigns the example api server to use for the Open edX instance on which this plugin is installed.
-The api endpoint is: https://lms.example.edu/example/api/v1/configuration
-
-source code is located in openedx_plugin/api/
-
-Uses this Django model: https://lms.example.edu/admin/openedx_plugin/configuration/
-
-
-public url to the api: https://lms.example.edu/example/api/v1/configuration
-
-
-### Wordpress CTA links
-
-Provides a means to embed localization information about the user in CTA buttons that send the user from Wordpress to Open edX. The most common url presently is: https://lms.example.edu/example/dashboard?language=es-419
-
-source code is located in openedx_plugin/dashboard/
-
-### Localized Marketing Links
-
-The reverse case. Provides a generalized way to seamlessly map the user from the LMS to the most sensible marketing site. An example usage is the "Discover New" link in the LMS site header. The url, assigned inside lms.yml within MKTG_URL_OVERRIDES is, https://lms.example.edu/example/marketing-redirector/?example_page=learning-content/ and will redirect to https://example.org/learning-content/ for a US-based user.
-
-Uses this Django model: https://lms.example.edu/admin/openedx_plugin/marketingsites/
-
-
-### Localized html anchor tags
-
-Same as above, but for html anchor tags. In addition to the URL mapping, these also require language translation of the text of the html element value, bearing in mind that we need to avoid changes to the edx-platform po files since we do not want to fork the edx-platform repo.
-
-Uses this Django model: https://lms.example.edu/admin/openedx_plugin/locale/
-
-An example usage would be the "Blog" and "Privacy Policy" links in the LMS site footer. The following is added to the Mako template:
-
-```
-<%!
-  from openedx_plugin.locale.utils import anchor, language_from_request
-%>
-
-<%
-
-  # figure out the best language code to use based on whatever we
-  # know about this user.
-  try:
-    preferred_language = language_from_request(request) or 'en'
-  except:
-    preferred_language = 'en'
-
-  # get a Python dict containing the url and element text.
-  blog_dict = anchor('example-locale-blog', preferred_language)
-%>
-
-```
-
-and the link itself would take the form
-
-```
-    <a id="example-locale-blog" href="${blog_dict.get('url')}">${blog_dict.get('value')}</a>
-```
-
+* semantic version control
+* pre-commit with linting by flake8 and black
+* pip configuration, requirements, constraints, setup.py, pyproject.toml
+* How to bundle multiple plugins in a single pip package
+* How to redirect Open edX urls in lms and cms to endpoints created in this plugin
+* adding unit tests to plugin code
+* Django app setup
+* Open edX Django configuration settings
+* Open edX Django urls
+* Open edX Django logging
+* Open edX Django signals
+* Open edX Django RestFramework custom api
+* Django models
+* Django templating
+* Django static assets
+* Django Admin
+* Django middleware
+* Django manage.py custom commands
+* Python environment variables
 
 
 ## Getting Started
 
-### Install
+### Install using Tutor
 
-#### Native
-
-```bash
-# where github-plugin is defined in .ssh/config
-git clone git@github-plugin:Turn-The-Bus/example-openedx-plugin.git -b main  /home/ubuntu/openedx_plugin
-
-sudo -H -u edxapp bash
-source /edx/app/edxapp/edxapp_env
-source /edx/app/edxapp/venvs/edxapp/bin/activate
-pip install /home/ubuntu/openedx_plugin
-```
-
-```python
-# DO NOT!! add this near the bottom of /edx/app/edxapp/edx-platform/lms/envs/common.py
-
-# NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO!
-INSTALLED_APPS.extend('openedx_plugin')    # DO NOT DO THIS!!!!!!
-# NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO! NO!
-
-# it turns out that Open edX finds this package of its own accord.
-# magical!!! :O
-```
-
+See [Installing extra xblocks and requirements](https://docs.tutor.overhang.io/configuration.html)
 
 ```bash
-# to run tests
-sudo -H -u edxapp bash
-source /edx/app/edxapp/edxapp_env
-source /edx/app/edxapp/venvs/edxapp/bin/activate
-pip install -r requirements/edx/testing.txt
-cd ~/edx-platform
-./manage.py lms test openedx_plugin --settings=test
+tutor config save       # to ensure that tutor's root folder system has been created
+echo "git+https://github.com/lpm0073/openedx-plugin-example.git" >> "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
+cat "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
+tutor images build openedx
+tutor local quickstart
+
+# you'll also need to run this on your very first install
+# -----------------------------------------------------------------------------
+
+# 1. run migrations
+tutor local run lms ./manage.py lms makemigrations
+tutor local run lms ./manage.py lms migrate
+tutor local run cms ./manage.py cms makemigrations
+tutor local run cms ./manage.py cms migrate
+
+# 2. add configuration data to custom models
+tutor local run lms ./manage.py lms create_oauth_application_client_config
+tutor local run lms ./manage.py lms initialize
 ```
+
 
 
 ### Local development
@@ -169,6 +126,6 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/openblas/lib/pkgconfig /opt/homebrew/o
 
 The example_edxapi module adds ipython and django-extensions to the stack.  It is then possible to get an enhanced shell via:
 
-```
+```bash
 tutor local exec lms ./manage.py lms shell_plus
 ```

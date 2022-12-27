@@ -1,0 +1,1065 @@
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>ZOOMING DIAGRAMS</h2>
+<p>Some edX classes use extremely large, extremely detailed graphics. To make it easier to understand we can offer two versions of those graphics, with the zoomed section showing when you click on the main view.&nbsp;</p>
+<p>The&nbsp;example below is from&nbsp;<a href="https://www.edx.org/course/mit/7-00x/introduction-biology-secret-life/1014" target="_blank">7.00x: Introduction to Biology</a>&nbsp;and shows a subset of the biochemical reactions that cells carry out.&nbsp;</p>
+<p>You can view the chemical structures of the molecules by clicking on them. The magnified view also lists the enzymes involved in each step.</p>
+<div class="zooming-image-place" style="position: relative;">
+  <a class="loupe" href="//studio.edx.org/c4x/edX/DemoX/asset/pathways_detail_01.png">
+      <img alt="magnify" src="//studio.edx.org/c4x/edX/DemoX/asset/pathways_overview_01.png" />
+    </a>
+  <div class="script_placeholder" data-src="//studio.edx.org/c4x/edX/DemoX/asset/jquery.loupeAndLightbox.js" />
+</div>
+<script type="text/javascript">// <![CDATA[
+JavascriptLoader.executeModuleScripts($('.zooming-image-place').eq(0), function() {
+  $('.loupe').loupeAndLightbox({
+    width: 350,
+    height: 350,
+    lightbox: false
+  });
+});
+// ]]></script>
+<div id="ap_listener_added"></div>
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<div class="script_placeholder" data-src="/static/js/Lab_5B.js"/><h2>MOSFET AMPLIFIER EXPERIMENT</h2><p>This demonstration is to develop your intuition about
+amplifiers and biasing, and to have fun with music! There are no responses
+that need to be checked.</p><p>In the lab below, you will find:</p><ul><li><p>A circuit schematic of the MOSFET amplifier. You can use the sliders
+        to the left of the circuit to control various parameters of the MOSFET and
+        the amplifier.</p></li><li><p>A plot (as a function of time) of selected voltages from the amplifier
+        circuit. You can select the input waveform (e.g., sine wave, square wave, 
+        various types of music) by using the \(v_\mathrm{IN}\)
+        drop-down menu and the associated sliders. (The parameter \(V_\mathrm{MAX}\)
+        sets the maximum range on the plots.)</p></li><li><p>The "Play" button which lets you listen to the selected voltage
+        waveform as sound. Try it out!</p></li></ul><section class="tool-wrapper"><div id="controlls-container"><div class="graph-controls"><div class="music-wrapper"><div id="graph-listen"><p>Listen to:</p><ul><li><label for="vinRadioButton"><input id="vinRadioButton" type="radio" checked="yes" name="listenToWhat"/>v<sub>IN</sub></label></li><li><label for="voutRadioButton"><input id="voutRadioButton" type="radio" name="listenToWhat"/>v<sub>OUT</sub></label></li><li><label for="vrRadioButton"><input id="vrRadioButton" type="radio" name="listenToWhat"/>v<sub>R</sub></label></li></ul></div><input id="playButton" type="button" value="Play"/></div><div class="inputs-wrapper"><p>Graph:</p><ul><li><label for="vinCheckbox"><input id="vinCheckbox" type="checkbox" checked="yes"/>v<sub>IN</sub></label></li><li><label for="voutCheckbox"><input id="voutCheckbox" type="checkbox" checked="yes"/>v<sub>OUT</sub></label></li><li><label for="vrCheckbox"><input id="vrCheckbox" type="checkbox"/>v<sub>R</sub></label></li></ul></div></div><div class="schematic-sliders"><div class="top-sliders"><p>v<sub>IN</sub>:</p><select id="musicTypeSelect" size="1"><option value="0">Zero Input</option><option value="1">Unit Impulse</option><option value="2">Unit Step</option><option selected="selected" value="3">Sine Wave</option><option value="4">Square Wave</option><option value="5">Classical Music</option><option value="6">Folk Music</option><option value="7">Jazz Music</option><option value="8">Reggae Music</option></select><div class="slider-label" id="vin"/><div class="slider" id="vinSlider"/><div class="slider-label" id="freq"/><div class="slider" id="freqSlider"/></div><div class="slider-label" id="vs"/><div class="slider" id="vsSlider"/><div class="slider-label" id="vbias"/><div class="slider" id="vbiasSlider"/><div class="slider-label" id="r"/><div class="slider" id="rSlider"/><div class="slider-label" id="k"/><div class="slider" id="kSlider"/><div class="slider-label" id="vt"/><div class="slider" id="vtSlider"/><div class="slider-label" id="vmax"/><div class="slider" id="vmaxSlider"/></div></div><div id="graph-container"><canvas id="graph" width="500" height="500">Your browser must support the Canvas element and have JavaScript enabled to view this tool.</canvas><canvas id="diag1" width="500" height="500">Your browser must support the Canvas element and have JavaScript enabled to view this tool.</canvas></div></section><br/><h2>Experiment 1: Distorted output</h2><p>Begin by selecting a sine wave input in the drop-down menu for \(v_\mathrm{IN}\).
+Then, adjust the sliders to the baseline (default) setting shown below.</p><p>Baseline setting of sliders:</p><ul><li>Peak to peak voltage: \(v_\mathrm{IN}=3~\mathrm{V}\),</li><li>Frequency: \(f = 1000~\mathrm{Hz}\),</li><li>Supply voltage: \(V_\mathrm{S}=1.6~\mathrm{V}\),</li><li>Input bias voltage: \(V_\mathrm{BIAS}=2.5~\mathrm{V}\),</li><li>Pull-up resistor: \(R = 10~\mathrm{k}\Omega\),</li><li>MOSFET parameter: \(K=\frac{1~\mathrm{mA}}{\mathrm{V}^2}\),</li><li>MOSFET threshold voltage: \(V_\mathrm{T} = 1~\mathrm{V}\),</li><li>Vertical plot range: \(V_\mathrm{MAX} = 2~\mathrm{V}\).</li></ul><p>You should observe in the plot that with the baseline settings,
+the amplifier produces a distorted sine wave signal for
+\(v_{OUT}\). Next, go ahead and select one of the music signals as the input and
+listen to each of \(v_{IN}\) and \(v_{OUT}\), and confirm for yourself that the
+output sounds degraded at the chosen slider settings.  You will notice
+that the graph now plots the music signal waveforms. Think about the
+reasons why the amplifier is producing a distorted output.</p><h2>Experiment 2: Linear regime</h2><p>We now study the amplifier's small signal
+behavior.  Select a sine wave as the input signal. To study the small
+signal behavior, reduce the value of \(v_{IN}\) to 0.1V (peak-to-peak) by
+using the \(v_{IN}\) slider. Keeping the rest of the parameters at their
+baseline settings, derive an appropriate value of \(V_{BIAS}\) that will ensure
+saturation region operation for the MOSFET for the 0.1V peak-to-peak swing
+for \(v_{IN}\).  Make sure to think about both positive and negative excursions
+of the signals.</p><p>Next, use the \(V_{BIAS}\) slider to choose your computed value for \(V_{BIAS}\) and
+see if the observed plot of \(v_{OUT}\)  is more-or-less distortion free. If
+your calculation was right, then the output will indeed be distortion free.</p><p>Next, select one of the music signals as the input and listen to each of
+\(v_{IN}\) and \(v_{OUT}\), and confirm for yourself that the output  sounds much
+better than in Experiment 1. Also, based on sound volume, convince yourself that \(v_{OUT}\) is
+an amplified version of \(v_{IN}\).</p><h2>Experiment 3: Your settings</h2><p>Now go ahead and experiment with various other settings while listening
+to the music signal at \(v_{OUT}\). Observe the plots and listen to \(v_{OUT}\) as
+you change, for example,  the bias voltage \(V_{BIAS}\). You will notice that
+the amplifier distorts the input signal when \(V_{BIAS}\) becomes too small, or
+when it becomes too large.  You can also experiment with various values of
+\(v_{IN}\), \(R_{L}\), etc., and see how they affect the amplification and distortion.</p>
+================================================================================
+<class 'xblock.internal.VideoBlockWithMixins'>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Labs and Demos</h2>
+<p><img src="/static/labs_x250.png" alt="Labs" width="250" hspace="12" vspace="12" border="0" align="right" />Professors that create courses on edX are able to implement highly interactive experiences that allow you as a student to experiment using easy to use online web applications. These labs are customized to each class and subject area. We have collected a couple of the more popular lab environments here for you to experience and play with.</p>
+<p>Please be patient with yourself as you take a look around at these lab environments. You probably will not be able to answer these questions without taking a course on the topic first!</p>
+<div id="ap_listener_added">&nbsp;</div>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Molecule Editor<br /><br /> <!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]--> <!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Normal</w:View>
+  <w:Zoom>0</w:Zoom>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>JA</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:EnableOpenTypeKerning/>
+   <w:DontFlipMirrorIndents/>
+   <w:OverrideTableStyleHps/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+  DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="276">
+  <w:LsdException Locked="false" Priority="0" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 9"/>
+  <w:LsdException Locked="false" Priority="35" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" Priority="10" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" Priority="11" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" Priority="22" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="59" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Table Grid"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]--> <!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Cambria;
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:minor-latin;}
+</style>
+<![endif]--> <!--StartFragment--></h2>
+<p>A lot of students love the molecule builder. It makes creating and visualizing molecules rather easy. A chemistry professor may have you build and submit a molecule as part of an exercise.</p>
+<div>
+<script type="text/javascript">// <![CDATA[
+function toggle2(showHideDiv, switchTextDiv) {
+            var ele = document.getElementById(showHideDiv);
+            var text = document.getElementById(switchTextDiv);
+            if(ele.style.display == "block") {
+                ele.style.display = "none";
+                text.innerHTML = "+ open";
+                }
+            else {
+                ele.style.display = "block";
+                text.innerHTML = "- close";
+            }
+        }
+// ]]></script>
+</div>
+<div>
+<style type="text/css"><!--
+#headerDiv, #contentDiv {
+        width: 600px;
+        }
+
+
+            #titleText {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 5px;
+            }
+            #myHeader {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 5px;
+            }
+            #IntroductionHeader { 
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 5px;
+            }
+            #headerDiv {
+            background-color: #F4F4F4;
+            }
+            #contentDiv {
+            background-color: #F4F4F4;
+            }
+            #myContent {
+            margin: 5px 10px 5px 5px;
+            }
+            #IntroductionContent {
+            margin: 5px 10px 5px 5px;
+            }
+            #headerDiv a {
+            float: right;
+            margin: 5px 5px 5px 5px;
+            }
+            #headerDiv a:hover {
+            color: #FFFFFF;
+            }
+--></style>
+</div>
+<div id="headerDiv">
+<div id="titleText">Using the Molecule Editor<a id="myHeader" href="javascript:toggle2('myContent','myHeader');">+ open </a></div>
+</div>
+<div id="contentDiv">
+<div id="myContent" style="display: none;">
+<p>In this problem you will edit a molecule using the molecular drawing program shown below:</p>
+<img alt="" src="/static/images/PS1_P7_im1.png" /></div>
+</div>
+<p>&nbsp;</p>
+<div id="headerDiv">
+<div id="titleText">Are the molecules I've drawn chemically possible?<a id="IntroductionHeader" href="javascript:toggle2('IntroductionContent','IntroductionHeader');">+ open </a></div>
+</div>
+<div id="contentDiv">
+<div id="IntroductionContent" style="display: none;">
+<p>The chemical editor you are using ensures that the structures you draw are correct in one very narrow sense, that they follow the rules for covalent bond formation and formal charge. However, there are many structures that follow these rules that are chemically impossible, unstable, do not exist in living systems, or are beyond the scope of this course. The editor will let you draw them because, in contrast to the rules of formal charge, these properties cannot be easily and reliably predicted from structures.</p>
+<p>If you submit a structure that includes atoms that are not possible or are beyond the scope of this course, the software will warn you specifically about these parts of your structure and you will be allowed to edit your structure and re-submit. Submitting an improper structure will not count as one of your tries. In general, you should try to use only the atoms most commonly cited in this course: C, H, N, O, P, and S. If you want to learn about formal charge, you can play around with other atoms and unusual configurations and look at the structures that result.</p>
+<p>The JME molecular editor is provided courtesy of Peter Ertl and Novartis; the licence can be found <a href="/static/data/license.txt">here.</a></p>
+</div>
+</div>
+<div id="ap_listener_added">&nbsp;</div>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <p> The Dopamine molecule, as shown, cannot make ionic bonds. Edit the dopamine molecule so it can make ionic bonds. 
+    </p>
+  <p>
+        When you are ready, click "Check.” If you need to start over, click
+        "Reset.”
+    </p>
+  <script type="loncapa/python">
+def check1(expect, ans):
+    import json
+    mol_info = json.loads(ans)["info"]
+    return any(res == "Can Make Ionic Bonds" for res in mol_info)
+    </script>
+  <customresponse cfn="check1">
+    <editamoleculeinput file="/static/molecules/dopamine.mol">
+        </editamoleculeinput>
+  </customresponse>
+  <solution>
+    <img src="/static/Screen_Shot_2013-04-16_at_1.43.36_PM.png"/>
+  </solution>
+</problem>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Code Grader</h2>
+<p>The edX system is capable of reviewing computer code written in Python or Matlab. Try entering your code in the text box below and submitting it for grading. After the grader has finished running your code, you will get instant feedback.</p>
+<div id="ap_listener_added">&nbsp;</div>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem title="Embedded Code Box">
+  <text>
+    <p> We are searching for
+      the smallest monthly payment such that we can pay off the
+      entire balance of a loan within a year.</p>
+    <p> The following values might be useful when writing your solution</p>
+    <blockquote>
+      <p><strong>Monthly interest rate</strong>
+= (Annual interest rate) / 12<br/>
+<strong>Monthly payment lower bound</strong>
+= Balance / 12<br/>
+
+<strong>Monthly payment upper bound</strong> = (Balance x
+        (1 + Monthly interest rate)<sup>12</sup>) / 12
+</p>
+    </blockquote>
+    <p>The following variables contain values as described below:</p>
+    <ol>
+      <li>
+        <p><code>balance</code> - the outstanding balance on the credit card</p>
+      </li>
+      <li>
+        <p><code>annualInterestRate</code> - annual interest rate as a decimal</p>
+      </li>
+    </ol>
+    <p>Write a program that uses these bounds and bisection
+        search (for more info check out <a href="http://en.wikipedia.org/wiki/Bisection_method" target="_blank">the Wikipedia page
+        on bisection search</a>)
+        to find the smallest monthly payment <em>to the cent</em>
+        such that we can pay off the
+        debt within a year.</p>
+    <p>Note that if you do not use bisection search, your code will not run - your code only has
+      30 seconds to run on our servers. If you get a message that states "Your submission could not be graded. Please recheck your 
+      submission and try again. If the problem persists, please notify the course staff.", check to be 
+      sure your code doesn't take too long to run.</p>
+    <p>The code you paste into the following box should not specify the values for the variables <code>balance</code> 
+      or <code>annualInterestRate</code> - our test code will define those values 
+      before testing your submission. </p>
+  </text>
+  <coderesponse>
+    <textbox rows="10" cols="70" mode="python" tabsize="4"/>
+    <codeparam>
+      <initial_display/>
+      <answer_display>
+monthlyInterestRate = annualInterestRate/12
+lowerBound = balance/12
+upperBound = (balance * (1+annualInterestRate/12)**12)/12
+originalBalance = balance
+
+# Keep testing new payment values 
+#  until the balance is +/- $0.02
+while abs(balance) &gt; .02:
+    # Reset the value of balance to its original value
+    balance = originalBalance
+    # Calculate a new monthly payment value from the bounds
+    payment = (upperBound - lowerBound)/2 + lowerBound
+
+    # Test if this payment value is sufficient to pay off the 
+    #  entire balance in 12 months
+    for month in range(12):
+        balance -= payment
+        balance *= 1+monthlyInterestRate
+
+    # Reset bounds based on the final value of balance
+    if balance &gt; 0: 
+        # If the balance is too big, need higher payment
+    #  so we increase the lower bound
+        lowerBound = payment
+    else:
+        # If the balance is too small, we need a lower
+    #  payment, so we decrease the upper bound
+        upperBound = payment
+
+# When the while loop terminates, we know we have 
+#  our answer!
+print("Lowest Payment:", round(payment, 2))
+</answer_display>
+      <grader_payload>
+{"grader": "ps02/bisect/grade_bisect.py"}
+</grader_payload>
+    </codeparam>
+  </coderesponse>
+  <text>
+    <div>
+      <b>Note:</b>
+      <p>Depending on where, and how frequently, you round during
+        this function, your answers may be off a few cents in
+        either direction. Try rounding as few times as possible
+        in order to increase the accuracy of your result. </p>
+    </div>
+    <section class="hints">
+      <h3>Hints</h3>
+      <div class="collapsible">
+        <header>
+          <a href="#" id="ht3l">Test Cases to test your code with. Be sure to test these on your own machine - 
+    and that you get the same output! - before running your code on this webpage! </a>
+        </header>
+        <section id="ht3">
+          <p><b>Note:</b> The automated tests are lenient - if your answers are off by a few cents 
+    in either direction, your code is OK. </p>
+          <p>Test Cases:</p>
+          <ol>
+            <li>
+              <p>
+                <pre><code>
+          Test Case 1:
+          balance = 320000
+          annualInterestRate = 0.2
+
+          Result Your Code Should Generate:
+          -------------------
+          Lowest Payment: 29157.09
+      </code></pre>
+              </p>
+            </li>
+            <li>
+              <p>
+                <pre><code>
+          Test Case 2:
+          balance = 999999
+          annualInterestRate = 0.18
+          
+          Result Your Code Should Generate:
+          -------------------
+          Lowest Payment: 90325.07
+      </code></pre>
+              </p>
+            </li>
+          </ol>
+        </section>
+      </div>
+      <div class="collapsible">
+        <header>
+          <a href="#" id="ht4">The autograder says, "Your submission could not be graded." Help!</a>
+        </header>
+        <section id="ht4">
+          <p> If the autograder gives you the following message:</p>
+          <pre>
+Your submission could not be graded.
+Please recheck your submission and try again. If the problem persists, please notify the course staff.
+      </pre>
+          <p>Don't panic! There are a few things that might be wrong with your code that you should 
+        check out. The number one reason this message appears is because your code timed out.
+        You only get 30 seconds of computation time on our servers. If your code times out,
+        you probably have an infinite loop. What to do?</p>
+          <p>The number 1 thing to do is that you need to run this code in your own local 
+        environment. Your code should print one line at the end of the loop. If your code never prints anything
+        out - you have an infinite loop!</p>
+          <p>To debug your infinite loop - check your loop conditional. When will it stop? 
+        Try inserting print statements inside your loop that prints out information (like variables) - are you
+        incrementing or decrementing your loop counter correctly?
+        Search the forum for people with similar issues. If your search turns up nothing, 
+        make a new post and paste in your loop conditional for others to help you out with.</p>
+          <p>Please don't email the course staff unless your code legitimately works and prints out the
+        correct answers in your local environment. In that case, please email your code file,
+        a screenshot of the code printing out the correct answers in your local environment,
+        and a screenshot of the exact same code not working on the tutor. The course staff is
+        otherwise unable to help debug your problem set via email - we can only address platform issues.</p>
+        </section>
+      </div>
+    </section>
+    <br/>
+  </text>
+</problem>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Electronic Circuit SImulator</h2>
+<p>You can drag any of the circuit elements from the right hand toolbox onto the editing grid to create and experiment with your "electronic" circuit.&nbsp;</p>
+<p>To add a wire, click and drag in the editing area.</p>
+<p>To rotate a circuit element, by press the 'r' button on the keyboard.&nbsp;</p>
+<p>There are a lot of circuit elements and analysis techniques that you can learn about in <a href="https://www.edx.org/courses/MITx/6.002x/2013_Spring/about">6.002x: Circuits and Electronics</a>, all of which can be used to get automatic feedback using this online laboritory.&nbsp;</p>
+<div id="ap_listener_added">&nbsp;</div>
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <startouttext/>
+  <p>Here's a sandbox where you can experiment with a wide variety of electronic components.  If you click on CHECK below, your diagram
+will be saved on the website and you can return at some later time.</p>
+  <endouttext/>
+  <schematicresponse>
+    <p/>
+    <center>
+      <schematic name="work" value="" width="640" height="800"/>
+    </center>
+    <answer type="loncapa/python">
+correct = ['correct']
+</answer>
+  </schematicresponse>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <startouttext/>
+  <p>Many problems in real courses that use the schematic editor will have an initial position and question that you shold design a solution for. It will accept any of many correct solutions that solve its requirements.</p>
+  <p> The following problem statement is contained within 6.002x: Circuits and Electronics.</p>
+  <p>Design a circuit that implements a
+3-input logic gate that implements \(Z = \lnot{(C(A+B))}\)</p>
+  <p>Please add the appropriate pulldown network of mosfet
+switches connected to node Z to implement the truth table above, with
+\(R_{ON}\) of the mosfets chosen so that \(V_{ol}\) of the logic gate is less than
+\(0.25V\) for any combination of inputs.  In the schematic tool, the mosfet
+model has \(V_{th} = 0.5V\), so \(V_{ol} \lt 0.25V\)
+will ensure that when the output of the logic gate is 0, if it is used
+as the input to some other logic gate, the mosfet to which
+it connects will be off.</p>
+  <p> In the
+schematic tool, the mosfet model has \(R_n \approx 26.5k\Omega\) when
+using a \(3V\) power supply.  To adjust \(R_{ON}\), double click the
+mosfet and select an appropriate value for the W/L parameter.  For
+example, setting a mosfet's W/L to 10 would result in \(R_{ON} =
+2.65k\Omega\).</p>
+  <p>Note that the "Plot offset" property of the scope probes
+on the A, B and C signals has been set so that the plots will not
+overlap, making it easier to see what's happening.</p>
+  <p>Please do not change the voltages of the voltage sources or the
+resistance of the pullup resistor.</p>
+  <endouttext/>
+  <schematicresponse>
+    <center>
+      <schematic height="500" width="600" parts="g,n,s" analyses="dc,tran" submit_analyses="{&quot;tran&quot;:[[&quot;Z&quot;,0.0000004,0.0000009,0.0000014,0.0000019,0.0000024,0.0000029,0.0000034,0.000039]]}" initial_value="[[&quot;w&quot;,[112,96,128,96]],[&quot;w&quot;,[256,96,240,96]],[&quot;w&quot;,[192,96,240,96]],[&quot;s&quot;,[240,96,0],{&quot;color&quot;:&quot;cyan&quot;,&quot;offset&quot;:&quot;&quot;,&quot;plot offset&quot;:&quot;0&quot;,&quot;_json_&quot;:3},[&quot;Z&quot;]],[&quot;w&quot;,[32,224,192,224]],[&quot;w&quot;,[96,48,192,48]],[&quot;L&quot;,[256,96,3],{&quot;label&quot;:&quot;Z&quot;,&quot;_json_&quot;:6},[&quot;Z&quot;]],[&quot;r&quot;,[192,48,0],{&quot;name&quot;:&quot;Rpullup&quot;,&quot;r&quot;:&quot;10K&quot;,&quot;_json_&quot;:7},[&quot;1&quot;,&quot;Z&quot;]],[&quot;w&quot;,[32,144,32,192]],[&quot;w&quot;,[32,224,32,192]],[&quot;w&quot;,[48,192,32,192]],[&quot;w&quot;,[32,96,32,144]],[&quot;w&quot;,[48,144,32,144]],[&quot;w&quot;,[32,48,32,96]],[&quot;w&quot;,[48,96,32,96]],[&quot;w&quot;,[32,48,48,48]],[&quot;g&quot;,[32,224,0],{&quot;_json_&quot;:16},[&quot;0&quot;]],[&quot;v&quot;,[96,192,1],{&quot;name&quot;:&quot;VC&quot;,&quot;value&quot;:&quot;square(3,0,250K)&quot;,&quot;_json_&quot;:17},[&quot;C&quot;,&quot;0&quot;]],[&quot;v&quot;,[96,144,1],{&quot;name&quot;:&quot;VB&quot;,&quot;value&quot;:&quot;square(3,0,500K)&quot;,&quot;_json_&quot;:18},[&quot;B&quot;,&quot;0&quot;]],[&quot;v&quot;,[96,96,1],{&quot;name&quot;:&quot;VA&quot;,&quot;value&quot;:&quot;square(3,0,1000K)&quot;,&quot;_json_&quot;:19},[&quot;A&quot;,&quot;0&quot;]],[&quot;v&quot;,[96,48,1],{&quot;name&quot;:&quot;Vpwr&quot;,&quot;value&quot;:&quot;dc(3)&quot;,&quot;_json_&quot;:20},[&quot;1&quot;,&quot;0&quot;]],[&quot;L&quot;,[96,96,2],{&quot;label&quot;:&quot;A&quot;,&quot;_json_&quot;:21},[&quot;A&quot;]],[&quot;w&quot;,[96,96,104,96]],[&quot;L&quot;,[96,144,2],{&quot;label&quot;:&quot;B&quot;,&quot;_json_&quot;:23},[&quot;B&quot;]],[&quot;w&quot;,[96,144,104,144]],[&quot;L&quot;,[96,192,2],{&quot;label&quot;:&quot;C&quot;,&quot;_json_&quot;:25},[&quot;C&quot;]],[&quot;w&quot;,[96,192,104,192]],[&quot;w&quot;,[192,96,192,112]],[&quot;s&quot;,[112,96,0],{&quot;color&quot;:&quot;red&quot;,&quot;offset&quot;:&quot;15&quot;,&quot;plot offset&quot;:&quot;0&quot;,&quot;_json_&quot;:28},[&quot;A&quot;]],[&quot;w&quot;,[104,96,112,96]],[&quot;s&quot;,[112,144,0],{&quot;color&quot;:&quot;green&quot;,&quot;offset&quot;:&quot;10&quot;,&quot;plot offset&quot;:&quot;0&quot;,&quot;_json_&quot;:30},[&quot;B&quot;]],[&quot;w&quot;,[104,144,112,144]],[&quot;w&quot;,[128,144,112,144]],[&quot;s&quot;,[112,192,0],{&quot;color&quot;:&quot;blue&quot;,&quot;offset&quot;:&quot;5&quot;,&quot;plot offset&quot;:&quot;0&quot;,&quot;_json_&quot;:33},[&quot;C&quot;]],[&quot;w&quot;,[104,192,112,192]],[&quot;w&quot;,[128,192,112,192]],[&quot;view&quot;,0,0,2,&quot;5&quot;,&quot;10&quot;,&quot;10MEG&quot;,null,&quot;100&quot;,&quot;4us&quot;]]"/>
+    </center>
+    <answer type="loncapa/python">
+# for a schematic response, submission[i] is the json representation
+# of the diagram and analysis results for the i-th schematic tag
+
+def get_tran(json,signal):
+  for element in json:
+    if element[0] == 'transient':
+      return element[1].get(signal,[])
+  return []
+
+def get_value(at,output):
+  for (t,v) in output:
+    if at == t: return v
+  return None
+
+output = get_tran(submission[0],'Z')
+okay = True
+
+# output should be 1, 1, 1, 1, 1, 0, 0, 0
+if get_value(0.0000004,output) &lt; 2.7: okay = False;
+if get_value(0.0000009,output) &lt; 2.7: okay = False;
+if get_value(0.0000014,output) &lt; 2.7: okay = False;
+if get_value(0.0000019,output) &lt; 2.7: okay = False;
+if get_value(0.0000024,output) &lt; 2.7: okay = False;
+if get_value(0.0000029,output) &gt; 0.25: okay = False;
+if get_value(0.0000034,output) &gt; 0.25: okay = False;
+if get_value(0.0000039,output) &gt; 0.25: okay = False;
+
+correct = ['correct' if okay else 'incorrect']
+
+</answer>
+  </schematicresponse>
+  <startouttext/>
+  <p>When your circuit is ready for testing, run a \(4\mu s\) transient
+simulation to verify correct functionality and appropriate \(V_{ol}\)
+when the output of the gate is logic 0.  To submit, please click
+CHECK.  The checker will be verifying the voltage of the
+output node at several different times, so you'll earn a checkmark
+only <i>after</i> you've performed the transient simulation so that
+the checker will have a waveform to check!</p>
+  <p>When the gate is correctly implemented, the plot produced by the transient
+analysis should like similar to the following figure.</p>
+  <center><img src="/static/images_logic_gate_image.png"/><br/>Figure 1.  Example plot output
+</center>
+  <p>Food for thought: You'll notice there are little spikes,
+sometimes called <i>glitches</i>, in the output waveform (see the
+bottom cyan-colored waveform in Figure 1).  These only occur when the
+A and B inputs are changing simultaneously and the C input is high.
+Can you explain why?  Think about what is happening in the pulldown
+circuitry at the time the glitches occur.</p>
+  <endouttext/>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation:</p>
+      <p>We are asked to implement the logic function \( \overline{C\cdot\left(A + B\right)}\). This can be achieved with three transistors, as shown below; a series connection between \(C\) and \(\left(A+B\right)\) to implement the AND function, and a parallel connection between \(A\) and \(B\) to implement the OR function:</p>
+      <img src="/static/images_logic_gate_sln.png"/>
+      <p>We are told that \(V_{DD} = 3V\) and that \(R_{n} = 26.5K\Omega\). Furthermore, we
+are told that we are to use the switch-resistor model of the MOSFETS, treating
+them like resistors with resistances \(R_{ON}\) when they are given a high input. \(R_{ON}\)
+has the form \(R_{ON} = 26.5K \cdot \frac{L}{W}\) . We need to determine \(R_{ON}\) by choosing
+the ratio \(\frac{L}{W}\) such that \(V_{OL}\) is always \(\lt 0.25V\).</p>
+      <p>The first thing to do is to identify the scenario in which \(V_{OUT}\) takes on its maximum possible value in the context of a logical 0. This scenario corresponds to the worst-case \(V_{OL}\).
+There must be a full conducting path from \(V_{OUT}\) to ground to have a logical 0, which imposes the first condition. And because \(V_{OUT}\) is in the middle of a voltage divider between \(R_{pullup}\) and the equivalent "on" resistance of the MOS- FETs, we should be able to convince ourselves that \(V_{OL}\) takes on its highest value whenever the equivalent resistance of the "on" MOSFET network is the LARGEST because it is still constrained by an existing conducting path from \(V_{OUT}\) to ground.</p>
+      <p>Finding the largest combination of resistances is simple: if we replace "on" transistors with resistors of resistance \(R_{ON}\), and "off" transistors with open circuits, we find the largest combination of resistance comes from a series connection between \(C\) and only one of \(A\) or \(B\), but NOT both. This results in an equivalent resistance of \(R_{EQ}=2\cdot R_{ON}\).</p>
+      <p>We now solve for REQ using the voltage divider forumla: 
+\[\frac{V_{DD}\cdot R_{EQ}}{R_{pullup} +R_{EQ}} \lt 0.25 \\ \] </p>
+      <p>Plugging in for our values, we end up with \(R_{ON} \lt 454.56\) as our constraint.
+Plugging in once more into the given form of \(R_{ON}\), we end up with our final constraint on the transistor sizing:
+\[\frac{W}{L} \gt 58.3\\ \]</p>
+    </div>
+  </solution>
+</problem>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Protein BUILDER</h2>
+<p>The protein builder allows you string together the building blocks of proteins, amino acids, and see how that string will form into a structure. You are presented with a goal protein shape, and your task is to try to re-create it. In the example below, the shape that you are asked to form is a simple line.&nbsp;</p>
+<div id="ap_listener_added">&nbsp;</div>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem attempts="10">
+  <script type="loncapa/python">
+
+def two_d_grader(expect,ans):
+  import json
+  ans=json.loads(ans)
+  if "ERROR" in ans["protex_answer"]:
+    raise ValueError("Protex did not understand your answer... try folding the protein")
+  return ans["protex_answer"]=="CORRECT"
+
+
+</script>
+  <text>
+    <customresponse cfn="two_d_grader">
+      <designprotein2dinput width="855" height="500" target_shape="W;W;W;W;W;W;W"/>
+    </customresponse>
+  </text>
+  <p>Be sure to click "Fold" to fold your protein before you click "Check".</p>
+  <solution>
+    <p>
+            There are many protein sequences that will fold to the shape we asked you
+            about. Here is a sample sequence that will work. You can play around with
+            it if you are curious.
+        </p>
+    <ul>
+      <li>
+                Stick: RRRRRRR
+            </li>
+    </ul>
+  </solution>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <startouttext/>
+  <p> Carbon reacts with chlorine and hydrogen to form the compound CH<sub>3</sub>Cl.</p>
+  <p>Construct the structure of CH<sub>3</sub>Cl.</p>
+  <endouttext/>
+  <customresponse>
+    <vsepr_input height="600" width="650" hidden="1" molecules="C,H,Cl,(ep)" geometries="Linear,Trigonal Planar, Tetrahedral, Trigonal Bipyramidal, Octahedral"/>
+    <answer type="loncapa/python">
+user_answer = chemtools.vsepr_parse_user_answer(submission[0])
+
+    #solution
+    #AX4E0
+    #central atom = C
+    #peripheral atoms, any placement: = Cl,H,H,H
+correct_answer = chemtools.vsepr_build_correct_answer(geometry="Tetrahedral",atoms={"c0":"C","p0":"H","p1": "H", "p2":"H", "p3":"Cl"})
+
+if chemtools.vsepr_grade(user_answer, correct_answer, convert_to_peripheral=True):
+    correct = ['correct']
+else:
+    correct = ['incorrect']
+
+</answer>
+  </customresponse>
+</problem>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2 style="text-rendering: optimizelegibility; font-size: 19px; margin: 30px 40px 30px 0px; padding: 0px; border: 0px; outline: 0px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline;">Be SOCIAL</h2>
+<img src="/static/social_x250.png" alt="Be Social" width="250" hspace="12" vspace="12" border="0" align="right"><p>A big part of learning online includes &ldquo;being social.&rdquo; We encourage all students to communicate within the course discussion forums &ndash; a great place to connect with other students and to get support from the course staff. Some students and professors also engage through other social mediums like Meetup or Facebook.</p>
+<p>Recent research has found that if you take a class with a friend, or engage socially with other learners while taking a course, there is a higher likelihood that you will complete a course. If you haven&rsquo;t already, consider finding a study buddy!</p>
+<p>Check out more information about the discussion forum by navigating to the next item in this learning sequence.</p>
+<p>In the discussion forums, remember to be polite and respectful. Simply put, treat others the way you want to be treated.</p>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Discussion FORUMS</h2>
+<p>The discussion forum for each course is found at the top of the course page. You might come across a subset of the discussion forum inside the course (see below), where you can talk with fellow students about the course in context. &nbsp;Go ahead and be social! Make your first post in this demo course.</p>
+<p>Keep an eye out for posts with a green check mark. &nbsp;The green check &nbsp;means the post has been recognized by a staff member or forum moderator as a great post. You can also actively upvote a post. Others can search on user &ldquo;upvoted&rdquo; posts. &nbsp;They tend to be very helpful.&nbsp;</p>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Getting Help</h2>
+<p>If you're running into a technical problem with edX, check the <a style="font-size: 1em; line-height: 1.6em;" href="https://www.edx.org/student-faq">Student FAQ</a>. Most common issues are addressed there.</p>
+<p>If you have a problem or a question which directly relates to the course, the best place to go for answers is the course discussion forum. The forums are moderated and it is there that course staff can directly read and respond to your inquiry. This includes questions about grading, but please be sure not to reveal answers to other students!</p>
+<p>If you have a general question, suggestion, or problem you can use the "help" button on the left to report it to the edX support team. We strive to reply to all inquiries within one business day.</p>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Find Your Study Buddy</h2>
+<p>Working with other students offline can help you get the most out of an online course and even increase the likelihood you will successfully complete the course. So, your homework is to find a study buddy.</p>
+<br />
+<p>The course specific discussion forums are a great place to find neighbors or even new friends to invite to a Meetup you are looking to organize or even a virtual Google Hangout.</p>
+<p>&nbsp;</p>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Find Your Study Buddy</h2>
+<p>Working with other students offline can help you get the most out of an online course and even increase the likelihood you will successfully complete the course. So, your homework is to find a study buddy.</p>
+<br />
+<p>The course specific discussion forums are a great place to find neighbors or even new friends to invite to a Meetup you are looking to organize or even a virtual Google Hangout.</p>
+<p>&nbsp;</p>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<p>It is also possible to hang out with your classmates using Google Hangouts. See who's in there now, or arrange to meet people at specific times.</p>
+<div id="ap_listener_added">&nbsp;</div>
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<script src='/static/instanthangouts-0.1.0.js' ></script>
+<div class='instanthangouts'></div>
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<div>
+<h2>EDX EXAMS</h2>
+</div>
+<div>
+<p><img src="/static/exam_x250.png" alt="Exam" width="250" hspace="12" vspace="12" border="0" align="right" />Not all edX courses have exams; many do, but not all. When choosing a course, it's a good idea to check the exam and study requirements, as well as any prerequisites.</p>
+<p>Of course &nbsp;- you can "audit" any edX course, which means you can study alongside other students using the same content, tools and materials, but you're not focused on grades and might skip the exams and assignments.&nbsp;</p>
+<p>Follow this learning sequence via the links above to understand more about how we grade your work and track your progress.</p>
+<p>&nbsp;&nbsp;</p>
+</div>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <text>
+    <p>In most questions, edX checks your answers and gives you immediate feedback. When you click “check” for a problem it is automatically submitted for grading. </p>
+    <p>Let's practice! (For many of the following questions, if you get an answer wrong, you can simply try again until you get it right.)</p>
+    <p>How many hours are in a day?</p>
+    <numericalresponse answer="24">
+      <responseparam type="tolerance" default="0.0001%" name="tol" description="Numerical Tolerance"/>
+      <textline/>
+    </numericalresponse>
+  </text>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <p>In some courses a "show answer" button might appear below a question. When you click on this button, you can see the correct answer (with an explanation) that would receive full credit. </p>
+  <p>How much does it cost to take an edX course? Enter the number of dollars.</p>
+  <numericalresponse answer="0">
+    <textline/>
+  </numericalresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>It costs zero dollars to take an edX course. All edX courses are free to students.</p>
+    </div>
+  </solution>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <p>Occasionally, you might submit a correct answer and continue experimenting with possible answers. That is great! Exploring all of the possible correct answers is a very effective way to learn. However, you should remember to leave your final answer with a green check mark next to it. The edX system will only count your most recent answer towards your final grade, so if your extra experiments leave your answer in an incorrect state, then you will not get credit for the problem. </p>
+  <p>Enter the numerical value of Pi:</p>
+  <numericalresponse answer="3.14159">
+    <responseparam type="tolerance" default=".02"/>
+    <textline/>
+  </numericalresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p> Pi, or the the ratio between a circle's circumference to its diameter, is an irrational number known to extreme precision. It is value is approximately equal to 3.14. </p>
+    </div>
+  </solution>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem attempts="100">
+  <text>
+    <p>Often, you will have a limited number of times that you can check your answer. Here you can practice with 100 attempts.</p>
+    <p>When there are a limited number of checks available on a question, a blue "Save" button will appear, as well as counters on the number of used and available submissions. If you would like to input an answer and keep it in the system until you come back to the same question, use the "save" button. This will not submit your answer or use up any of your submissions for the question. Instead, saving an answer will simply keep the answer that you saved and present it back to you when you look at the question again. Please note: in order to get a grade on your answer, you must click "Check" to submit your answer to the grader. As always, only your last checked answer counts for your grade.</p>
+    <p>Try entering an answer and saving it without checking. Now press check to see what your answer was. You can also experiment by giving a wrong answer on purpose to see how the system behaves.</p>
+    <p>On most cars, how many wheels touch the pavement of the road?</p>
+    <numericalresponse answer="4">
+      <responseparam type="tolerance" default="0.0001%" name="tol" description="Numerical Tolerance"/>
+      <textline/>
+    </numericalresponse>
+  </text>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <text>
+    <p>This example question has fewer checks, so you can observe how the system behaves when you run out of checks.</p>
+    <p>What common fruit is round, has a stem, grows on tree, and comes in both red and green varieties?</p>
+    <multiplechoiceresponse>
+      <choicegroup type="MultipleChoice">
+        <choice correct="true">An Apple</choice>
+        <choice correct="false">A Banana</choice>
+        <choice correct="false">An Orange</choice>
+        <choice correct="false">A Pumpkin</choice>
+      </choicegroup>
+    </multiplechoiceresponse>
+  </text>
+</problem>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+  <text>
+    <p>Some problems change depending on when and how you look at them because they are using randomized elements. For these problems, you will be able to reset the question after you answer it, which will reconstruct the problem with a new set of parameters. 
+    </p>
+    <p>
+After you answer the question and submit it for grading, you will not always be able to get back the same question. If you want to keep your question the same, don't 'check' your answer, just 'save' it.</p>
+    <script type="loncapa/python">
+x1 = random.randint(0, 100)
+x2 = random.randint(0, 100)
+y = x1+x2
+</script>
+    <p>What is the value of \($x1+$x2\)?</p>
+    <numericalresponse answer="$y">
+      <responseparam type="tolerance" default="0.0001%" name="tol" description="Numerical Tolerance"/>
+      <textline/>
+    </numericalresponse>
+  </text>
+</problem>
+
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>&nbsp;OVERALL GRADE PERFORMANCE</h2>
+<p style="margin-top: 0px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 16px; vertical-align: baseline; color: #4c4c4c;">The progress tab (selectable near the top of each page in your course) shows your performance. Click on it now, and you will see how you're doing in this demo course.</p>
+<p style="margin-top: 0px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 16px; vertical-align: baseline; color: #4c4c4c;">The bar chart shows the overall percentage that you have earned on each assignment in the course, and how each of those assignments combine into your overall grade. Further down the page is a detailed breakdown of your score on every graded question in the class.&nbsp;</p>
+<p><img alt="" src="/static/ProgressPage.png" /></p>
+<p style="margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 16px; vertical-align: baseline; color: #4c4c4c;">You might notice that some of your assignments on the bar chart show an 'x'. The 'x's indicate the assignments that the edX system will NOT be counting toward your final grade, according to the course grading. The 'x's go to the assignments that you scored the lowest on. &nbsp;</p>
+<p style="margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 16px; vertical-align: baseline; color: #4c4c4c;">Each course has its own percentage cutoff for a Certificate of Mastery. You can see where those cutoffs are by looking at the vertical description. In this demo, a "pass" is considered 60%. When you "pass" a live edX course, you will receive a certificate after the class has closed. Sorry - the demo course does not grant certificates!</p>
+<h2 id="ap_listener_added">&nbsp;</h2>
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<h2>Passing a COurse</h2>
+<p><span style="line-height: 1.6;"><span style="line-height: 1.6;">After the last assignment in a class has been due, you will see the entry in your student profile change to show progress toward generating your certificate. After the certificate generation process has completed, you will be able to download it from your profile page.</span></span></p>
+<p><img alt="" src="/static/passing.png" /></p>
+<p>&nbsp;</p>
+<div id="ap_listener_added">&nbsp;</div>
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+<div>
+<h2>Getting Your edX Certificate</h2>
+</div>
+<div>
+<p style="font-size: 16px;"><span style="line-height: 1.6;">If you passed your edX course, your certificate will be delivered online through&nbsp;</span><a style="line-height: 1.6;" href="http://www.edx.org/">edx.org</a><span style="line-height: 1.6;">. &nbsp;Be sure to check your email in the weeks following the final grading &ndash; you will be able to download and print your certificate.</span>&nbsp;Once the certificate generation process has completed, you will be able to download it from your profile page.</p>
+<p><img alt="" src="/static/edX-SampleCertificate-Ux_x400.png" /></p>
+<p>&nbsp;</p>
+</div>
+================================================================================
+<class 'xblock.internal.HtmlBlockWithMixins'>
+
+================================================================================
+<class 'xblock.internal.ProblemBlockWithMixins'>
+<problem>
+<numericalresponse answer="100">
+  <p>blah You can use this template as a guide to the simple editor markdown and OLX markup to use for numerical input problems. Edit this component to replace this template with your own assessment.</p>
+<label>Add the question text, or prompt, here. This text is required.</label>
+<description>You can add an optional tip or note related to the prompt like this. </description>
+<responseparam type="tolerance" default="5"/>
+  <formulaequationinput/>
+</numericalresponse>
+</problem>
+================================================================================

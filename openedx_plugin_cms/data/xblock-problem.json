@@ -1,0 +1,21 @@
+<ProblemBlockWithMixins @BF2D 
+
+parent=BlockUsageLocator(CourseLocator('edX', 'DemoX', 'Demo_Course', None, None), 'vertical', 'a9a37ecd9bda44efa6cff856e9d937dd'), 
+name=None, 
+tags=[], 
+display_name='Numerical Input', 
+course_edit_method='Studio', 
+days_early_for_beta=None, 
+due=None, 
+edxnotes=False, 
+edxnotes_visibility=True, 
+giturl=None, 
+graceperiod=datetime.timedelta(seconds=18000), 
+graded=False, 
+group_access={}, in_entrance_exam=False, matlab_api_key=None, max_attempts=None, rerandomize='never', self_paced=False, show_correctness='always', show_reset_button=False, showanswer='attempted', 
+start=datetime.datetime(1970, 1, 1, 5, 0, tzinfo=tzlocal()), static_asset_path='', use_latex_compiler=False, user_partitions=[], video_auto_advance=False, video_bumper={}, video_speed_optimizations=True, visible_to_staff_only=False, xqa_key='qaijS3UatK020Wc0sfCtFe0V6jpB4d64', 
+chrome=None, default_tab=None, format=None, hide_from_toc=False, source_file=None, attempts=0, attempts_before_showanswer_button=0, correct_map={}, data='<problem>\n<numericalresponse answer="...', 
+done=False, force_save_button=False, has_saved_answers=False, input_state={}, 
+last_submission_time=None, markdown='blah You can use this template as a g...', 
+score=None, seed=None, source_code=None, student_answers={}, submission_wait_seconds=0, 
+weight=None, xml_attributes={}>

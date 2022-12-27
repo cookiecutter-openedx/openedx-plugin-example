@@ -6,13 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('openedx_plugin', '0001_initial'),
+        ("openedx_plugin", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='marketingsites',
-            name='language',
-            field=models.CharField(choices=[('en', 'English'), ('es-419', 'Español (Latinoamérica)'), ('pt-br', 'Português (Brasil)'), ('pt-pt', 'Português (Portugal)'), ('it-it', 'Italiano (Italia)'), ('fr', 'Français')], help_text='A language code. Examples: en, en-US, es, es-419, es-MX', max_length=20),
+            model_name="marketingsites",
+            name="language",
+            field=models.CharField(
+                choices=[
+                    ("en", "English"),
+                    ("es-419", "Español (Latinoamérica)"),
+                    ("pt-br", "Português (Brasil)"),
+                    ("pt-pt", "Português (Portugal)"),
+                    ("it-it", "Italiano (Italia)"),
+                    ("fr", "Français"),
+                ],
+                help_text="A language code. Examples: en, en-US, es, es-419, es-MX",
+                max_length=20,
+            ),
         ),
     ]
