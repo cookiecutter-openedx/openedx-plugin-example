@@ -20,6 +20,8 @@ log = logging.getLogger(__name__)
 log.info("openedx_plugin %s", __version__)
 
 OPENEDX_SIGNALS = "openedx_events.learning.signals"
+
+# Signals (aka receivers) defined in https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py
 STUDENT_REGISTRATION_COMPLETED = "STUDENT_REGISTRATION_COMPLETED"
 SESSION_LOGIN_COMPLETED = "SESSION_LOGIN_COMPLETED"
 COURSE_ENROLLMENT_CREATED = "COURSE_ENROLLMENT_CREATED"
@@ -32,8 +34,34 @@ CERTIFICATE_REVOKED = "CERTIFICATE_REVOKED"
 COHORT_MEMBERSHIP_CHANGED = "COHORT_MEMBERSHIP_CHANGED"
 COURSE_DISCUSSIONS_CHANGED = "COURSE_DISCUSSIONS_CHANGED"
 
+SIGNALS = [
+    STUDENT_REGISTRATION_COMPLETED,
+    SESSION_LOGIN_COMPLETED,
+    COURSE_ENROLLMENT_CREATED,
+    COURSE_ENROLLMENT_CHANGED,
+    COURSE_UNENROLLMENT_COMPLETED,
+    # PERSISTENT_GRADE_SUMMARY_CHANGED,      mcdaniel dec-2022: missing from nutmeg.2
+    CERTIFICATE_CREATED,
+    CERTIFICATE_CHANGED,
+    CERTIFICATE_REVOKED,
+    COHORT_MEMBERSHIP_CHANGED,
+    COURSE_DISCUSSIONS_CHANGED,
+]
+
 
 class CustomPluginConfig(AppConfig):
+    def signals_recievers() -> list:
+        def signal_dict_factory(signal) -> dict:
+            return {
+                PluginSignals.RECEIVER_FUNC_NAME: signal.lower(),
+                PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + signal,
+            }
+
+        retval = []
+        for signal in SIGNALS:
+            retval.append(signal_dict_factory(signal=signal))
+        return retval
+
     name = "openedx_plugin"
     label = "openedx_plugin"
 
@@ -61,54 +89,7 @@ class CustomPluginConfig(AppConfig):
         PluginSignals.CONFIG: {
             ProjectType.LMS: {
                 PluginSignals.RELATIVE_PATH: "signals",
-                PluginSignals.RECEIVERS: [
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: STUDENT_REGISTRATION_COMPLETED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + STUDENT_REGISTRATION_COMPLETED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: SESSION_LOGIN_COMPLETED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + SESSION_LOGIN_COMPLETED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_ENROLLMENT_CREATED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_ENROLLMENT_CREATED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_ENROLLMENT_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_ENROLLMENT_CHANGED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_UNENROLLMENT_COMPLETED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_UNENROLLMENT_COMPLETED,
-                    },
-                    # mcdaniel dec-2022: this is missing from nutmeg.2
-                    #       COMING SOON?
-                    # {
-                    #    PluginSignals.RECEIVER_FUNC_NAME: PERSISTENT_GRADE_SUMMARY_CHANGED.lower(),
-                    #    PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + PERSISTENT_GRADE_SUMMARY_CHANGED,
-                    # },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_CREATED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_CREATED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_CHANGED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_REVOKED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_REVOKED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: COHORT_MEMBERSHIP_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COHORT_MEMBERSHIP_CHANGED,
-                    },
-                    {
-                        PluginSignals.RECEIVER_FUNC_NAME: COURSE_DISCUSSIONS_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_DISCUSSIONS_CHANGED,
-                    },
-                ],
+                PluginSignals.RECEIVERS: signals_recievers(),
             }
         },
     }
