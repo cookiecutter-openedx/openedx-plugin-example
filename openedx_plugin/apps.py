@@ -68,10 +68,11 @@ class CustomPluginConfig(AppConfig):
                         "receiver_func_name": "course_unenrollment_completed",
                         "signal_path": "openedx_events.learning.signals.COURSE_UNENROLLMENT_COMPLETED",
                     },
-                    {
-                        "receiver_func_name": "persistent_grade_summary_changed",
-                        "signal_path": "openedx_events.learning.signals.PERSISTENT_GRADE_SUMMARY_CHANGED",
-                    },
+                    #       COMING SOON?
+                    # {
+                    #    "receiver_func_name": "persistent_grade_summary_changed",
+                    #    "signal_path": "openedx_events.learning.signals.PERSISTENT_GRADE_SUMMARY_CHANGED",
+                    # },
                     {
                         "receiver_func_name": "certificate_created",
                         "signal_path": "openedx_events.learning.signals.CERTIFICATE_CREATED",
@@ -87,6 +88,10 @@ class CustomPluginConfig(AppConfig):
                     {
                         "receiver_func_name": "cohort_membership_changed",
                         "signal_path": "openedx_events.learning.signals.COHORT_MEMBERSHIP_CHANGED",
+                    },
+                    {
+                        "receiver_func_name": "course_discussions_changed",
+                        "signal_path": "openedx_events.learning.signals.COURSE_DISCUSSIONS_CHANGED",
                     },
                 ],
             }

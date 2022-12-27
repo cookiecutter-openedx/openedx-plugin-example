@@ -346,6 +346,11 @@ def persistent_grade_summary_changed(grade, **kwargs):
     signal_path: openedx_events.learning.signals.PERSISTENT_GRADE_SUMMARY_CHANGED
     https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py#L145
 
+    event_type: org.openedx.learning.course.persistent_grade.summary.v1
+    event_name: PERSISTENT_GRADE_SUMMARY_CHANGED
+    event_description: emitted when a grade changes in the course
+    event_data: PersistentCourseGradeData
+
     example grade and kwargs data:
     'grade_user_id': 42,
     'grade_course_course_key': 'course-v1:edX+100+2021',
