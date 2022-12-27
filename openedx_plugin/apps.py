@@ -59,6 +59,12 @@ class CustomPluginConfig(AppConfig):
     def ready(self):
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
         log.info(
+            "{label} plugin_app: {plugin_app}".format(
+                label=self.label, plugin_app=json.dumps(CustomPluginConfig.plugin_app, cls=PluginJSONEncoder, indent=4)
+            )
+        )
+
+        log.info(
             "{label} {waffle_switches} waffle switches detected.".format(
                 label=self.label, waffle_switches=waffle_switches.len()
             )
