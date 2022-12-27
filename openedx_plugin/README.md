@@ -2,11 +2,16 @@
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-Enhancements to the Open edX User model.
+An example Open edX plugin.
+
+-
+-
+-
+-
 
 ## Features
 
-### Example REST API with LMS url endpoint, Django model, and Django Admin
+### Waffle activated simple REST API with LMS url endpoint, Django model, and Django Admin
 
 Assigns the example api server to use for the Open edX instance on which this plugin is installed.
 The api endpoint is: https://lms.example.edu/plugin/api/v1/configuration
@@ -19,13 +24,13 @@ Uses this Django model: https://lms.example.edu/admin/openedx_plugin/configurati
 public url to the api: https://lms.example.edu/plugin/api/v1/configuration
 
 
-### Custom URL parameters
+### Waffle activated auto-enrollment URL endpoint with language code parameter
 
 Provides a means to embed localization information about the user in, for example, CTA buttons that send the user from and external marketing site (like Wordpress) to Open edX. The most common url presently is: https://lms.example.edu/example/dashboard?language=es-419
 
 source code is located in [./dashboard/](./dashboard/)
 
-### Localized Marketing Links
+### Waffle activated language-aware marketing site static page urls
 
 The reverse case. Provides a generalized way to seamlessly map the user from the LMS to the most sensible marketing site. An example usage is the "Discover New" link in the LMS site header. The url, assigned inside lms.yml within MKTG_URL_OVERRIDES is, https://lms.example.edu/example/marketing-redirector/?example_page=learning-content/ and will redirect to https://example.org/learning-content/ for a US-based user. Uses the MarketingSites model found in [models.py](./models.py)
 
@@ -62,7 +67,9 @@ and the link itself would take the form
     <a id="example-locale-blog" href="${blog_dict.get('url')}">${blog_dict.get('value')}</a>
 ```
 
+### Waffle activated receivers hooks
 
+Adds listeners (aka Receivers, aka Django Signals) for events defined in Open edX for common operations like new student registration, enrollments, grade changes, course completed, etcetera.
 
 ## Language Notes
 

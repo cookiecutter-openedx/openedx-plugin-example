@@ -13,8 +13,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 
-APP_ROOT = path(__file__).abspath().dirname().dirname()  # /blah/blah/blah/.../example-digital-learning-openedx/openedx_plugin
-REPO_ROOT = APP_ROOT.dirname()                           # /blah/blah/blah/.../example-digital-learning-openedx
+APP_ROOT = (
+    path(__file__).abspath().dirname().dirname()
+)  # /blah/blah/blah/.../example-digital-learning-openedx/openedx_plugin
+REPO_ROOT = APP_ROOT.dirname()  # /blah/blah/blah/.../example-digital-learning-openedx
 
 
 def plugin_settings(settings):

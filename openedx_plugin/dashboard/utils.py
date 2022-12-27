@@ -1,10 +1,26 @@
+"""
+written by: Lawrence McDaniel
+            https://lawrencemcdaniel.com
+
+date:       feb-2022
+
+usage:      enables http request parameters
+            - language: an ISO language code. Example es-419
+            - enroll: an escaped Open edX CourseKey string representation
+"""
 import logging
 from django.conf import settings
 from urllib.parse import urlparse
 
-from openedx.core.djangoapps.lang_pref.api import get_closest_released_language, released_languages
+from openedx.core.djangoapps.lang_pref.api import (
+    get_closest_released_language,
+    released_languages,
+)
 from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
-from openedx.core.djangoapps.user_api.preferences.api import get_user_preference, set_user_preference
+from openedx.core.djangoapps.user_api.preferences.api import (
+    get_user_preference,
+    set_user_preference,
+)
 
 log = logging.getLogger(__name__)
 

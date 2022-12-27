@@ -7,4 +7,6 @@ def plugin_settings(settings):
     """
     Injects local settings into django settings
     """
-    pass
+    middleware = getattr(settings, "MIDDLEWARE", None)
+    if middleware:
+        settings.MIDDLEWARE.append("openedx_plugin.middleware.RedirectDjangoAdminMiddleware")

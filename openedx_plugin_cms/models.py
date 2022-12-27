@@ -209,7 +209,9 @@ class CourseChangeLog(TimeStampedModel):
     )
     visible = models.BooleanField(default=True, verbose_name="Is Visible to Students")
     category = models.CharField(
-        max_length=255, verbose_name="Block Category", help_text="course, chapter, vertical, sequential, xblock"
+        max_length=255,
+        verbose_name="Block Category",
+        help_text="course, chapter, vertical, sequential, xblock",
     )
     course_id = CourseKeyField(
         max_length=255,
@@ -251,7 +253,12 @@ class CourseChangeLog(TimeStampedModel):
     # edit_info
     # see: common.lib.xmodule.xmodule.modulestore
     #
-    edit_info = models.CharField(max_length=255, help_text="JSON dict of edit tracking info", blank=True, null=True)
+    edit_info = models.CharField(
+        max_length=255,
+        help_text="JSON dict of edit tracking info",
+        blank=True,
+        null=True,
+    )
 
     source_version = UsageKeyField(max_length=255, blank=True, null=True)
     update_version = UsageKeyField(

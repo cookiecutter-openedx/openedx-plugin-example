@@ -1,3 +1,9 @@
+"""
+Lawrence McDaniel - https://lawrencemcdaniel.com
+Feb-2022
+
+example theming utility functions
+"""
 import logging
 from urllib.parse import urljoin
 

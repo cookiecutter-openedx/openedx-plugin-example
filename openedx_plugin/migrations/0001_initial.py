@@ -18,19 +18,27 @@ class Migration(migrations.Migration):
                 (
                     "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="created"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
                     "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="modified"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
                 (
                     "type",
                     models.CharField(
-                        choices=[("dev", "Development"), ("test", "Testing / QA"), ("prod", "Production")],
+                        choices=[
+                            ("dev", "Development"),
+                            ("test", "Testing / QA"),
+                            ("prod", "Production"),
+                        ],
                         default="dev",
                         help_text="Type of Open edX environment in which this configuration will be used.",
                         max_length=24,
@@ -41,7 +49,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "example_host",
-                    models.URLField(blank=True, help_text="the URL pointing to some server.", max_length=255),
+                    models.URLField(
+                        blank=True,
+                        help_text="the URL pointing to some server.",
+                        max_length=255,
+                    ),
                 ),
             ],
             options={
@@ -51,17 +63,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="MarketingSites",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 (
                     "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="created"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
                     "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="modified"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
                 (
@@ -110,22 +134,37 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Locale",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 (
                     "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="created"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
                     "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="modified"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
                 (
                     "element_id",
-                    models.CharField(help_text="An html element id. Example: example-locale-contact", max_length=255),
+                    models.CharField(
+                        help_text="An html element id. Example: example-locale-contact",
+                        max_length=255,
+                    ),
                 ),
                 (
                     "language",
@@ -148,7 +187,8 @@ class Migration(migrations.Migration):
                 (
                     "value",
                     models.CharField(
-                        help_text="The text value of this html element. Example: Contacto", max_length=255
+                        help_text="The text value of this html element. Example: Contacto",
+                        max_length=255,
                     ),
                 ),
             ],

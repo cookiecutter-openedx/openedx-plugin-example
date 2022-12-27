@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
 This will create the OAuthProviderConfig for the OAuth provider
 it should use the same client ID and secret used when creating the
-OAuth application in the authentication host. 
+OAuth application in the authentication host.
 
 These values will either need to be set in settings or as envs
     EXAMPLE_CLIENT_ID - client ID defined in Host OAuth provider
@@ -28,7 +28,11 @@ These values will either need to be set in settings or as envs
     def handle(self, *args, **options):
         key = getattr(settings, "EXAMPLE_CLIENT_ID", os.environ.get("EXAMPLE_CLIENT_ID"))
         secret = getattr(settings, "EXAMPLE_CLIENT_SECRET", os.environ.get("EXAMPLE_CLIENT_SECRET"))
-        domain = getattr(settings, "OPENEDX_COMPLETE_DOMAIN_NAME", os.environ.get("OPENEDX_COMPLETE_DOMAIN_NAME"))
+        domain = getattr(
+            settings,
+            "OPENEDX_COMPLETE_DOMAIN_NAME",
+            os.environ.get("OPENEDX_COMPLETE_DOMAIN_NAME"),
+        )
 
         site, _ = Site.objects.get_or_create(domain=domain)
         OAuth2ProviderConfig.objects.get_or_create(

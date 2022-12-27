@@ -5,7 +5,9 @@ import re
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 
-from openedx.core.djangoapps.user_api.accounts.utils import retrieve_last_sitewide_block_completed
+from openedx.core.djangoapps.user_api.accounts.utils import (
+    retrieve_last_sitewide_block_completed,
+)
 from opaque_keys.edx.keys import CourseKey
 from common.djangoapps.util.date_utils import get_default_time_display
 from common.lib.xmodule.xmodule.modulestore.django import modulestore

@@ -1,7 +1,6 @@
 import os
 import json
 
-from django.contrib.auth.models import User
 from django.http.response import HttpResponseNotFound
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
 from openedx.core.lib.api.view_utils import view_auth_classes
@@ -22,7 +21,6 @@ from xmodule.course_module import DEFAULT_START_DATE, CourseFields
 from lms.djangoapps.certificates.models import CertificateGenerationCourseSetting
 from lms.djangoapps.bulk_email.models import CourseAuthorization
 
-from opaque_keys.edx.keys import CourseKey
 import openedx.core.djangoapps.django_comment_common.comment_client as cc
 import lms.djangoapps.discussion.django_comment_client.utils as utils
 
@@ -81,7 +79,9 @@ class EnrollUserAPIView(APIView):
             course_mode = CourseMode.objects.get(course=course, mode_slug=course_mode_slug)
         except CourseMode.DoesNotExist:
             course_mode = CourseMode.objects.create(
-                course=course, mode_slug=course_mode_slug, mode_display_name=course_mode_slug.capitalize()
+                course=course,
+                mode_slug=course_mode_slug,
+                mode_display_name=course_mode_slug.capitalize(),
             )
         response = api.add_enrollment(username, course_id, mode=course_mode.mode_slug)
         return Response(response, content_type="application/json")
@@ -116,7 +116,9 @@ class CourseChangeModeAPIView(APIView):
             course_mode = CourseMode.objects.get(course=enrollment.course, mode_slug=mode_slug)
         except CourseMode.DoesNotExist:
             course_mode = CourseMode.objects.create(
-                course=enrollment.course, mode_slug=mode_slug, mode_display_name=mode_slug.capitalize()
+                course=enrollment.course,
+                mode_slug=mode_slug,
+                mode_display_name=mode_slug.capitalize(),
             )
         enrollment.mode = course_mode.mode_slug
         enrollment.save()
@@ -295,7 +297,10 @@ class CourseCertificateAPIView(APIView):
     """
 
     def post(self, request, course_id):
-        from cms.djangoapps.contentstore.views.certificates import CertificateManager, Certificate
+        from cms.djangoapps.contentstore.views.certificates import (
+            CertificateManager,
+            Certificate,
+        )
 
         signatory_name = request.POST.get("signatory_name")
         signatory_title = request.POST.get("signatory_title")

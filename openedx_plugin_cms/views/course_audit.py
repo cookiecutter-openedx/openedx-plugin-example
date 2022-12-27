@@ -34,7 +34,7 @@ try:
     # mcdaniel aug-2022: deprecated sometime after Lilac.
     # see: https://docs.celeryq.dev/en/stable/internals/deprecation.html
     from celery.task import task
-except:
+except ImportError:
     from celery import shared_task as task
 
 from celery.exceptions import SoftTimeLimitExceeded
@@ -338,7 +338,13 @@ def get_analyzed_course(course_key: CourseKey) -> List:
                         i += 1
                         print("Analyzing content block: {course_key} - {i}".format(course_key=course_key, i=i))
                         row = get_vertical_child_dict(
-                            i, course, chapter, sequence, vertical, child, ADVANCED_COMPONENT_TYPES
+                            i,
+                            course,
+                            chapter,
+                            sequence,
+                            vertical,
+                            child,
+                            ADVANCED_COMPONENT_TYPES,
                         )
                         retval.append(row)
 
@@ -405,7 +411,7 @@ def get_context(course_key: CourseKey, page_number=None, cached=True, report_mes
         course_audit = CourseAudit.objects.filter(course_id=course_key).order_by("id")
         try:
             report_as_of = course_audit[0].created.strftime("%d-%b-%Y, %H:%M")
-        except:
+        except ObjectDoesNotExist:
             pass
     else:
         course_audit = get_analyzed_course(course_key)

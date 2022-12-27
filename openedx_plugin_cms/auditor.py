@@ -142,7 +142,9 @@ def write_log_upsert(xblock: XBlock, user: User) -> None:
 
     publication_date = xblock_publication_date(xblock)
     course_change_log, created = CourseChangeLog.objects.update_or_create(
-        location=xblock.location, publication_date=publication_date, operation=CourseChangeLog.DB_UPSERT
+        location=xblock.location,
+        publication_date=publication_date,
+        operation=CourseChangeLog.DB_UPSERT,
     )
     write_log(course_change_log, xblock.location, user, xblock)
 

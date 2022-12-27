@@ -24,7 +24,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not all(
-            [PLUGIN_API_USER_EMAIL, PLUGIN_API_USER_NAME, PLUGIN_API_USER_PASSWORD, OPENEDX_COMPLETE_DOMAIN_NAME]
+            [
+                PLUGIN_API_USER_EMAIL,
+                PLUGIN_API_USER_NAME,
+                PLUGIN_API_USER_PASSWORD,
+                OPENEDX_COMPLETE_DOMAIN_NAME,
+            ]
         ):
             raise Exception("Missing required parameters")
         logger.info("Assert API user")

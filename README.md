@@ -7,7 +7,7 @@ A curated collection of code examples for extending the functionality of an Open
 * Extending Course Management Studio functionality with this [custom report](openedx_plugin_cms/README.md). Demonstrates the correct practices for adding custom url endpoints to Studio, advances usage of Mako templating within a plugin, and how to programatically iterate and introspect course content. Also includes a custom Django model, and caching.
 * Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
 * Extending the [login functionality](./openedx_plugin/student/session.py)
-* Implementing a [custom api](./openedx_plugin_api/README.md) built from snippets of Open edX's built-in rest api libraries. 
+* Implementing a [custom api](./openedx_plugin_api/README.md) built from snippets of Open edX's built-in rest api libraries.
 * Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
 * Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
 * Create a custom third party auth [Oauth2 provider](./openedx_plugin_api/custom_oauth2_backend.py).
@@ -33,6 +33,7 @@ Technical features that are showcased in this repo include:
 * Django middleware
 * Django manage.py custom commands
 * Python environment variables
+* Waffle flags
 
 
 ## Getting Started

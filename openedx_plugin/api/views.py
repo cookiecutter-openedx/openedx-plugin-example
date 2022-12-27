@@ -1,3 +1,11 @@
+"""
+written by: Lawrence McDaniel
+            https://lawrencemcdaniel.com
+
+date:       jun-2019
+
+usage:      implements a simple REST API using Django RestFramework
+"""
 from __future__ import absolute_import
 from rest_framework import viewsets
 
