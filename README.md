@@ -7,7 +7,7 @@ A curated collection of code examples for extending the functionality of an Open
 Technical features that are showcased in this repo include:
 
 * semantic version control
-* pre-commit with linting by flake8 and black
+* pre-commit with linting by flake8 and black, both of which are configured to match the opinionated styling that you'll find in Open edX repositories
 * pip configuration, requirements, constraints, setup.py, pyproject.toml
 * How to bundle multiple plugins in a single pip package
 * How to redirect Open edX urls in lms and cms to endpoints created in this plugin
@@ -27,13 +27,13 @@ Technical features that are showcased in this repo include:
 * Python environment variables
 * Waffle flags
 
-## Plugins
+## Open edX Plugins in this Repository
 
 ### openedx_plugin
 
 Demonstrates how to create an all-in-one Open edX plugin, with a heterogeneous collections of random custom features, including:
 
-* A custom third party auth [Oauth2 provider](./openedx_plugin/wordpress_oauth2_backend.py).
+* A custom third party authentication [Oauth2 client backend](./openedx_plugin/wordpress_oauth2_backend.py).
 * Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
 * Extending the [login functionality](./openedx_plugin/student/session.py)
 * Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
