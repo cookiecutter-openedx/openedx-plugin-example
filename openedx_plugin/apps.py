@@ -126,6 +126,7 @@ class CustomPluginConfig(AppConfig):
     }
 
     def ready(self):
+        from . import signals  # pylint: disable=unused-import
         from .version import __version__
         from .waffle import waffle_switches, SIGNALS
         from .utils import PluginJSONEncoder

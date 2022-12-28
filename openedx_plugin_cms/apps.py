@@ -15,12 +15,7 @@ from openedx.core.djangoapps.plugins.constants import (
     SettingsType,
 )
 
-from .version import __version__
-from .waffle import waffle_switches
-
 log = logging.getLogger(__name__)
-
-log.info("openedx_plugin_cms %s", __version__)
 
 
 class CustomPluginCMSConfig(AppConfig):
@@ -66,8 +61,15 @@ class CustomPluginCMSConfig(AppConfig):
         Connect handlers to signals.
         """
         from . import signals  # pylint: disable=unused-import
+        from .version import __version__
+        from .waffle import waffle_switches
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
+        log.info(
+            "{label} {waffle_switches} waffle switches detected.".format(
+                label=self.label, waffle_switches=len(waffle_switches.keys())
+            )
+        )
         for switch in waffle_switches:
             if waffle_switches[switch]:
                 log.info("{label} WaffleSwitch {switch} is enabled.".format(label=self.label, switch=switch))
