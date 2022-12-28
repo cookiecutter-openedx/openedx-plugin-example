@@ -1,5 +1,10 @@
 """
-Configuration for the mobile_api Django application.
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           dec-2022
+
+usage:          Django app and Open edX plugin configuration
 """
 import logging
 
