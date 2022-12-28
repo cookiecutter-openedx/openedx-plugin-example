@@ -1,3 +1,11 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           dec-2022
+
+usage:          custom Django models for openedx_plugin
+"""
 from django.db import models
 from django.utils.translation import ugettext as _
 

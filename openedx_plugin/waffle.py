@@ -1,3 +1,13 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           feb-2022
+
+usage:          custom Waffle Switches to use as feature toggles
+                for openedx_plugin.
+                see https://waffle.readthedocs.io/en/stable/
+"""
 from edx_toggles.toggles import WaffleSwitch
 
 WAFFLE_NAMESPACE = "openedx_plugin"

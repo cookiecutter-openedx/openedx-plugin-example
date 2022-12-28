@@ -1,10 +1,11 @@
 """
-Written by: Lawrence McDaniel
-            https://lawrencemcdaniel.com
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
 
-Date:   Feb-2022
+date:           feb-2022
 
-Usage:  To enhance the behavior of the life cycle of the user session
+usage:          listen for Django Signals published by Open edX
+                see https://docs.djangoproject.com/en/4.1/topics/signals/
 """
 import json
 import logging

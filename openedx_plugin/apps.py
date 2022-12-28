@@ -1,8 +1,10 @@
 """
-Lawrence McDaniel - https://lawrencemcdaniel.com
-Feb-2022
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
 
-example plugin for Open edX
+date:           dec-2022
+
+usage:          Django app and Open edX plugin configuration
 """
 import json
 import logging
