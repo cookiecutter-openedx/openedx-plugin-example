@@ -19,6 +19,7 @@ from .waffle import waffle_switches, SIGNALS
 
 
 log = logging.getLogger(__name__)
+log.info("openedx_plugin.signals loaded")
 
 
 def signals_enabled() -> bool:

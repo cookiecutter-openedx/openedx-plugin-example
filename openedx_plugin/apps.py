@@ -133,6 +133,11 @@ class CustomPluginConfig(AppConfig):
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
         log.info(
+            "{label} found the following Django signals: {signals}".format(
+                label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
+            )
+        )
+        log.info(
             "{label} {waffle_switches} waffle switches detected.".format(
                 label=self.label, waffle_switches=len(waffle_switches.keys())
             )
@@ -142,9 +147,3 @@ class CustomPluginConfig(AppConfig):
                 log.info("{label} WaffleSwitch {switch} is enabled.".format(label=self.label, switch=switch))
             else:
                 log.warning("{label} WaffleSwitch {switch} is not enabled.".format(label=self.label, switch=switch))
-        if waffle_switches[SIGNALS]:
-            log.info(
-                "{label} is listening for the following signals: {signals}".format(
-                    label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
-                )
-            )
