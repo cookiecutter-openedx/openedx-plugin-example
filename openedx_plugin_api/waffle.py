@@ -37,14 +37,24 @@ API_STUDENT = f"{WAFFLE_NAMESPACE}.student"
 API_STUDENT_WAFFLE = WaffleSwitch(API_STUDENT, module_name=__name__)
 
 
+def is_enabled(switch: WaffleSwitch) -> bool:
+    try:
+        return switch.is_enabled()
+    except Exception:
+        # to resolve a race condition during application launch.
+        # the waffle_switches are inspected before the db service
+        # has initialized.
+        return False
+
+
 waffle_switches = {
-    OVERRIDE_MOBILE_USER_API_URL: OVERRIDE_MOBILE_USER_API_URL_WAFFLE.is_enabled(),
-    API_META: API_META_WAFFLE.is_enabled(),
-    API_USERS: API_USERS_WAFFLE.is_enabled(),
-    API_TOKEN: API_TOKEN_WAFFLE.is_enabled(),
-    API_ENROLLMENT: API_ENROLLMENT_WAFFLE.is_enabled(),
-    API_ASSOCIATE: API_PERMISSIONS_WAFFLE.is_enabled(),
-    API_PERMISSIONS: API_PERMISSIONS_WAFFLE.is_enabled(),
-    API_COURSE: API_COURSE_WAFFLE.is_enabled(),
-    API_STUDENT: API_STUDENT_WAFFLE.is_enabled(),
+    OVERRIDE_MOBILE_USER_API_URL: is_enabled(OVERRIDE_MOBILE_USER_API_URL_WAFFLE),
+    API_META: is_enabled(API_META_WAFFLE),
+    API_USERS: is_enabled(API_USERS_WAFFLE),
+    API_TOKEN: is_enabled(API_TOKEN_WAFFLE),
+    API_ENROLLMENT: is_enabled(API_ENROLLMENT_WAFFLE),
+    API_ASSOCIATE: is_enabled(API_PERMISSIONS_WAFFLE),
+    API_PERMISSIONS: is_enabled(API_PERMISSIONS_WAFFLE),
+    API_COURSE: is_enabled(API_COURSE_WAFFLE),
+    API_STUDENT: is_enabled(API_STUDENT_WAFFLE),
 }

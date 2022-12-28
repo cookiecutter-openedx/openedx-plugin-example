@@ -11,6 +11,17 @@ WAFFLE_NAMESPACE = "openedx_plugin_cms"
 AUDIT_REPORT = f"{WAFFLE_NAMESPACE}.audit_report"
 AUDIT_REPORT_WAFFLE = WaffleSwitch(AUDIT_REPORT, module_name=__name__)
 
+
+def is_enabled(switch: WaffleSwitch) -> bool:
+    try:
+        return switch.is_enabled()
+    except Exception:
+        # to resolve a race condition during application launch.
+        # the waffle_switches are inspected before the db service
+        # has initialized.
+        return False
+
+
 waffle_switches = {
-    AUDIT_REPORT: AUDIT_REPORT_WAFFLE.is_enabled(),
+    AUDIT_REPORT: is_enabled(AUDIT_REPORT_WAFFLE),
 }

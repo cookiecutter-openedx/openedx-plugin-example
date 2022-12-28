@@ -58,6 +58,9 @@ def is_enabled(switch: WaffleSwitch) -> bool:
     try:
         return switch.is_enabled()
     except Exception:
+        # to resolve a race condition during application launch.
+        # the waffle_switches are inspected before the db service
+        # has initialized.
         return False
 
 
