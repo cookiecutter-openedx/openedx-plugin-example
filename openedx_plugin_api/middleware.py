@@ -1,14 +1,20 @@
+"""
+written by: Lawrence McDaniel
+            https://lawrencemcdaniel.com
+
+date:       dec-2022
+
+usage:      Override select url end points defined in lms.urls.py
+"""
 import logging
 
 from django.shortcuts import redirect
-from django.conf import settings
 
-from edx_toggles.toggles import WaffleSwitch
+from .waffle import waffle_switches, OVERRIDE_MOBILE_USER_API_URL
 
 log = logging.getLogger(__name__)
 
-# define a Waffle flag for toggling whether to override the stock openedx api functionality
-OVERRIDE_OPENEDX_API_SWITCH = WaffleSwitch('openedx_plugin_example.override_openedx_api', "openedx_plugin_api")
+MOBILE_USER_API_URL = "/api/mobile/v1/users"
 
 
 class APIRedirectMiddleware:
@@ -16,15 +22,16 @@ class APIRedirectMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # require a Waffle flag to enable overrides of the stock openedx api functionality
-        if not OVERRIDE_OPENEDX_API_SWITCH.is_enabled:
-            return self.get_response(request)
 
-        if request.path.startswith("/path/to/api/endpoint-to-override"):
+        if request.path.startswith(MOBILE_USER_API_URL) and waffle_switches[OVERRIDE_MOBILE_USER_API_URL]:
             log.info(
                 "openedx_plugin_api.middleware.APIRedirectMiddleware.__call__() redirecting host: {host} path: {path}".format(
                     host=request.META["HTTP_HOST"], path=request.path
                 )
             )
-            return redirect("/auth/login/custom-oauth/")
+            return redirect("/openedx_plugin/api/mobile/user")
+
+        # add more redirects here ...
+
+        # the default response is whatever originally arrived to us
         return self.get_response(request)

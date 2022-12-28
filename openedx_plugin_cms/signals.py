@@ -24,7 +24,11 @@ from opaque_keys.edx.keys import CourseKey
 from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 # this repo
-from .auditor import eval_course_block_changes, write_log_delete_course, write_log_delete_item
+from .auditor import (
+    eval_course_block_changes,
+    write_log_delete_course,
+    write_log_delete_item,
+)
 from .utils import get_user
 
 log = logging.getLogger(__name__)

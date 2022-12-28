@@ -4,18 +4,18 @@ Oct-2021
 
 CMS App
 """
-from __future__ import absolute_import, unicode_literals
 import logging
 
 from django.apps import AppConfig
 
-from openedx.core.djangoapps.plugins.constants import PluginURLs, PluginSettings, ProjectType, SettingsType
-
-from .version import __version__
+from openedx.core.djangoapps.plugins.constants import (
+    PluginURLs,
+    PluginSettings,
+    ProjectType,
+    SettingsType,
+)
 
 log = logging.getLogger(__name__)
-
-log.info("openedx_plugin_cms %s", __version__)
 
 
 class CustomPluginCMSConfig(AppConfig):
@@ -61,5 +61,18 @@ class CustomPluginCMSConfig(AppConfig):
         Connect handlers to signals.
         """
         from . import signals  # pylint: disable=unused-import
+        from .version import __version__
+        from .waffle import waffle_switches, is_ready
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
+        log.info(
+            "{label} {waffle_switches} waffle switches detected.".format(
+                label=self.label, waffle_switches=len(waffle_switches.keys())
+            )
+        )
+        if is_ready():
+            for switch in waffle_switches:
+                if waffle_switches[switch]:
+                    log.info("WaffleSwitch {switch} is enabled.".format(switch=switch))
+                else:
+                    log.warning("WaffleSwitch {switch} is not enabled.".format(switch=switch))

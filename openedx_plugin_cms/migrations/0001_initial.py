@@ -25,20 +25,39 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="CourseChangeLog",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 (
                     "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="created"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
                     "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="modified"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
-                ("operation", models.CharField(choices=[("u", "Upsert"), ("d", "Delete")], default="u", max_length=1)),
+                (
+                    "operation",
+                    models.CharField(
+                        choices=[("u", "Upsert"), ("d", "Delete")],
+                        default="u",
+                        max_length=1,
+                    ),
+                ),
                 (
                     "location",
                     opaque_keys.edx.django.models.UsageKeyField(
@@ -68,7 +87,10 @@ class Migration(migrations.Migration):
                         verbose_name="LMS URL",
                     ),
                 ),
-                ("visible", models.BooleanField(default=True, verbose_name="Is Visible to Students")),
+                (
+                    "visible",
+                    models.BooleanField(default=True, verbose_name="Is Visible to Students"),
+                ),
                 (
                     "category",
                     models.CharField(
@@ -141,10 +163,16 @@ class Migration(migrations.Migration):
                 (
                     "edit_info",
                     models.CharField(
-                        blank=True, help_text="JSON dict of edit tracking info", max_length=255, null=True
+                        blank=True,
+                        help_text="JSON dict of edit tracking info",
+                        max_length=255,
+                        null=True,
                     ),
                 ),
-                ("source_version", opaque_keys.edx.django.models.UsageKeyField(blank=True, max_length=255, null=True)),
+                (
+                    "source_version",
+                    opaque_keys.edx.django.models.UsageKeyField(blank=True, max_length=255, null=True),
+                ),
                 (
                     "update_version",
                     opaque_keys.edx.django.models.UsageKeyField(
@@ -172,16 +200,25 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ("original_usage_version", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "original_usage_version",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
                 ("release_date", models.DateTimeField(blank=True, null=True)),
                 (
                     "published_on",
-                    models.DateTimeField(blank=True, help_text="Datetime when this XBlock was published.", null=True),
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="Datetime when this XBlock was published.",
+                        null=True,
+                    ),
                 ),
                 (
                     "edited_on",
                     models.DateTimeField(
-                        blank=True, help_text="Datetime when this XBlock's fields last changed.", null=True
+                        blank=True,
+                        help_text="Datetime when this XBlock's fields last changed.",
+                        null=True,
                     ),
                 ),
                 (

@@ -1,4 +1,11 @@
-from __future__ import absolute_import
+"""
+written by: Lawrence McDaniel
+            https://lawrencemcdaniel.com
+
+date:       jun-2019
+
+usage:      implements a simple REST API using Django RestFramework
+"""
 from rest_framework import viewsets
 
 # this repo

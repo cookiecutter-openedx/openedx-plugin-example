@@ -113,7 +113,12 @@ def student_dashboard(request):
                     )
 
                 if course.has_started():
-                    return redirect(reverse("openedx.course_experience.course_home", kwargs={"course_id": course_key}))
+                    return redirect(
+                        reverse(
+                            "openedx.course_experience.course_home",
+                            kwargs={"course_id": course_key},
+                        )
+                    )
                 else:
                     log.info(
                         "student_dashboard() course {enroll_in} has not yet started. Redirecting the user to their dashboard.".format(

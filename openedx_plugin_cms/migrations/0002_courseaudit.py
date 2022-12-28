@@ -19,17 +19,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="CourseAudit",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 (
                     "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="created"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
                     "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="modified"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
                 (
@@ -156,7 +168,10 @@ class Migration(migrations.Migration):
                         verbose_name="Problem Weight",
                     ),
                 ),
-                ("m_iframe_external_url", models.URLField(blank=True, null=True, verbose_name="iFrame external url")),
+                (
+                    "m_iframe_external_url",
+                    models.URLField(blank=True, null=True, verbose_name="iFrame external url"),
+                ),
                 (
                     "n_asset_type",
                     models.CharField(
@@ -167,8 +182,14 @@ class Migration(migrations.Migration):
                         verbose_name="Asset Type",
                     ),
                 ),
-                ("o_unit_url", models.URLField(blank=True, null=True, verbose_name="LMS URL")),
-                ("p_studio_url", models.URLField(blank=True, null=True, verbose_name="Studio URL")),
+                (
+                    "o_unit_url",
+                    models.URLField(blank=True, null=True, verbose_name="LMS URL"),
+                ),
+                (
+                    "p_studio_url",
+                    models.URLField(blank=True, null=True, verbose_name="Studio URL"),
+                ),
                 (
                     "q_xml_filename",
                     models.CharField(
