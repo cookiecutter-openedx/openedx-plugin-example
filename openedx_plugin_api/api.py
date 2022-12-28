@@ -1,3 +1,12 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           sep-2021
+
+usage:          Example custom REST API leveraging misc functionality from
+                Open edX repos.
+"""
 import os
 import json
 

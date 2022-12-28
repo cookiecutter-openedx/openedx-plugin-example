@@ -1,3 +1,12 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           sep-2021
+
+usage:          custom LMS url endpoints for
+                openedx_plugin_api plugin
+"""
 from django.urls import path
 
 from . import api

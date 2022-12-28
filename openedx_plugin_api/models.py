@@ -1,3 +1,12 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           sep-2021
+
+usage:          example custom Django model for
+                openedx_plugin_api plugin
+"""
 from django.db import models
 
 

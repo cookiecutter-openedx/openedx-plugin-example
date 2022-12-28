@@ -1,3 +1,12 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           sep-2021
+
+usage:          Django app and Open edX plugin configuration for
+                openedx_plugin_api plugin
+"""
 import logging
 
 from django.apps import AppConfig
