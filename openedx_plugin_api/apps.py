@@ -47,7 +47,7 @@ class CustomPluginAPIConfig(AppConfig):
     def ready(self):
         from . import signals  # pylint: disable=unused-import
         from .version import __version__
-        from .waffle import waffle_switches
+        from .waffle import waffle_switches, is_ready
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
         log.info(
@@ -55,8 +55,9 @@ class CustomPluginAPIConfig(AppConfig):
                 label=self.label, waffle_switches=len(waffle_switches.keys())
             )
         )
-        for switch in waffle_switches:
-            if waffle_switches[switch]:
-                log.info("{label} WaffleSwitch {switch} is enabled.".format(label=self.label, switch=switch))
-            else:
-                log.warning("{label} WaffleSwitch {switch} is not enabled.".format(label=self.label, switch=switch))
+        if is_ready():
+            for switch in waffle_switches:
+                if waffle_switches[switch]:
+                    log.info("WaffleSwitch {switch} is enabled.".format(switch=switch))
+                else:
+                    log.warning("WaffleSwitch {switch} is not enabled.".format(switch=switch))
