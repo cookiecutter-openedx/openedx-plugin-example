@@ -2,15 +2,7 @@
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-A curated collection of code examples for extending the functionality of an Open edX installation using its built-in plugin architecture. Contains the following code examples:
-
-* Extending Course Management Studio functionality with this [custom report](openedx_plugin_cms/README.md). Demonstrates the correct practices for adding custom url endpoints to Studio, advances usage of Mako templating within a plugin, and how to programatically iterate and introspect course content. Also includes a custom Django model, and caching.
-* Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
-* Extending the [login functionality](./openedx_plugin/student/session.py)
-* Implementing a [custom api](./openedx_plugin_api/README.md) built from snippets of Open edX's built-in rest api libraries.
-* Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
-* Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
-* Create a custom third party auth [Oauth2 provider](./openedx_plugin_api/custom_oauth2_backend.py).
+A curated collection of code examples for extending the functionality of an Open edX installation using its built-in plugin architecture.
 
 Technical features that are showcased in this repo include:
 
@@ -35,6 +27,51 @@ Technical features that are showcased in this repo include:
 * Python environment variables
 * Waffle flags
 
+## Plugins
+
+### openedx_plugin
+
+Demonstrates how to create an all-in-one Open edX plugin, with a heterogeneous collections of random custom features, including:
+
+* A custom third party auth [Oauth2 provider](./openedx_plugin/wordpress_oauth2_backend.py).
+* Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
+* Extending the [login functionality](./openedx_plugin/student/session.py)
+* Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
+* Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
+
+### openedx_plugin_api
+
+Implements a full-featured [REST API](./openedx_plugin_api/README.md) which is built from snippets of Open edX's built-in rest api libraries. Demonstrates the following:
+
+* Best practices with Django RestFramework for Open edX
+* Adding custom URL endpoints to LMS
+* Adding Django Admin views
+* Creating custom Django models for your plugin
+* How to create custom entries in the openedx app log
+* How to leverage Django Signals to create customized event-driven features
+* How to implement Waffle Switches to control optional features at run-time
+
+### openedx_plugin_cms
+
+Implements a [custom course audit report](openedx_plugin_cms/README.md) in Course Management Studio that depends on a backend Python process to iterate the course content. This process is highly instructive about the Open edX course object hierarchy. This plugin demonstrates the following:
+
+* Adding custom URL endpoints to Course Management Studio
+* Adding Django Admin views
+* Adding custom manage.py commands to CMS
+* Creating custom Django models for your plugin
+* How to create custom entries in the openedx app log
+* How to leverage Django Signals to create customized event-driven features
+* How to implement Waffle Switches to control optional features at run-time
+* Advanced usage of Mako templating within an Open edX plugin
+* How to programatically iterate and inspect course content
+* How to leverage Open edX object caching
+
+### openedx_plugin_mobile_api
+
+Implements a modified version of the Open edX LMS Mobile REST API. This plugin illustrates best practices for modifying edx-platform source code without actually forking this repository. Demonstrates the following:
+
+* How to implement Django middleware to modify the destination of existing LMS url endpoints
+* Best practices with Django RestFramework for Open edX
 
 ## Getting Started
 
@@ -120,13 +157,4 @@ export OPENBLAS=/opt/homebrew/opt/openblas/lib/
 export LDFLAGS="-L/opt/homebrew/opt/openblas/lib -L/opt/homebrew/opt/mysql-client/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/openblas/include -I/opt/homebrew/opt/mysql-client/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/openblas/lib/pkgconfig /opt/homebrew/opt/mysql-client/lib/pkgconfig"
-```
-
-
-### Shell Plus and iPython
-
-The example_edxapi module adds ipython and django-extensions to the stack.  It is then possible to get an enhanced shell via:
-
-```bash
-tutor local exec lms ./manage.py lms shell_plus
 ```

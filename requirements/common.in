@@ -17,5 +17,6 @@
 
 -c ./constraints.txt
 
-django-environ      # used in example_grades for overrides to openedx_plugin API
-django-extensions   # harel's recommended dev tools
+django-environ                  # used in example_grades for overrides to openedx_plugin API
+django-extensions               # harel's recommended dev tools
+edx-oauth2-wordpress-backend    # lawrence's wordpress backend for SSO

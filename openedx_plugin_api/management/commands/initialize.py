@@ -3,14 +3,15 @@ import logging
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User
 from oauth2_provider.models import Application
 from openedx.core.djangoapps.api_admin.models import (
     ApiAccessConfig,
     ApiAccessRequest,
 )
 
+User = get_user_model()
 logger = logging.getLogger(__name__)
+
 PLUGIN_API_USER_NAME = os.environ.get("PLUGIN_API_USER_NAME")
 PLUGIN_API_USER_EMAIL = os.environ.get("PLUGIN_API_USER_EMAIL")
 PLUGIN_API_USER_PASSWORD = os.environ.get("PLUGIN_API_USER_PASSWORD")
@@ -33,7 +34,7 @@ class Command(BaseCommand):
         ):
             raise Exception("Missing required parameters")
         logger.info("Assert API user")
-        user, created = get_user_model().objects.get_or_create(
+        user, created = User.objects.get_or_create(
             username=PLUGIN_API_USER_NAME, defaults={"email": PLUGIN_API_USER_EMAIL}
         )
         user.set_password(PLUGIN_API_USER_PASSWORD)

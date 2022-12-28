@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 MOBILE_USER_API_URL = "/api/mobile/v1/users"
 
 
-class APIRedirectMiddleware:
+class MobileApiRedirectMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
