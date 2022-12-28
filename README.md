@@ -2,7 +2,7 @@
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-A curated collection of code examples for extending the functionality of an Open edX installation using its built-in plugin architecture.
+A curated collection of code samples for extending the functionality of an Open edX installation using its built-in plugin architecture.
 
 Technical features that are showcased in this repo include:
 
@@ -31,7 +31,7 @@ Technical features that are showcased in this repo include:
 
 ### openedx_plugin
 
-Demonstrates how to create an all-in-one Open edX plugin, with a heterogeneous collections of random custom features, including:
+Demonstrates how to create an all-in-one Open edX plugin, with a heterogeneous collection of custom feature additions, including:
 
 * A custom third party authentication [Oauth2 client backend](./openedx_plugin/wordpress_oauth2_backend.py).
 * Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
