@@ -1,3 +1,13 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           feb-2022
+
+usage:          custom Waffle Switches to use as feature toggles
+                for openedx_plugin.
+                see https://waffle.readthedocs.io/en/stable/
+"""
 from edx_toggles.toggles import WaffleSwitch
 
 WAFFLE_NAMESPACE = "openedx_plugin"
@@ -55,25 +65,29 @@ SIGNALS_WAFFLE = WaffleSwitch(SIGNALS, module_name=__name__)
 
 
 def is_ready():
+    """
+    try to get the status of any arbitrary WaffleSwitch. If it doesn't raise an
+    error then we're ready.
+
+    This is intended to be used as a way to reduce console logging output during
+    application startup, when WaffleSwitch states cannot yet be read, as the
+    db service is not yet up.
+    """
     try:
-        # try to get the status of any arbitrary WaffleSwitch
-        # if it doesn't raise an error then we're ready.
         SIGNALS_WAFFLE.is_enabled()
         return True
     except Exception:
-        # to resolve a race condition during application launch.
-        # the waffle_switches are inspected before the db service
-        # has initialized.
         return False
 
 
 def is_enabled(switch: WaffleSwitch) -> bool:
+    """
+    To resolve a race condition during application launch. The waffle_switches
+    are inspected before the db service has initialized.
+    """
     try:
         return switch.is_enabled()
     except Exception:
-        # to resolve a race condition during application launch.
-        # the waffle_switches are inspected before the db service
-        # has initialized.
         return False
 
 

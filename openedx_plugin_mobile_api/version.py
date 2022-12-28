@@ -2,8 +2,8 @@
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
 
-date:           sep-2021
+date:           dec-2022
 
-usage:          version control for openedx_plugin_api plugin
+usage:          semantic version control for openedx_plugin_mobile_api
 """
 __version__ = "0.0.1"

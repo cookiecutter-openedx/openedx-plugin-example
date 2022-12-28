@@ -1,3 +1,11 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           feb-2022
+
+usage:          utility and convenience functions for openedx_plugin
+"""
 import json
 from dateutil.parser import parse, ParserError
 from unittest.mock import MagicMock

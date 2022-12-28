@@ -1,3 +1,11 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           dec-2022
+
+usage:          register the custom Django models in LMS Django Admin
+"""
 from django.contrib import admin
 from .models import Configuration, Locale, MarketingSites
 

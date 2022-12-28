@@ -1,6 +1,16 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           sep-2021
+
+usage:          Example custom REST API leveraging misc functionality from
+                Open edX repos.
+"""
 import os
 import json
 
+from django.contrib.auth import get_user_model
 from django.http.response import HttpResponseNotFound
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
 from openedx.core.lib.api.view_utils import view_auth_classes
@@ -12,7 +22,7 @@ from social_django.models import UserSocialAuth
 
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.enrollments import api
-from common.djangoapps.student.models import CourseEnrollment, User
+from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseDataResearcherRole
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from common.djangoapps.course_modes.models import CourseMode
@@ -35,6 +45,8 @@ from openedx.core.djangoapps.django_comment_common.models import (
 from .utils import get_course_info
 from .models import CoursePoints
 from .version import __version__
+
+User = get_user_model()
 
 
 class ResponseSuccess(Response):

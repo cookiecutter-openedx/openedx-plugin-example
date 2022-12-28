@@ -1,6 +1,16 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           dec-2022
+
+usage:          custom Waffle Switch to use as feature toggles
+                for openedx_plugin_mobile_api.
+                see https://waffle.readthedocs.io/en/stable/
+"""
 from edx_toggles.toggles import WaffleSwitch
 
-WAFFLE_NAMESPACE = "openedx_plugin_cms"
+WAFFLE_NAMESPACE = "openedx_plugin_mobile_api"
 # .. toggle_name: openedx_plugin_api.OVERRIDE_MOBILE_USER_API_URL_WAFFLE
 # .. toggle_implementation: WaffleSwitch
 # .. toggle_default: False
@@ -8,8 +18,8 @@ WAFFLE_NAMESPACE = "openedx_plugin_cms"
 # .. toggle_warnings:
 # .. toggle_use_cases:
 # .. toggle_creation_date: 2022-12-27
-AUDIT_REPORT = f"{WAFFLE_NAMESPACE}.audit_report"
-AUDIT_REPORT_WAFFLE = WaffleSwitch(AUDIT_REPORT, module_name=__name__)
+OVERRIDE_MOBILE_USER_API_URL = f"{WAFFLE_NAMESPACE}.override_mobile_user_api_url"
+OVERRIDE_MOBILE_USER_API_URL_WAFFLE = WaffleSwitch(OVERRIDE_MOBILE_USER_API_URL, module_name=__name__)
 
 
 def is_ready():
@@ -22,7 +32,7 @@ def is_ready():
     db service is not yet up.
     """
     try:
-        AUDIT_REPORT_WAFFLE.is_enabled()
+        OVERRIDE_MOBILE_USER_API_URL_WAFFLE.is_enabled()
         return True
     except Exception:
         return False
@@ -40,5 +50,5 @@ def is_enabled(switch: WaffleSwitch) -> bool:
 
 
 waffle_switches = {
-    AUDIT_REPORT: is_enabled(AUDIT_REPORT_WAFFLE),
+    OVERRIDE_MOBILE_USER_API_URL: is_enabled(OVERRIDE_MOBILE_USER_API_URL_WAFFLE),
 }

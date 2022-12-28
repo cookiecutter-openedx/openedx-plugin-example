@@ -1,8 +1,11 @@
 """
-Lawrence McDaniel - https://lawrencemcdaniel.com
-Sep-2021
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
 
-Listen for signals published by edxapp.
+date:           sep-2021
+
+usage:          Listen for Django signals published by edxapp
+                see https://docs.djangoproject.com/en/4.1/topics/signals/
 """
 
 # Python

@@ -1,3 +1,12 @@
+"""
+written by:     Lawrence McDaniel
+                https://lawrencemcdaniel.com
+
+date:           sep-2021
+
+usage:          utility and convenience functions for
+                openedx_plugin_api plugin
+"""
 from datetime import datetime
 from pytz import UTC
 import re

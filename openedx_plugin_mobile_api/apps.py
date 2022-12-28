@@ -2,10 +2,9 @@
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
 
-date:           sep-2021
+date:           dec-2022
 
-usage:          Django app and Open edX plugin configuration for
-                openedx_plugin_api plugin
+usage:          Django app and Open edX plugin configuration
 """
 import logging
 
@@ -18,9 +17,17 @@ from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 log = logging.getLogger(__name__)
 
 
-class CustomPluginAPIConfig(AppConfig):
-    name = "openedx_plugin_api"
-    label = "openedx_plugin_api"
+class MobileApiConfig(AppConfig):
+    """
+    Lawrence McDaniel
+    https://lawrencemcdaniel.com
+
+    Configuration class for the Turn The Bus customized mobile_api Django application.
+    Spawned from https://github.com/openedx/edx-platform/tree/master/lms/djangoapps/mobile_api
+    """
+
+    name = "openedx_plugin_mobile_api"
+    verbose_name = "Modified LMS Mobile REST API Endpoint"
 
     # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html
     plugin_app = {
@@ -35,7 +42,7 @@ class CustomPluginAPIConfig(AppConfig):
         PluginURLs.CONFIG: {
             ProjectType.LMS: {
                 PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^openedx_plugin/api/",
+                PluginURLs.REGEX: "^openedx_plugin/api/mobile/",
                 PluginURLs.RELATIVE_PATH: "urls",
             },
         },
@@ -48,13 +55,12 @@ class CustomPluginAPIConfig(AppConfig):
         # Refer to settings/common.py and settings.production.py for example implementation patterns.
         PluginSettings.CONFIG: {
             ProjectType.LMS: {
-                SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: "settings.production"},
+                SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: "settings.common"},
             },
         },
     }
 
     def ready(self):
-        from . import signals  # pylint: disable=unused-import
         from .version import __version__
         from .waffle import waffle_switches, is_ready
 
