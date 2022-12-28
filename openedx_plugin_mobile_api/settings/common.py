@@ -8,6 +8,8 @@ from path import Path as path
 import environ
 import os
 
+from ..waffle import waffle_switches, OVERRIDE_MOBILE_USER_API_URL
+
 # path to this file.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -25,6 +27,7 @@ def plugin_settings(settings):
 
     see: https://stackoverflow.com/questions/56129708/how-to-force-redirect-uri-to-use-https-with-python-social-app
     """
-    middleware = getattr(settings, "MIDDLEWARE", None)
-    if middleware:
-        settings.MIDDLEWARE.append("openedx_plugin_mobile_api.middleware.MobileApiRedirectMiddleware")
+    if waffle_switches[OVERRIDE_MOBILE_USER_API_URL]:
+        middleware = getattr(settings, "MIDDLEWARE", None)
+        if middleware:
+            settings.MIDDLEWARE.append("openedx_plugin_mobile_api.middleware.MobileApiRedirectMiddleware")
