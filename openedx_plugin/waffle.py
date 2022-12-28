@@ -54,10 +54,17 @@ SIGNALS = f"{WAFFLE_NAMESPACE}.signals"
 SIGNALS_WAFFLE = WaffleSwitch(SIGNALS, module_name=__name__)
 
 
+def is_enabled(switch: WaffleSwitch) -> bool:
+    try:
+        return switch.is_enabled()
+    except Exception:
+        return False
+
+
 waffle_switches = {
-    SIMPLE_REST_API: SIMPLE_REST_API_WAFFLE.is_enabled(),
-    OVERRIDE_OPENEDX_DJANGO_LOGIN: OVERRIDE_OPENEDX_DJANGO_LOGIN_WAFFLE.is_enabled(),
-    AUTOMATED_ENROLLMENT: AUTOMATED_ENROLLMENT_WAFFLE.is_enabled(),
-    MARKETING_REDIRECTOR: MARKETING_REDIRECTOR_WAFFLE.is_enabled(),
-    SIGNALS: SIGNALS_WAFFLE.is_enabled(),
+    SIMPLE_REST_API: is_enabled(SIMPLE_REST_API_WAFFLE),
+    OVERRIDE_OPENEDX_DJANGO_LOGIN: is_enabled(OVERRIDE_OPENEDX_DJANGO_LOGIN_WAFFLE),
+    AUTOMATED_ENROLLMENT: is_enabled(AUTOMATED_ENROLLMENT_WAFFLE),
+    MARKETING_REDIRECTOR: is_enabled(MARKETING_REDIRECTOR_WAFFLE),
+    SIGNALS: is_enabled(SIGNALS_WAFFLE),
 }
