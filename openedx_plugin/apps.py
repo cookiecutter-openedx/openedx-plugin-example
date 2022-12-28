@@ -133,7 +133,7 @@ class CustomPluginConfig(AppConfig):
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
         log.info(
             "{label} {waffle_switches} waffle switches detected.".format(
-                label=self.label, waffle_switches=waffle_switches.len()
+                label=self.label, waffle_switches=len(waffle_switches.keys())
             )
         )
         for switch in waffle_switches:
