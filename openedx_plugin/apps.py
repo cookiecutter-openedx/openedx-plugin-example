@@ -126,11 +126,12 @@ class CustomPluginConfig(AppConfig):
     }
 
     def ready(self):
-        # from .version import __version__
+        from .version import __version__
+
         # from .waffle import waffle_switches, SIGNALS
         # from .utils import PluginJSONEncoder
 
-        log.info("{label} version {version} is ready.".format(label=self.label, version="fix me"))
+        log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
         """
         log.info(
             "{label} {waffle_switches} waffle switches detected.".format(

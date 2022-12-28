@@ -14,8 +14,7 @@ from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 
 from openedx.core.djangoapps.user_authn.views.register import REGISTER_USER
-from openedx.core.djangoapps.plugins.constants import PluginSignals
-
+from django.core.exceptions import ImproperlyConfigured
 from .utils import serialize_course_key, PluginJSONEncoder, masked_dict
 from .waffle import waffle_switches, SIGNALS
 
@@ -24,7 +23,13 @@ log = logging.getLogger(__name__)
 
 
 def signals_enabled() -> bool:
-    return waffle_switches[SIGNALS]
+    try:
+        return waffle_switches[SIGNALS]
+    except ImproperlyConfigured:
+        # to resolve a race condition during application launch.
+        # the waffle_switches are inspected before the db service
+        # has initialized.
+        return False
 
 
 """
