@@ -4,7 +4,7 @@ Feb-2022
 
 example plugin for Open edX
 """
-# import json
+import json
 import logging
 
 from django.apps import AppConfig
@@ -13,12 +13,8 @@ from django.apps import AppConfig
 from edx_django_utils.plugins import PluginSettings, PluginURLs
 from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType, PluginSignals
 
-from .version import __version__
-from .waffle import waffle_switches
 
-# from .utils import PluginJSONEncoder
-
-OPENEDX_SIGNALS = "openedx_events.learning.signals"
+# Signals (aka receivers) defined in https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py
 STUDENT_REGISTRATION_COMPLETED = "STUDENT_REGISTRATION_COMPLETED"
 SESSION_LOGIN_COMPLETED = "SESSION_LOGIN_COMPLETED"
 COURSE_ENROLLMENT_CREATED = "COURSE_ENROLLMENT_CREATED"
@@ -31,8 +27,22 @@ CERTIFICATE_REVOKED = "CERTIFICATE_REVOKED"
 COHORT_MEMBERSHIP_CHANGED = "COHORT_MEMBERSHIP_CHANGED"
 COURSE_DISCUSSIONS_CHANGED = "COURSE_DISCUSSIONS_CHANGED"
 
+OPENEDX_SIGNALS_PATH = "openedx_events.learning.signals"
+OPENEDX_SIGNALS = [
+    STUDENT_REGISTRATION_COMPLETED,
+    SESSION_LOGIN_COMPLETED,
+    COURSE_ENROLLMENT_CREATED,
+    COURSE_ENROLLMENT_CHANGED,
+    COURSE_UNENROLLMENT_COMPLETED,
+    # PERSISTENT_GRADE_SUMMARY_CHANGED,      mcdaniel dec-2022: missing from nutmeg.2
+    CERTIFICATE_CREATED,
+    CERTIFICATE_CHANGED,
+    CERTIFICATE_REVOKED,
+    COHORT_MEMBERSHIP_CHANGED,
+    COURSE_DISCUSSIONS_CHANGED,
+]
+
 log = logging.getLogger(__name__)
-log.info("openedx_plugin %s", __version__)
 
 
 class CustomPluginConfig(AppConfig):
@@ -66,49 +76,49 @@ class CustomPluginConfig(AppConfig):
                 PluginSignals.RECEIVERS: [
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: STUDENT_REGISTRATION_COMPLETED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + STUDENT_REGISTRATION_COMPLETED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + STUDENT_REGISTRATION_COMPLETED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: SESSION_LOGIN_COMPLETED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + SESSION_LOGIN_COMPLETED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + SESSION_LOGIN_COMPLETED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: COURSE_ENROLLMENT_CREATED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_ENROLLMENT_CREATED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + COURSE_ENROLLMENT_CREATED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: COURSE_ENROLLMENT_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_ENROLLMENT_CHANGED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + COURSE_ENROLLMENT_CHANGED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: COURSE_UNENROLLMENT_COMPLETED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_UNENROLLMENT_COMPLETED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + COURSE_UNENROLLMENT_COMPLETED,
                     },
                     # mcdaniel dec-2022: this is missing from nutmeg.2
                     #       COMING SOON?
                     # {
                     #    PluginSignals.RECEIVER_FUNC_NAME: PERSISTENT_GRADE_SUMMARY_CHANGED.lower(),
-                    #    PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + PERSISTENT_GRADE_SUMMARY_CHANGED,
+                    #    PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + PERSISTENT_GRADE_SUMMARY_CHANGED,
                     # },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_CREATED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_CREATED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + CERTIFICATE_CREATED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_CHANGED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + CERTIFICATE_CHANGED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: CERTIFICATE_REVOKED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + CERTIFICATE_REVOKED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + CERTIFICATE_REVOKED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: COHORT_MEMBERSHIP_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COHORT_MEMBERSHIP_CHANGED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + COHORT_MEMBERSHIP_CHANGED,
                     },
                     {
                         PluginSignals.RECEIVER_FUNC_NAME: COURSE_DISCUSSIONS_CHANGED.lower(),
-                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS + "." + COURSE_DISCUSSIONS_CHANGED,
+                        PluginSignals.SIGNAL_PATH: OPENEDX_SIGNALS_PATH + "." + COURSE_DISCUSSIONS_CHANGED,
                     },
                 ],
             }
@@ -116,6 +126,10 @@ class CustomPluginConfig(AppConfig):
     }
 
     def ready(self):
+        from .version import __version__
+        from .waffle import waffle_switches, SIGNALS
+        from .utils import PluginJSONEncoder
+
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
         log.info(
             "{label} {waffle_switches} waffle switches detected.".format(
@@ -127,9 +141,9 @@ class CustomPluginConfig(AppConfig):
                 log.info("{label} WaffleSwitch {switch} is enabled.".format(label=self.label, switch=switch))
             else:
                 log.warning("{label} WaffleSwitch {switch} is not enabled.".format(label=self.label, switch=switch))
-        # if signals_enabled():
-        #    log.info(
-        #        "{label} is listening for the following signals: {signals}".format(
-        #            label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
-        #        )
-        #    )
+        if waffle_switches[SIGNALS]:
+            log.info(
+                "{label} is listening for the following signals: {signals}".format(
+                    label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
+                )
+            )
