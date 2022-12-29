@@ -4,7 +4,7 @@ from ...waffle import waffle_init
 
 
 class Command(BaseCommand):
-    help = "Ensure that all WaffleSwitch objects are initialized"
+    help = "Verifies initialization records for all Django models in this plugin"
 
     def handle(self, *args, **options):
         waffle_init()

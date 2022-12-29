@@ -8,11 +8,21 @@ usage:          custom Waffle Switches to use as feature toggles for
                 openedx_plugin. see https://waffle.readthedocs.io/en/stable/
 """
 import logging
-from waffle import get_waffle_model
+
+try:
+    # only works for versions 3.x and later
+    from waffle import get_waffle_model
+
+    Switch = get_waffle_model("SWITCH_MODEL")
+except ImportError:
+    # for older versions of django-waffle
+    # in nutmeg.2 we're running django-waffle=2.4.1
+    #
+    # assumption: edX guys have not and will not subclass Switch
+    from waffle.models import Switch
 
 from edx_toggles.toggles import WaffleSwitch
 
-Switch = get_waffle_model("SWITCH_MODEL")
 log = logging.getLogger(__name__)
 
 WAFFLE_NAMESPACE = "openedx_plugin"
