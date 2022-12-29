@@ -117,6 +117,7 @@ def waffle_init():
     See https://waffle.readthedocs.io/en/stable/starting/configuring.html
     """
     from django.core.exceptions import AppRegistryNotReady
+    from django.core.exceptions import ObjectDoesNotExist
 
     try:
         # only works for versions 3.x and later
@@ -146,7 +147,12 @@ def waffle_init():
         return
 
     for switch_name, switch_object in waffle_switches.items():
-        this_switch = Switch.objects.get(name=switch_name)
+        try:
+            this_switch = Switch.objects.get(name=switch_name)
+        except ObjectDoesNotExist:
+            this_switch = None
+            pass
+
         if this_switch:
             log.info(
                 "WaffleSwitch {switch_name} was previously initialized {and_is_or_is_not} enabled.".format(
