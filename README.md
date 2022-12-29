@@ -11,6 +11,7 @@ Technical features that are showcased in this repo include:
 * pip configuration, requirements, constraints, setup.py, pyproject.toml
 * How to bundle multiple plugins in a single pip package
 * How to redirect Open edX urls in lms and cms to endpoints created in this plugin
+* How to automatically initialize Django model data during app startup
 * adding unit tests to plugin code
 * Django app setup
 * Open edX Django configuration settings
