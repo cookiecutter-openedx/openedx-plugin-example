@@ -1,13 +1,17 @@
 import os
 import logging
+
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
-from oauth2_provider.models import Application
+
 from openedx.core.djangoapps.api_admin.models import (
     ApiAccessConfig,
     ApiAccessRequest,
 )
+from oauth2_provider.models import Application
+
+from ...waffle import waffle_init
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
@@ -21,9 +25,11 @@ OPENEDX_COMPLETE_DOMAIN_NAME = os.environ.get("OPENEDX_COMPLETE_DOMAIN_NAME")
 
 
 class Command(BaseCommand):
-    help = "Bootstrap the Plugin API"
+    help = "Verifies initialization records for all Django models in this plugin"
 
     def handle(self, *args, **options):
+        waffle_init()
+
         if not all(
             [
                 PLUGIN_API_USER_EMAIL,

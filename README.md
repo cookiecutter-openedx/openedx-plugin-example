@@ -96,8 +96,10 @@ tutor local run cms ./manage.py cms makemigrations
 tutor local run cms ./manage.py cms migrate
 
 # 2. add configuration data to custom models
-tutor local run lms ./manage.py lms create_oauth_application_client_config
-tutor local run lms ./manage.py lms initialize
+tutor local run lms ./manage.py lms openedx_plugin_init
+tutor local run lms ./manage.py lms openedx_plugin_api_init
+tutor local run lms ./manage.py lms openedx_plugin_cms_init
+tutor local run lms ./manage.py lms openedx_plugin_mobile_api_init
 ```
 
 ### Notes About Django-Waffle
