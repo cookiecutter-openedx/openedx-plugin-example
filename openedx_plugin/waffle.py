@@ -9,18 +9,6 @@ usage:          custom Waffle Switches to use as feature toggles for
 """
 import logging
 
-try:
-    # only works for versions 3.x and later
-    from waffle import get_waffle_model
-
-    Switch = get_waffle_model("SWITCH_MODEL")
-except ImportError:
-    # for older versions of django-waffle
-    # in nutmeg.2 we're running django-waffle=2.4.1
-    #
-    # assumption: edX guys have not and will not subclass Switch
-    from waffle.models import Switch
-
 from edx_toggles.toggles import WaffleSwitch
 
 log = logging.getLogger(__name__)
@@ -128,11 +116,29 @@ def waffle_init():
     Open edX platform, which would be reckless on our part.
     See https://waffle.readthedocs.io/en/stable/starting/configuring.html
     """
+    from django.core.exceptions import AppRegistryNotReady
+
+    try:
+        # only works for versions 3.x and later
+        from waffle import get_waffle_model
+
+        Switch = get_waffle_model("SWITCH_MODEL")
+    except AppRegistryNotReady:
+        log.info("waffle app is not ready. Cannot continue")
+        return None
+    except ImportError:
+        # for older versions of django-waffle
+        # in nutmeg.2 we're running django-waffle=2.4.1
+        #
+        # assumption: edX guys have not and will not subclass Switch
+        from waffle.models import Switch
+
     log.info(
         "{plugin} {waffle_switches} waffle switches detected".format(
             plugin=WAFFLE_NAMESPACE, waffle_switches=len(waffle_switches.keys())
         )
     )
+
     if not is_ready():
         log.warning(
             "unable to verify initialization status of waffle switches. Try running manage.py lms openedx_plugin_init"
