@@ -118,6 +118,17 @@ def waffle_init():
     Open edX platform, which would be reckless on our part.
     See https://waffle.readthedocs.io/en/stable/starting/configuring.html
     """
+    log.info(
+        "{plugin} {waffle_switches} waffle switches detected".format(
+            plugin=WAFFLE_NAMESPACE, waffle_switches=len(waffle_switches.keys())
+        )
+    )
+    if not is_ready():
+        log.warning(
+            "unable to verify initialization status of waffle switches. Try running manage.py lms openedx_plugin_init"
+        )
+        return
+
     for switch_name, switch_object in waffle_switches.items():
         this_switch = Switch.objects.get(name=switch_name)
         if this_switch:

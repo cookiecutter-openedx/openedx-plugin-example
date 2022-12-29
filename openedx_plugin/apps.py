@@ -130,7 +130,7 @@ class CustomPluginConfig(AppConfig):
     def ready(self):
         from . import signals  # pylint: disable=unused-import
         from .version import __version__
-        from .waffle import waffle_switches, is_ready, waffle_init
+        from .waffle import waffle_init
         from .utils import PluginJSONEncoder
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
@@ -139,10 +139,4 @@ class CustomPluginConfig(AppConfig):
                 label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
             )
         )
-        log.info(
-            "{label} {waffle_switches} waffle switches detected.".format(
-                label=self.label, waffle_switches=len(waffle_switches.keys())
-            )
-        )
-        if is_ready():
-            waffle_init()
+        waffle_init()
