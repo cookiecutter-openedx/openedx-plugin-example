@@ -2,10 +2,6 @@
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-[![Open edX](https://avatars.githubusercontent.com/u/40179672)](https://openedx.org/)
-[![Tutor](https://overhang.io/static/img/tutor-logo.svg)](https://docs.tutor.overhang.io/)
-
-
 A curated collection of code samples for extending the functionality of an Open edX installation using its built-in plugin architecture.
 
 Technical features that are showcased in this repo include:
@@ -118,8 +114,8 @@ tutor local run cms ./manage.py cms openedx_plugin_cms_init
 
 * Use the same virtual environment that you use for edx-platform
 * Set your Python interpreter to 3.8x
-* install black: https://pypi.org/project/black/
-* install flake8: https://flake8.pycqa.org/en/latest/
+* install black: <https://pypi.org/project/black/>
+* install flake8: <https://flake8.pycqa.org/en/latest/>
 
 ```bash
 # Run these from within your edx-platform virtual environment
@@ -144,7 +140,7 @@ pre-commit install
 * run `black` on modified code before committing.
 * run `flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics`
 * run `flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics`
-* run `pre-commit run --all-files` before pushing. see: https://pre-commit.com/
+* run `pre-commit run --all-files` before pushing. see: <https://pre-commit.com/>
 
 #### edx-platform dependencies
 
