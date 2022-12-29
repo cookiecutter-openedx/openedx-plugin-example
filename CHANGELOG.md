@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.1] (2022-12-29)
+
+- add waffle_init() to waffle.py in each plugin
+- call waffle_init() from ready() in each app config
+- add manage.py init command to each plugin
+
 ## [0.1.0] (2022-12-28)
 
 - added openedx_plugin_api code sample
