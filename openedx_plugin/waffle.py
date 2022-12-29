@@ -156,7 +156,7 @@ def waffle_init():
         if this_switch:
             log.info(
                 "WaffleSwitch {switch_name} was previously initialized {and_is_or_is_not} enabled.".format(
-                    switch_name=switch_name, and_is_or_is_not="and is" if this_switch.is_enabled else "but is not"
+                    switch_name=switch_name, and_is_or_is_not="and is" if this_switch.active else "but is not"
                 )
             )
         else:
