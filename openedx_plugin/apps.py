@@ -130,7 +130,7 @@ class CustomPluginConfig(AppConfig):
     def ready(self):
         from . import signals  # pylint: disable=unused-import
         from .version import __version__
-        from .waffle import waffle_switches, is_ready
+        from .waffle import waffle_switches, is_ready, waffle_init
         from .utils import PluginJSONEncoder
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
@@ -145,6 +145,7 @@ class CustomPluginConfig(AppConfig):
             )
         )
         if is_ready():
+            waffle_init()
             for switch in waffle_switches:
                 if waffle_switches[switch]:
                     log.info("WaffleSwitch {switch} is enabled.".format(switch=switch))

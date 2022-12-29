@@ -8,7 +8,11 @@ usage:          custom Waffle Switches to use as feature toggles
                 for openedx_plugin.
                 see https://waffle.readthedocs.io/en/stable/
 """
+import logging
+
 from edx_toggles.toggles import WaffleSwitch
+
+log = logging.getLogger(__name__)
 
 WAFFLE_NAMESPACE = "openedx_plugin"
 
@@ -98,3 +102,31 @@ waffle_switches = {
     MARKETING_REDIRECTOR: is_enabled(MARKETING_REDIRECTOR_WAFFLE),
     SIGNALS: is_enabled(SIGNALS_WAFFLE),
 }
+
+
+def waffle_init():
+    """
+    Bootstrapper for the WaffleSwitch objects defined in this module. Iterate
+    all WaffleSwitch objects, create any that are missing. This is
+    called from apps.CustomPluginConfig.ready() to ensure that
+    WaffleSwitch objects exist in Django Admin for all switches.
+    """
+    from waffle import get_waffle_model
+
+    Switch = get_waffle_model("SWITCH_MODEL")
+
+    for waffle_switch_name, waffle_switch in waffle_switches.items():
+        this_switch = Switch.objects.get(name=waffle_switch_name)
+        if this_switch:
+            log.info(
+                "openedx_plugin.waffle.init() - WaffleSwitch Django model object found for {switch_name}".format(
+                    switch_name=waffle_switch_name
+                )
+            )
+        else:
+            Switch.objects.create(name=waffle_switch_name, active=False)
+            log.info(
+                "openedx_plugin.waffle.init() - created Django model object for WaffleSwitch {switch_name}".format(
+                    switch_name=waffle_switch_name
+                )
+            )
