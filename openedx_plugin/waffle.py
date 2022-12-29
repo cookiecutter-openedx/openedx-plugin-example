@@ -4,9 +4,8 @@ written by:     Lawrence McDaniel
 
 date:           feb-2022
 
-usage:          custom Waffle Switches to use as feature toggles
-                for openedx_plugin.
-                see https://waffle.readthedocs.io/en/stable/
+usage:          custom Waffle Switches to use as feature toggles for
+                openedx_plugin. see https://waffle.readthedocs.io/en/stable/
 """
 import logging
 
@@ -107,26 +106,28 @@ waffle_switches = {
 def waffle_init():
     """
     Bootstrapper for the WaffleSwitch objects defined in this module. Iterate
-    all WaffleSwitch objects, create any that are missing. This is
-    called from apps.CustomPluginConfig.ready() to ensure that
-    WaffleSwitch objects exist in Django Admin for all switches.
+    all WaffleSwitch objects, create any that are missing. This is called once
+    from apps.CustomPluginConfig.ready() during application launch to ensure
+    that WaffleSwitch objects exist in Django Admin for all switches.
+
+    Note that django-waffle actually includes a handy setting,
+    WAFFLE_CREATE_MISSING_FLAGS, that **could** do this for us automatically.
+    However, setting this flag would affect EVERY WaffleSwitch in the entire
+    Open edX platform, which would be reckless on our part.
+    See https://waffle.readthedocs.io/en/stable/starting/configuring.html
     """
     from waffle import get_waffle_model
 
     Switch = get_waffle_model("SWITCH_MODEL")
 
-    for waffle_switch_name, waffle_switch in waffle_switches.items():
-        this_switch = Switch.objects.get(name=waffle_switch_name)
+    for switch_name, switch_object in waffle_switches.items():
+        this_switch = Switch.objects.get(name=switch_name)
         if this_switch:
             log.info(
-                "openedx_plugin.waffle.init() - WaffleSwitch Django model object found for {switch_name}".format(
-                    switch_name=waffle_switch_name
+                "WaffleSwitch {switch_name} was previously initialized {and_is_or_is_not} enabled.".format(
+                    switch_name=switch_name, and_is_or_is_not="and is" if this_switch.is_enabled else "but is not"
                 )
             )
         else:
-            Switch.objects.create(name=waffle_switch_name, active=False)
-            log.info(
-                "openedx_plugin.waffle.init() - created Django model object for WaffleSwitch {switch_name}".format(
-                    switch_name=waffle_switch_name
-                )
-            )
+            Switch.objects.create(name=switch_name, active=False)
+            log.info("Initialized WaffleSwitch object {switch_name}".format(switch_name=switch_name))

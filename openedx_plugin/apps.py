@@ -146,8 +146,3 @@ class CustomPluginConfig(AppConfig):
         )
         if is_ready():
             waffle_init()
-            for switch in waffle_switches:
-                if waffle_switches[switch]:
-                    log.info("WaffleSwitch {switch} is enabled.".format(switch=switch))
-                else:
-                    log.warning("WaffleSwitch {switch} is not enabled.".format(switch=switch))
