@@ -62,17 +62,7 @@ class MobileApiConfig(AppConfig):
 
     def ready(self):
         from .version import __version__
-        from .waffle import waffle_switches, is_ready
+        from .waffle import waffle_init
 
         log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
-        log.info(
-            "{label} {waffle_switches} waffle switches detected.".format(
-                label=self.label, waffle_switches=len(waffle_switches.keys())
-            )
-        )
-        if is_ready():
-            for switch in waffle_switches:
-                if waffle_switches[switch]:
-                    log.info("WaffleSwitch {switch} is enabled.".format(switch=switch))
-                else:
-                    log.warning("WaffleSwitch {switch} is not enabled.".format(switch=switch))
+        waffle_init()

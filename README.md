@@ -100,7 +100,13 @@ tutor local run lms ./manage.py lms create_oauth_application_client_config
 tutor local run lms ./manage.py lms initialize
 ```
 
+### Notes About Django-Waffle
 
+* Each of these four Open edX plugins use [django-waffle](https://waffle.readthedocs.io/en/stable/) to toggle features on and off. While edx-platform also uses waffle switches, you should note that they separately manage a wrapper project named [edx-toggles](https://github.com/django-waffle/), and therefore the source code in this repo interacts with both of these.
+
+* Waffle switches in each of these four plugins are automatically initialized. You'll therefore find the switches in the LMS Django Admin console (admin/waffle/switch/) of your Open edX installation. Additionally, you'll find the raw MySL database records in the waffle_switch table ![MySQL records](https://github.com/lpm0073/openedx-plugin-example/blob/main/doc/openedx_plugin_waffle_mysql.png?raw=true)
+
+* Look for app startup entries in the LMS app log for diagnostics information about the state of each waffle switch ![app logs](https://github.com/lpm0073/openedx-plugin-example/blob/main/doc/openedx_plugin_waffle_app_log.png?raw=true)
 
 ### Local development
 
@@ -143,18 +149,3 @@ To avoid freaky version conflicts in prod it's a good idea to install all of the
 * requirements/edx/testing.txt
 
 At a minimum this will give you the full benefit of your IDE's linter.
-
-#### Notes regarding development with macOS M1
-
-1. To avoid problems with installing the edx-platform requirements, create your virtual environment with Python >= 3.9.x using the native installer from https://www.python.org/. `which python` should return `/Library/Frameworks/Python.framework/Versions/3.9/bin/python3`. Ignoring this advise will lead to very weird side effects. Note that this is true even though Lilac actually runs on Python 3.8.x
-
-2. Best to install openssl, openblas, zstd, mysql, and mysql-client with Brew. Using brew helps you avoid problems with gcc compilations and linking that have proven problematic on early releases of macOS 11 on M1. If you run into problems while pip installing mysql-client / MongoDBProxy / mongoengine/ pymongo /numpy / scipy / matplotlib then analyze the stack trace for any other straggling dependencies that I might have ommitted here that might also break due to the gcc compiler or linker, and try installing these instead with Brew.
-
-3. In addition to launching your virtual environment it also helps to set the following environment variables in your terminal window. Make sure you pay attention to any further suggestions echoed in Brew installation output:
-
-```bash
-export OPENBLAS=/opt/homebrew/opt/openblas/lib/
-export LDFLAGS="-L/opt/homebrew/opt/openblas/lib -L/opt/homebrew/opt/mysql-client/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openblas/include -I/opt/homebrew/opt/mysql-client/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/openblas/lib/pkgconfig /opt/homebrew/opt/mysql-client/lib/pkgconfig"
-```

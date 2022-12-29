@@ -28,3 +28,7 @@ setuptools<60
 
 # django-simple-history>3.0.0 adds indexing and causes a lot of migrations to be affected
 django-simple-history==3.0.0
+
+# match django-waffle to the nutmeg.2 edx-platform version pin
+# mcdaniel dec-2022: copied from edx-platform requirements/common.txt
+django-waffle==2.4.1
