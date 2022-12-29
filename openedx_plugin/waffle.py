@@ -8,9 +8,11 @@ usage:          custom Waffle Switches to use as feature toggles for
                 openedx_plugin. see https://waffle.readthedocs.io/en/stable/
 """
 import logging
+from waffle import get_waffle_model
 
 from edx_toggles.toggles import WaffleSwitch
 
+Switch = get_waffle_model("SWITCH_MODEL")
 log = logging.getLogger(__name__)
 
 WAFFLE_NAMESPACE = "openedx_plugin"
@@ -116,10 +118,6 @@ def waffle_init():
     Open edX platform, which would be reckless on our part.
     See https://waffle.readthedocs.io/en/stable/starting/configuring.html
     """
-    from waffle import get_waffle_model
-
-    Switch = get_waffle_model("SWITCH_MODEL")
-
     for switch_name, switch_object in waffle_switches.items():
         this_switch = Switch.objects.get(name=switch_name)
         if this_switch:
