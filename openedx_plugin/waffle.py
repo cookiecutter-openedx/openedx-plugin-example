@@ -127,14 +127,18 @@ def waffle_init():
 
         Switch = get_waffle_model("SWITCH_MODEL")
     except AppRegistryNotReady:
-        log.error("django_waffle app is not ready. Cannot continue")
+        log.warning("django_waffle app is not ready. waffle_init() cannot continue")
         return None
     except ImportError:
         # for older versions of django-waffle
         # in nutmeg.2 we're running django-waffle=2.4.1
         #
         # assumption: edX guys have not and will not subclass Switch
-        log.warning("get_waffle_model() not found. Importing Switch class directly from waffle.models")
+        log.warning(
+            "{django_app}: get_waffle_model() not found. Importing Switch class directly from waffle.models".format(
+                django_app=WAFFLE_NAMESPACE
+            )
+        )
         from waffle.models import Switch
 
     log.info(
@@ -145,7 +149,9 @@ def waffle_init():
 
     if not is_ready():
         log.warning(
-            "unable to verify initialization status of waffle switches. Try running manage.py lms openedx_plugin_init"
+            "{django_app}: unable to verify initialization status of waffle switches. Try running manage.py lms {django_app}_init".format(
+                django_app=WAFFLE_NAMESPACE
+            )
         )
         return
 
