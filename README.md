@@ -99,7 +99,7 @@ tutor local run cms ./manage.py cms migrate
 tutor local run lms ./manage.py lms openedx_plugin_init
 tutor local run lms ./manage.py lms openedx_plugin_api_init
 tutor local run lms ./manage.py lms openedx_plugin_mobile_api_init
-tutor local run lms ./manage.py cms openedx_plugin_cms_init
+tutor local run cms ./manage.py cms openedx_plugin_cms_init
 ```
 
 ### Notes About Django-Waffle
