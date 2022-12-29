@@ -115,23 +115,26 @@ def waffle_init():
     However, setting this flag would affect EVERY WaffleSwitch in the entire
     Open edX platform, which would be reckless on our part.
     See https://waffle.readthedocs.io/en/stable/starting/configuring.html
+
+    To inspect the state of our WaffleSwitch objects we need to go directly
+    to the django-waffle objects which edx-toggles imports to implement WaffleSwitch.
     """
-    from django.core.exceptions import AppRegistryNotReady
-    from django.core.exceptions import ObjectDoesNotExist
+    from django.core.exceptions import ObjectDoesNotExist, AppRegistryNotReady
 
     try:
-        # only works for versions 3.x and later
+        # django_waffle 3.x and later
         from waffle import get_waffle_model
 
         Switch = get_waffle_model("SWITCH_MODEL")
     except AppRegistryNotReady:
-        log.info("waffle app is not ready. Cannot continue")
+        log.error("django_waffle app is not ready. Cannot continue")
         return None
     except ImportError:
         # for older versions of django-waffle
         # in nutmeg.2 we're running django-waffle=2.4.1
         #
         # assumption: edX guys have not and will not subclass Switch
+        log.warning("get_waffle_model() not found. Importing Switch class directly from waffle.models")
         from waffle.models import Switch
 
     log.info(
@@ -154,6 +157,11 @@ def waffle_init():
             pass
 
         if this_switch:
+            # note: edx_toggles.toggles.WaffleSwitch.is_enabled() is derived from
+            # waffle.models.Switch.active  (a boolean)
+            # see
+            #  - https://github.com/django-waffle/django-waffle/blob/master/waffle/models.py#L438
+            #  - https://github.com/openedx/edx-toggles/blob/master/edx_toggles/toggles/internal/waffle/switch.py#L19
             log.info(
                 "WaffleSwitch {switch_name} was previously initialized {and_is_or_is_not} enabled.".format(
                     switch_name=switch_name, and_is_or_is_not="and is" if this_switch.active else "but is not"
