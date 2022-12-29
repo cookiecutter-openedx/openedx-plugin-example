@@ -1,6 +1,9 @@
-# example Open edX Plugin
+# Open edX Plugin Examples
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
+[![Open edX](https://avatars.githubusercontent.com/u/40179672 | width=75)](https://openedx.org/)
+[![Tutor](https://overhang.io/static/img/tutor-logo.svg | width=75)](https://docs.tutor.overhang.io/)
+
 
 A curated collection of code samples for extending the functionality of an Open edX installation using its built-in plugin architecture.
 
