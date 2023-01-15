@@ -37,7 +37,7 @@ def is_requirement(line):
 
 
 README = open(os.path.join(os.path.dirname(__file__), "README.md")).read()
-CHANGELOG = open(os.path.join(os.path.dirname(__file__), "CHANGELOG.rst")).read()
+CHANGELOG = open(os.path.join(os.path.dirname(__file__), "CHANGELOG.md")).read()
 
 print("Found packages: {packages}".format(packages=find_packages()))
 
