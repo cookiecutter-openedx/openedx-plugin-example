@@ -1,4 +1,4 @@
-# example Open edX Plugin
+# Open edX Plugin Examples
 
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
@@ -11,6 +11,7 @@ Technical features that are showcased in this repo include:
 * pip configuration, requirements, constraints, setup.py, pyproject.toml
 * How to bundle multiple plugins in a single pip package
 * How to redirect Open edX urls in lms and cms to endpoints created in this plugin
+* How to automatically initialize Django model data during app startup
 * adding unit tests to plugin code
 * Django app setup
 * Open edX Django configuration settings
@@ -114,8 +115,8 @@ tutor local run cms ./manage.py cms openedx_plugin_cms_init
 
 * Use the same virtual environment that you use for edx-platform
 * Set your Python interpreter to 3.8x
-* install black: https://pypi.org/project/black/
-* install flake8: https://flake8.pycqa.org/en/latest/
+* install black: <https://pypi.org/project/black/>
+* install flake8: <https://flake8.pycqa.org/en/latest/>
 
 ```bash
 # Run these from within your edx-platform virtual environment
@@ -140,7 +141,7 @@ pre-commit install
 * run `black` on modified code before committing.
 * run `flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics`
 * run `flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics`
-* run `pre-commit run --all-files` before pushing. see: https://pre-commit.com/
+* run `pre-commit run --all-files` before pushing. see: <https://pre-commit.com/>
 
 #### edx-platform dependencies
 
