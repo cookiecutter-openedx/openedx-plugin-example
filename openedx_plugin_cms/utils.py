@@ -25,7 +25,7 @@ from opaque_keys.edx.keys import UsageKey
 
 # open edx stuff
 from xmodule.modulestore.django import modulestore
-from common.lib.xmodule.xmodule.course_module import CourseBlock
+from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
 from cms.djangoapps.contentstore.utils import get_lms_link_for_item
 
 # this repo
@@ -42,7 +42,7 @@ def link_extractor(html: str):
     """
     try:
         doc = fromstring(html)
-    except:
+    except Exception:
         return ""
 
     retval = []
@@ -63,7 +63,7 @@ def asset_extractor(html: str):
     """
     try:
         doc = fromstring(html)
-    except:
+    except Exception:
         return ""
 
     retval = []
@@ -192,7 +192,7 @@ def get_xblock_attribute(usage_key: UsageKey, attr: String):
         try:
             xblock = modulestore().get_item(usage_key)
             return xblock.__getattribute__(attr)
-        except:
+        except Exception:
             return None
     return None
 

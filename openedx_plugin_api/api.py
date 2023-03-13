@@ -26,7 +26,7 @@ from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseDataResearcherRole
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from common.djangoapps.course_modes.models import CourseMode
-from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.course_module import DEFAULT_START_DATE, CourseFields
 from lms.djangoapps.certificates.models import CertificateGenerationCourseSetting
 from lms.djangoapps.bulk_email.models import CourseAuthorization

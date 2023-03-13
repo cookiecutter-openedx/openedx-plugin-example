@@ -19,7 +19,7 @@ from openedx.core.djangoapps.user_api.accounts.utils import (
 )
 from opaque_keys.edx.keys import CourseKey
 from common.djangoapps.util.date_utils import get_default_time_display
-from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 
 
 def get_course_info(course_key: CourseKey):

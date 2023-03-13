@@ -49,12 +49,12 @@ from common.djangoapps.edxmako.shortcuts import render_to_response
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from opaque_keys.edx.keys import CourseKey
 from xblock.core import XBlock
-from common.lib.xmodule.xmodule.modulestore.django import modulestore
-from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
-from common.lib.xmodule.xmodule.course_module import CourseBlock
-from common.lib.xmodule.xmodule.seq_module import SequenceBlock, SectionBlock
-from common.lib.xmodule.xmodule.vertical_block import VerticalBlock
-from common.lib.xmodule.xmodule.unit_block import UnitBlock  # Units are verticals.
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.seq_module import SequenceBlock, SectionBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.unit_block import UnitBlock  # Units are verticals.
 
 # This repo
 from openedx_plugin_cms.models import CourseAudit

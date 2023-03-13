@@ -22,7 +22,7 @@ from cms.djangoapps.contentstore.utils import (
     get_lms_link_for_item,
     is_currently_visible_to_students,
 )
-from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from openedx.core.djangoapps.content.block_structure.api import get_course_in_cache
 
 # this repo
