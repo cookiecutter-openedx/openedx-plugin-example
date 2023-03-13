@@ -21,7 +21,10 @@ from edx_django_utils.monitoring import set_code_owner_attribute
 # see: https://discuss.openedx.org/t/django-plugin-app-works-with-some-django-signals-but-not-others/5949/3
 from xmodule.modulestore.django import SignalHandler
 from opaque_keys.edx.keys import CourseKey
-from common.lib.xmodule.xmodule.modulestore.django import modulestore
+
+# mcdaniel mar-2023: this used to work
+# from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 
 # this repo
 from .auditor import (
