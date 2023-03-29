@@ -45,6 +45,7 @@ OPENEDX_SIGNALS = [
 ]
 
 log = logging.getLogger(__name__)
+IS_READY = False
 
 
 class CustomPluginConfig(AppConfig):
@@ -128,15 +129,21 @@ class CustomPluginConfig(AppConfig):
     }
 
     def ready(self):
+        global IS_READY
+
+        if IS_READY:
+            return
+
         from . import signals  # pylint: disable=unused-import
         from .version import __version__
         from .waffle import waffle_init
         from .utils import PluginJSONEncoder
 
-        log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
+        log.info("{label} {version} is ready.".format(label=self.label, version=__version__))
         log.info(
             "{label} found the following Django signals: {signals}".format(
                 label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
             )
         )
         waffle_init()
+        IS_READY = True

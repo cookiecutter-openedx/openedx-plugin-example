@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.2] (2022-3-29)
+
+- add a module level IS_READY boolean to prevent ready() from running multiple times during init
+
 ## [0.1.1] (2022-12-29)
 
 - add waffle_init() to waffle.py in each plugin

@@ -45,7 +45,7 @@ print("requirements found: {requirements}".format(requirements=load_requirements
 
 setup(
     name="example-plugin",
-    version="0.0.2",
+    version="0.1.2",
     packages=find_packages(),
     package_data={"": ["*.html"]},  # include any Mako templates found in this repo.
     include_package_data=True,
@@ -54,7 +54,7 @@ setup(
     long_description="",
     author="Lawrence McDaniel",
     author_email="lpm0073@gmail.com",
-    url="https://github.com/lpm0073/example-openedx-plugin",
+    url="https://github.com/cookiecutter-openedx/example-openedx-plugin",
     install_requires=load_requirements("requirements/common.in"),
     zip_safe=False,
     keywords="Django, Open edX",

@@ -16,6 +16,7 @@ from edx_django_utils.plugins import PluginSettings, PluginURLs
 from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 
 log = logging.getLogger(__name__)
+IS_READY = False
 
 
 class CustomPluginAPIConfig(AppConfig):
@@ -54,9 +55,15 @@ class CustomPluginAPIConfig(AppConfig):
     }
 
     def ready(self):
+        global IS_READY
+
+        if IS_READY:
+            return
+
         from . import signals  # pylint: disable=unused-import
         from .version import __version__
         from .waffle import waffle_init
 
-        log.info("{label} version {version} is ready.".format(label=self.label, version=__version__))
+        log.info("{label} {version} is ready.".format(label=self.label, version=__version__))
         waffle_init()
+        IS_READY = True
