@@ -1,15 +1,13 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Nov-2021
 
 CMS App - Course Audit views
-see: https://co-digitallearning.atlassian.net/browse/CODLT-383
-     https://docs.google.com/spreadsheets/d/1v08r5KEarvsMiqHSlELWnFNqBwgdkofDvgj4ogyGmiw/edit#gid=0
-     https://co-digitallearning.atlassian.net/wiki/spaces/CODLT/pages/2326536/Course+Inventory
 
 also: https://docs.djangoproject.com/en/2.2/topics/pagination/
 """
-# Python
+# Python stuff
 import time
 import csv
 import logging
@@ -18,7 +16,7 @@ from typing import Dict, List
 from contextlib import contextmanager
 from hashlib import md5
 
-# Django
+# Django stuff
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -40,26 +38,42 @@ except ImportError:
 from celery.exceptions import SoftTimeLimitExceeded
 from celery_utils.persist_on_failure import LoggedPersistOnFailureTask
 
-# Open edX
+# Open edX stuff
 from common.djangoapps.util.views import ensure_valid_course_key
 from openedx.core.lib.cache_utils import request_cached
 from common.djangoapps.edxmako.shortcuts import render_to_response
-
-# Open edX course content
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from opaque_keys.edx.keys import CourseKey
 from xblock.core import XBlock
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.seq_module import SequenceBlock, SectionBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.unit_block import UnitBlock  # Units are verticals.
+
+try:
+    # for olive and later
+    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.seq_module import SequenceBlock, SectionBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.unit_block import UnitBlock  # Units are verticals.
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.modulestore import (
+        ModuleStoreEnum,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.seq_module import (
+        SequenceBlock,
+        SectionBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.vertical_block import (
+        VerticalBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.unit_block import UnitBlock  # Units are verticals.
 
 # This repo
 from openedx_plugin_cms.models import CourseAudit
-
-
 from openedx_plugin_cms.utils import (
     get_user,
     xblock_edit_dates,
@@ -85,7 +99,10 @@ KNOWN_RETRY_ERRORS = (  # Errors we expect occasionally, should be resolved on r
     SoftTimeLimitExceeded,
 )
 RETRY_DELAY_SECONDS = 60
-TASK_TIME_LIMIT = LOCK_EXPIRE  # Task hard time limit in seconds. The worker processing the task will be killed and replaced with a new one when this is exceeded.
+TASK_TIME_LIMIT = LOCK_EXPIRE  # Task hard time limit in seconds. The worker
+# processing the task will be killed and
+# replaced with a new one when this is
+# exceeded.
 TASK_SOFT_TIME_LIMIT = (
     None  # https://docs.celeryproject.org/en/stable/userguide/configuration.html#std-setting-task_soft_time_limit
 )
@@ -112,7 +129,7 @@ def task_lock(oid, course_id):
 
     try:
         yield status
-    except Exception as e:
+    except Exception as e:  # noqa: B902
         log.error("error while attempting lock: {err}".format(err=e))
     finally:
         if time.monotonic() < timeout_at and status:
@@ -184,7 +201,6 @@ def get_sequence_dict(
     chapter: SectionBlock,
     sequence: SequenceBlock,
 ) -> Dict:
-
     row = get_chapter_dict(i, course, chapter)
     row["d_section"] = sequence.display_name
     # e_unit -- skip. handled in get_vertical_dict()
@@ -202,7 +218,6 @@ def get_vertical_dict(
     sequence: SequenceBlock,
     vertical: VerticalBlock,
 ) -> Dict:
-
     row = get_sequence_dict(i, course, chapter, sequence)
     row["e_unit"] = vertical.display_name
     row["e2_block_type"] = vertical.location.block_type
@@ -228,7 +243,7 @@ def get_vertical_child_dict(
 
     child can be any of ProblemBlock, DiscussionXBlock, HtmlBlock (or some kind of specialized XBlock).
     Ideally we'd cast these after introspecting their type, but, we only need to extract a couple of pieces
-    of data and so we'll defer that indefinitely until a real neeed arises.
+    of data and so we'll defer that indefinitely until a real need arises.
     """
     edited_on, published_on = xblock_edit_dates(child)
     row = get_vertical_dict(i, course, chapter, sequence, vertical)

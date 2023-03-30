@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.3] (2022-3-30)
+
+- add AGPLv3 license
+- make xmodule imports backward compatible to nutmeg and earlier
+- add __about__.py
+- enhance setup.up setup() meta data
+- bump classifier from alpha to beta
+- refactor in order to make repo more condusive to uploading to PyPi
+
 ## [0.1.2] (2022-3-29)
 
 - add a module level IS_READY boolean to prevent ready() from running multiple times during init

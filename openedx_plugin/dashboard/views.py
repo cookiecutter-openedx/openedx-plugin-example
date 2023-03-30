@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Written by: Lawrence McDaniel
             https://lawrencemcdaniel.com
@@ -9,19 +10,28 @@ Usage:  To intercept http requests so that can do things like:
             - redirect the user elsewhere, like say, an onboarding page
             - update user profile data
 """
+# python stuff
 import logging
 from urllib.parse import urlparse
 
+# django stuff
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+# open edx stuff
 from opaque_keys.edx.keys import CourseKey
 from common.djangoapps.student.models import CourseEnrollment
-from xmodule.modulestore.django import modulestore
 
+try:
+    # for olive and later
+    from xmodule.modulestore.django import modulestore
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
+# our stuff
 from .utils import set_language_preference
 
 log = logging.getLogger(__name__)
@@ -58,10 +68,13 @@ def student_dashboard(request):
             )
         )
     else:
-        log.info("student_dashboard() - initiating after referal {referer}".format(referer=referer.netloc))
+        log.info("student_dashboard() - initiating after referral {referer}".format(referer=referer.netloc))
 
     log.info(
-        "student_dashboard() - user {username} is accessing example via {platform}. Referer is {referer}. Received a language preference of {language_param} and a pre-enrollment course key of {enroll_in}".format(
+        "student_dashboard() - user {username} is accessing example via \
+                {platform}. Referer is {referer}. Received a language \
+                preference of {language_param} and a pre-enrollment \
+                course key of {enroll_in}".format(
             username=username,
             platform=platform,
             referer=referer.netloc,
@@ -85,9 +98,11 @@ def student_dashboard(request):
 
         try:
             course_key = CourseKey.from_string(enroll_in)
-        except Exception:
+        except Exception:  # noqa: B902
             log.warning(
-                "student_dashboard() received an invalid CourseKey string in the enroll url param. Ignoring. value was: {enroll_in}".format(
+                "student_dashboard() received an invalid CourseKey string in \
+                    the enroll url param. Ignoring. value was: \
+                    {enroll_in}".format(
                     enroll_in=enroll_in
                 )
             )
@@ -95,9 +110,11 @@ def student_dashboard(request):
         if course_key:
             try:
                 course = modulestore().get_course(course_key)
-            except Exception as e:
+            except Exception as e:  # noqa: B902
                 log.warning(
-                    "student_dashboard() encountered a handled exception while attempting to initialize course object for course key {enroll_in}. Exception: {e}".format(
+                    "student_dashboard() encountered a handled exception \
+                        while attempting to initialize course object for \
+                        course key {enroll_in}. Exception: {e}".format(
                         enroll_in=enroll_in, e=e
                     )
                 )
@@ -121,14 +138,18 @@ def student_dashboard(request):
                     )
                 else:
                     log.info(
-                        "student_dashboard() course {enroll_in} has not yet started. Redirecting the user to their dashboard.".format(
+                        "student_dashboard() course {enroll_in} has not yet \
+                            started. Redirecting the user to their \
+                            dashboard.".format(
                             enroll_in=enroll_in
                         )
                     )
 
-            except Exception as e:
+            except Exception as e:  # noqa: B902
                 log.warning(
-                    "student_dashboard() encountered a handled exception while attempting to enroll user {username} in the course {enroll_in}. Exception: {e}".format(
+                    "student_dashboard() encountered a handled exception while\
+                     attempting to enroll user {username} in the course \
+                    {enroll_in}. Exception: {e}".format(
                         username=request.user.username, enroll_in=enroll_in, e=e
                     )
                 )

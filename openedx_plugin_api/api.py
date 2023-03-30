@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -7,9 +8,11 @@ date:           sep-2021
 usage:          Example custom REST API leveraging misc functionality from
                 Open edX repos.
 """
+# python stuff
 import os
 import json
 
+# django stuff
 from django.contrib.auth import get_user_model
 from django.http.response import HttpResponseNotFound
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
@@ -20,28 +23,36 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from social_django.models import UserSocialAuth
 
+# open edx stuff
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.enrollments import api
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseDataResearcherRole
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from common.djangoapps.course_modes.models import CourseMode
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.course_module import DEFAULT_START_DATE, CourseFields
 from lms.djangoapps.certificates.models import CertificateGenerationCourseSetting
 from lms.djangoapps.bulk_email.models import CourseAuthorization
-
-import openedx.core.djangoapps.django_comment_common.comment_client as cc
-import lms.djangoapps.discussion.django_comment_client.utils as utils
-
-
 from lms.djangoapps.courseware.models import StudentModule
 from lms.djangoapps.grades.models import PersistentCourseGrade
-
 from openedx.core.djangoapps.django_comment_common.models import (
     FORUM_ROLE_MODERATOR,
     Role,
 )
+import openedx.core.djangoapps.django_comment_common.comment_client as cc
+import lms.djangoapps.discussion.django_comment_client.utils as utils
+
+try:
+    # for olive and later
+    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.course_module import DEFAULT_START_DATE, CourseFields
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.course_module import DEFAULT_START_DATE, CourseFields
+
+# our stuff
 from .utils import get_course_info
 from .models import CoursePoints
 from .version import __version__
@@ -237,10 +248,10 @@ class CourseInfoAPIView(APIView):
         try:
             key = CourseKey.from_string(course_key)
             response = get_course_info(key)
-        except Exception as exc:
+        except Exception as exc:  # noqa: B902
             response["error"] = str(exc)
         finally:
-            return ResponseSuccess(response)
+            return ResponseSuccess(response)  # noqa: B012
 
 
 @view_auth_classes(is_authenticated=True)
@@ -253,7 +264,7 @@ class CoursePointsAPIView(APIView):
         except CoursePoints.DoesNotExist:
             response["error"] = "This course does not define points"
         finally:
-            return ResponseSuccess(response)
+            return ResponseSuccess(response)  # noqa: B012
 
     def post(self, request, course_key):
         response = {}

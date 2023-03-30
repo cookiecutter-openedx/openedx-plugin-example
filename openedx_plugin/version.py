@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -6,4 +7,4 @@ date:           feb-2022
 
 usage:          semantic version control for openedx_plugin
 """
-__version__ = "0.1.0"
+__version__ = "0.1.1"

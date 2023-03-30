@@ -1,13 +1,22 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Aug-2021
 
 Tests of the openedx_plugin_api
 """
+
+# djanog stuff
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+# open edx stuff
+try:
+    # for olive and later
+    from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 
 class TestAPIEndpoints(SharedModuleStoreTestCase, APITestCase):
