@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Serializer for user API
 """
@@ -31,13 +32,13 @@ class UserSerializer(serializers.ModelSerializer):
     def get_dob(self, model):
         try:
             return model.ttb_profile.dob.strftime("%Y-%m-%d")
-        except Exception:
+        except Exception:  # noqa: B902
             return None
 
     def get_yob(self, model):
         try:
             return model.ttb_profile.yob
-        except Exception:
+        except Exception:  # noqa: B902
             return None
 
     class Meta:

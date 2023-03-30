@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Dec-2021

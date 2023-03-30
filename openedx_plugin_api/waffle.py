@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -108,7 +109,7 @@ def is_ready():
     try:
         API_STUDENT_WAFFLE.is_enabled()
         return True
-    except Exception:
+    except Exception:  # noqa: B902
         return False
 
 
@@ -119,7 +120,7 @@ def is_enabled(switch: WaffleSwitch) -> bool:
     """
     try:
         return switch.is_enabled()
-    except Exception:
+    except Exception:  # noqa: B902
         return False
 
 
@@ -181,13 +182,14 @@ def waffle_init():
 
     if not is_ready():
         log.warning(
-            "{django_app}: unable to verify initialization status of waffle switches. Try running manage.py lms {django_app}_init".format(
+            "{django_app}: unable to verify initialization status of waffle \
+            switches. Try running manage.py lms {django_app}_init".format(
                 django_app=WAFFLE_NAMESPACE
             )
         )
         return
 
-    for switch_name, switch_object in waffle_switches.items():
+    for switch_name, _switch_object in waffle_switches.items():
         try:
             this_switch = Switch.objects.get(name=switch_name)
         except ObjectDoesNotExist:

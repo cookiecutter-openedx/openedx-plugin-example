@@ -1,3 +1,4 @@
+# coding=utf-8
 from oauth2_wordpress.wp_oauth import WPOpenEdxOAuth2
 
 

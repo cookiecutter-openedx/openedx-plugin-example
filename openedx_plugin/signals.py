@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -26,7 +27,7 @@ log.info("openedx_plugin.signals loaded")
 def signals_enabled() -> bool:
     try:
         return waffle_switches[SIGNALS]
-    except Exception:
+    except Exception:  # noqa: B902
         # to resolve a race condition during application launch.
         # the waffle_switches are inspected before the db service
         # has initialized.

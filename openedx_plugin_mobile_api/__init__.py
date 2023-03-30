@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 # lint-amnesty, pylint: disable=django-not-configured
 Mobile API

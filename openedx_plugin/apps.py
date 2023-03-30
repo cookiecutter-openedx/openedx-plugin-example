@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -49,7 +50,6 @@ IS_READY = False
 
 
 class CustomPluginConfig(AppConfig):
-
     name = "openedx_plugin"
     label = "openedx_plugin"
 

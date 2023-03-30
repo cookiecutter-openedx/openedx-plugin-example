@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -93,6 +94,6 @@ class PluginJSONEncoder(json.JSONEncoder):
             return ""
         try:
             return json.JSONEncoder.default(self, obj)
-        except Exception:
+        except Exception:  # noqa: B902
             # obj probably is not json serializable.
             return ""

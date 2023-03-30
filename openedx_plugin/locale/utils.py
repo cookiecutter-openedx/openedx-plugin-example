@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Feb-2022
@@ -20,7 +21,7 @@ log = logging.getLogger(__name__)
 def get_marketing_site(request):
     """
     Returns the url to the marketing site for the user
-    based on informatin that can be gleaned from the request object.
+    based on information that can be gleaned from the request object.
 
     First, determine the best possible language code for the user
     taking into account all available information and meta data we have about the user.
@@ -44,18 +45,19 @@ def language_from_request(request):
     """
     preferred_language = None
 
-    # 1.) try to get the Open edX language setting chosen explicitely by the user
+    # 1.) try to get the Open edX language setting chosen explicitly by the user
     #     using the language drop-down in the LMS site header.
     try:
         if request.user and request.user.is_authenticated:
             preferred_language = get_user_preference(request.user, LANGUAGE_KEY)
             log.info(
-                "language_from_request() found an existing language preference of {preferred_language} for username {username}".format(
+                "language_from_request() found an existing language preference\
+                 of {preferred_language} for username {username}".format(
                     preferred_language=preferred_language,
                     username=request.user.username,
                 )
             )
-    except Exception:
+    except Exception:  # noqa: B902
         # is the user is not authenticated or if the user is logging out
         # then this is prone to raising an exception.
         pass
@@ -69,7 +71,9 @@ def language_from_request(request):
             # if necessary, reduce the language setting to the most closely installed language
             closest_released_language = get_closest_released_language(preferred_language)
             log.info(
-                "language_from_request() found language param of {preferred_language} in the request params. Closest released language is {closest_released_language}".format(
+                "language_from_request() found language param of \
+                {preferred_language} in the request params. Closest released \
+                language is {closest_released_language}".format(
                     preferred_language=preferred_language,
                     closest_released_language=closest_released_language,
                 )
@@ -82,7 +86,7 @@ def language_from_request(request):
         try:
             if request.LANGUAGE_CODE:
                 return request.LANGUAGE_CODE
-        except Exception:
+        except Exception:  # noqa: B902
             pass
 
     # 4.) Try to grab the Django-assigned default language code, if its assigned.
@@ -91,7 +95,7 @@ def language_from_request(request):
             # the Django default language
             if request.LANGUAGE:
                 return request.LANGUAGE
-        except Exception:
+        except Exception:  # noqa: B902
             pass
 
     # 5.) All possible methods failed, so use the system default of English.

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -38,7 +39,7 @@ def is_ready():
     try:
         OVERRIDE_MOBILE_USER_API_URL_WAFFLE.is_enabled()
         return True
-    except Exception:
+    except Exception:  # noqa: B902
         return False
 
 
@@ -49,7 +50,7 @@ def is_enabled(switch: WaffleSwitch) -> bool:
     """
     try:
         return switch.is_enabled()
-    except Exception:
+    except Exception:  # noqa: B902
         return False
 
 
@@ -90,7 +91,8 @@ def waffle_init():
         #
         # assumption: edX guys have not and will not subclass Switch
         log.warning(
-            "{django_app}: get_waffle_model() not found. Importing Switch class directly from waffle.models".format(
+            "{django_app}: get_waffle_model() not found. Importing Switch \
+            class directly from waffle.models".format(
                 django_app=WAFFLE_NAMESPACE
             )
         )
@@ -104,13 +106,14 @@ def waffle_init():
 
     if not is_ready():
         log.warning(
-            "{django_app}: unable to verify initialization status of waffle switches. Try running manage.py lms {django_app}_init".format(
+            "{django_app}: unable to verify initialization status of waffle \
+            switches. Try running manage.py lms {django_app}_init".format(
                 django_app=WAFFLE_NAMESPACE
             )
         )
         return
 
-    for switch_name, switch_object in waffle_switches.items():
+    for switch_name, _switch_object in waffle_switches.items():
         try:
             this_switch = Switch.objects.get(name=switch_name)
         except ObjectDoesNotExist:
@@ -124,7 +127,8 @@ def waffle_init():
             #  - https://github.com/django-waffle/django-waffle/blob/master/waffle/models.py#L438
             #  - https://github.com/openedx/edx-toggles/blob/master/edx_toggles/toggles/internal/waffle/switch.py#L19
             log.info(
-                "WaffleSwitch {switch_name} was previously initialized {and_is_or_is_not} enabled.".format(
+                "WaffleSwitch {switch_name} was previously initialized \
+                {and_is_or_is_not} enabled.".format(
                     switch_name=switch_name, and_is_or_is_not="and is" if this_switch.active else "but is not"
                 )
             )
