@@ -30,10 +30,11 @@ authors = [
 ]
 description = "A Django plugin to enhance feature set of base Open edX platform"
 readme = "README.md"
+license = "GPL-3.0-or-later"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: OS Independent",
 ]
 dependencies = [
