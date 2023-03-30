@@ -27,7 +27,9 @@ from openedx.core.djangoapps.content.block_structure.api import get_course_in_ca
 
 try:
     # for olive and later
-    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 except ImportError:
     # for backward compatibility with nutmeg and earlier
     from common.lib.xmodule.xmodule.modulestore.django import (

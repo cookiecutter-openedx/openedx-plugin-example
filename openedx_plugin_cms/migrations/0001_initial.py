@@ -62,7 +62,9 @@ class Migration(migrations.Migration):
                     "location",
                     opaque_keys.edx.django.models.UsageKeyField(
                         db_index=True,
-                        help_text="Example: block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b",
+                        help_text=(
+                            "Example:" " block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b"
+                        ),
                         max_length=255,
                         verbose_name="Location Usage Key",
                     ),
@@ -82,7 +84,10 @@ class Migration(migrations.Migration):
                     "url",
                     models.URLField(
                         blank=True,
-                        help_text="Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b",  # noqa: B950
+                        help_text=(
+                            "Example:"
+                            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b"  # noqa: B950
+                        ),
                         null=True,
                         verbose_name="LMS URL",
                     ),
@@ -116,7 +121,7 @@ class Migration(migrations.Migration):
                     "parent_url",
                     models.URLField(
                         blank=True,
-                        help_text="The Usage Key for the Parent object in which this block is contained.",
+                        help_text=("The Usage Key for the Parent object in which this block is" " contained."),
                         max_length=255,
                         null=True,
                     ),
@@ -129,7 +134,11 @@ class Migration(migrations.Migration):
                     "chapter_url",
                     models.URLField(
                         blank=True,
-                        help_text="The Usage Key for the Chapter in which this block is contained. Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/graded_interactions",  # noqa: B950
+                        help_text=(
+                            "The Usage Key for the Chapter in which this block is"
+                            " contained. Example:"
+                            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/graded_interactions"  # noqa: B950
+                        ),
                         max_length=255,
                         null=True,
                     ),
@@ -142,7 +151,11 @@ class Migration(migrations.Migration):
                     "sequential_url",
                     models.URLField(
                         blank=True,
-                        help_text="The Usage Key for the Section in which this block is contained. Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/basic_questions",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "The Usage Key for the Section in which this block is"
+                            " contained. Example:"
+                            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/basic_questions"
+                        ),
                         max_length=255,
                         null=True,
                     ),
@@ -155,7 +168,11 @@ class Migration(migrations.Migration):
                     "vertical_url",
                     models.URLField(
                         blank=True,
-                        help_text="The Usage Key for the Vertical in which this block is contained. Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/vertical_d32bf9b2242c",  # noqa: B950
+                        help_text=(
+                            "The Usage Key for the Vertical in which this block is"
+                            " contained. Example:"
+                            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/vertical_d32bf9b2242c"  # noqa: B950
+                        ),
                         max_length=255,
                         null=True,
                     ),
@@ -177,7 +194,12 @@ class Migration(migrations.Migration):
                     "update_version",
                     opaque_keys.edx.django.models.UsageKeyField(
                         blank=True,
-                        help_text="Guid for the structure where this XBlock got its current field values. May point to a structure not in this structure's history (e.g., to a draft branch from which this version was published).",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "Guid for the structure where this XBlock got its current"
+                            " field values. May point to a structure not in this"
+                            " structure's history (e.g., to a draft branch from which"
+                            " this version was published)."
+                        ),
                         max_length=255,
                         null=True,
                     ),
@@ -186,7 +208,10 @@ class Migration(migrations.Migration):
                     "previous_version",
                     opaque_keys.edx.django.models.UsageKeyField(
                         blank=True,
-                        help_text="Guid for the structure which previously changed this XBlock. (Will be the previous value of 'update_version'.)",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "Guid for the structure which previously changed this"
+                            " XBlock. (Will be the previous value of 'update_version'.)"
+                        ),
                         max_length=255,
                         null=True,
                     ),
@@ -195,7 +220,11 @@ class Migration(migrations.Migration):
                     "original_usage",
                     opaque_keys.edx.django.models.UsageKeyField(
                         blank=True,
-                        help_text="If this block has been copied from a library using copy_from_template, points to the original block in the library",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "If this block has been copied from a library using"
+                            " copy_from_template, points to the original block in the"
+                            " library"
+                        ),
                         max_length=255,
                         null=True,
                     ),

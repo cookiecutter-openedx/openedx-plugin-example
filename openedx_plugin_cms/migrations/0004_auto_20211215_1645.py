@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name="m_external_links",
             field=models.TextField(
                 blank=True,
-                help_text="A list of all links to sites outside of this Open edX platform installation",
+                help_text=("A list of all links to sites outside of this Open edX platform" " installation"),
                 null=True,
                 verbose_name="External Links",
             ),
@@ -25,7 +25,10 @@ class Migration(migrations.Migration):
             name="n_asset_type",
             field=models.TextField(
                 blank=True,
-                help_text="The kind of file types referenced in any freeform html content in this block. Example: getting-started_x250.png",  # noqa: B950
+                help_text=(  # noqa: B950
+                    "The kind of file types referenced in any freeform html content in"
+                    " this block. Example: getting-started_x250.png"
+                ),
                 max_length=255,
                 null=True,
                 verbose_name="Asset Type",

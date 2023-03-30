@@ -43,14 +43,19 @@ import lms.djangoapps.discussion.django_comment_client.utils as utils
 
 try:
     # for olive and later
-    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
     from xmodule.course_module import DEFAULT_START_DATE, CourseFields
 except ImportError:
     # for backward compatibility with nutmeg and earlier
     from common.lib.xmodule.xmodule.modulestore.django import (
         modulestore,
     )  # lint-amnesty, pylint: disable=wrong-import-order
-    from common.lib.xmodule.xmodule.course_module import DEFAULT_START_DATE, CourseFields
+    from common.lib.xmodule.xmodule.course_module import (
+        DEFAULT_START_DATE,
+        CourseFields,
+    )
 
 # our stuff
 from .utils import get_course_info

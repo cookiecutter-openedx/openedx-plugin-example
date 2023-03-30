@@ -26,7 +26,9 @@ from common.djangoapps.util.date_utils import get_default_time_display
 
 try:
     # for olive and later
-    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 except ImportError:
     # for backward compatibility with nutmeg and earlier
     from common.lib.xmodule.xmodule.modulestore.django import (

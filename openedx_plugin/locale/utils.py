@@ -51,8 +51,8 @@ def language_from_request(request):
         if request.user and request.user.is_authenticated:
             preferred_language = get_user_preference(request.user, LANGUAGE_KEY)
             log.info(
-                "language_from_request() found an existing language preference\
-                 of {preferred_language} for username {username}".format(
+                "language_from_request() found an existing language preference         "
+                "        of {preferred_language} for username {username}".format(
                     preferred_language=preferred_language,
                     username=request.user.username,
                 )
@@ -71,9 +71,9 @@ def language_from_request(request):
             # if necessary, reduce the language setting to the most closely installed language
             closest_released_language = get_closest_released_language(preferred_language)
             log.info(
-                "language_from_request() found language param of \
-                {preferred_language} in the request params. Closest released \
-                language is {closest_released_language}".format(
+                "language_from_request() found language param of                "
+                " {preferred_language} in the request params. Closest released         "
+                "        language is {closest_released_language}".format(
                     preferred_language=preferred_language,
                     closest_released_language=closest_released_language,
                 )

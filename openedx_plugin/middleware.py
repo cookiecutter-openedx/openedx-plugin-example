@@ -43,9 +43,8 @@ class RedirectDjangoAdminMiddleware:
         # require a Waffle flag to enable overrides of the stock openedx api functionality
         if request.path.startswith(OPENEDX_DJANGO_LOGIN_URL) and waffle_switches[OVERRIDE_OPENEDX_DJANGO_LOGIN]:
             log.info(
-                "openedx_plugin.middleware.RedirectDjangoAdminMiddleware.__call__() redirecting host: {host} path: {path}".format(
-                    host=request.META["HTTP_HOST"], path=request.path
-                )
+                "openedx_plugin.middleware.RedirectDjangoAdminMiddleware.__call__()"
+                " redirecting host: {host} path: {path}".format(host=request.META["HTTP_HOST"], path=request.path)
             )
             template = loader.get_template("admin/login.html")
             context = Context({})

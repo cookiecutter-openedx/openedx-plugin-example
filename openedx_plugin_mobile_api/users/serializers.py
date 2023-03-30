@@ -26,7 +26,9 @@ class UserSerializer(serializers.ModelSerializer):
         api_version = self.context.get("api_version")
 
         return reverse(
-            "courseenrollment-detail", kwargs={"api_version": api_version, "username": model.username}, request=request
+            "courseenrollment-detail",
+            kwargs={"api_version": api_version, "username": model.username},
+            request=request,
         )
 
     def get_dob(self, model):

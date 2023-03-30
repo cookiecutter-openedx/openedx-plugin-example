@@ -52,13 +52,16 @@ class MarketingSites(TimeStampedModel):
         max_length=20,
         blank=True,
         help_text=_(
-            "A sub-region for the language code. Example: for language code en-US valid possibles include TX, FL, CA, DC, KY, etc."
+            "A sub-region for the language code. Example: for language code            "
+            " en-US valid possibles include TX, FL, CA, DC, KY, etc."
         ),
     )
     site_url = models.URLField(
         default="https://example.org",
         blank=False,
-        help_text=_("URL for for anchor tag for this language. Example: https://example.org/contact/"),
+        help_text=_(
+            "URL for for anchor tag for this language.                     Example:" " https://example.org/contact/"
+        ),
     )
 
     def __str__(self):
@@ -67,9 +70,9 @@ class MarketingSites(TimeStampedModel):
 
 class Locale(TimeStampedModel):
     """
-    Stores localized urls and translated html tag element values by language code
-    Used in conjunction with Mako templates to localize example specific page content
-    such as footer links.
+    Stores localized urls and translated html tag element values by language
+    code Used in conjunction with Mako templates to localize example
+    specific page content such as footer links.
     """
 
     class Meta:
@@ -88,7 +91,9 @@ class Locale(TimeStampedModel):
     )
     url = models.URLField(
         blank=False,
-        help_text=_("URL for for anchor tag for this language. Example: https://example.org/contact/"),
+        help_text=_(
+            "URL for for anchor tag for this language.                 Example:" " https://example.org/contact/"
+        ),
     )
     value = models.CharField(
         blank=False,
@@ -121,7 +126,7 @@ class Configuration(TimeStampedModel):
         choices=configuration_type,
         default=DEVELOP,
         unique=True,
-        help_text=_("Type of Open edX environment in which this configuration will be used."),
+        help_text=_("Type of Open edX environment in which this configuration                " " will be used."),
     )
     example_host = models.URLField(max_length=255, blank=True, help_text=_("the URL pointing to some server."))
 

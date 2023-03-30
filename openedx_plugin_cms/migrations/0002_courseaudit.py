@@ -57,7 +57,11 @@ class Migration(migrations.Migration):
                     "a_order",
                     models.IntegerField(
                         blank=True,
-                        help_text="the sequence in which this block is presented in the course, based on the outline format in Course Management Studio.",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "the sequence in which this block is presented in the"
+                            " course, based on the outline format in Course Management"
+                            " Studio."
+                        ),
                         null=True,
                         verbose_name="Order",
                     ),
@@ -66,7 +70,7 @@ class Migration(migrations.Migration):
                     "b_course",
                     models.CharField(
                         blank=True,
-                        help_text="The display name of the course from Course Management Studio.",
+                        help_text=("The display name of the course from Course Management" " Studio."),
                         max_length=255,
                         null=True,
                         verbose_name="Course Display Name",
@@ -76,7 +80,9 @@ class Migration(migrations.Migration):
                     "c_module",
                     models.CharField(
                         blank=True,
-                        help_text="The display name of the Course Module (aka Chapter) in Course Management Studio.",
+                        help_text=(
+                            "The display name of the Course Module (aka Chapter) in" " Course Management Studio."
+                        ),
                         max_length=255,
                         null=True,
                         verbose_name="Course Module",
@@ -86,7 +92,7 @@ class Migration(migrations.Migration):
                     "d_section",
                     models.CharField(
                         blank=True,
-                        help_text="The display name of the Course Section in Course Management Studio.",
+                        help_text=("The display name of the Course Section in Course" " Management Studio."),
                         max_length=255,
                         null=True,
                         verbose_name="Course Section",
@@ -96,7 +102,9 @@ class Migration(migrations.Migration):
                     "e_unit",
                     models.CharField(
                         blank=True,
-                        help_text="The display name of the Course Unit (aka Subsection) in Course Management Studio.",
+                        help_text=(
+                            "The display name of the Course Unit (aka Subsection) in" " Course Management Studio."
+                        ),
                         max_length=255,
                         null=True,
                         verbose_name="Course Unit",
@@ -106,7 +114,9 @@ class Migration(migrations.Migration):
                     "e2_block_type",
                     models.CharField(
                         blank=True,
-                        help_text="Type of XBlock. Usually chapter, sequential, vertical, html, discussion, or problem.",
+                        help_text=(
+                            "Type of XBlock. Usually chapter, sequential, vertical," " html, discussion, or problem."
+                        ),
                         max_length=255,
                         null=True,
                         verbose_name="Block Type",
@@ -135,7 +145,7 @@ class Migration(migrations.Migration):
                     "h_number_graded_sections",
                     models.IntegerField(
                         blank=True,
-                        help_text="The number of graded content blocks within this section.",
+                        help_text=("The number of graded content blocks within this section."),
                         null=True,
                         verbose_name="Number of Graded Sections",
                     ),
@@ -144,7 +154,11 @@ class Migration(migrations.Migration):
                     "i_component_type",
                     models.CharField(
                         blank=True,
-                        help_text="For problem types only: the kind of Xblock used. Examples: imageresponse, customresponse, optionresponse, formularesponse, numericalresponse.",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "For problem types only: the kind of Xblock used. Examples:"
+                            " imageresponse, customresponse, optionresponse,"
+                            " formularesponse, numericalresponse."
+                        ),
                         max_length=255,
                         null=True,
                         verbose_name="Component Type",
@@ -163,7 +177,9 @@ class Migration(migrations.Migration):
                     "k_problem_weight",
                     models.FloatField(
                         blank=True,
-                        help_text="The point potential of this problem based on the grading policy for the course.",
+                        help_text=(
+                            "The point potential of this problem based on the grading" " policy for the course."
+                        ),
                         null=True,
                         verbose_name="Problem Weight",
                     ),
@@ -176,7 +192,10 @@ class Migration(migrations.Migration):
                     "n_asset_type",
                     models.CharField(
                         blank=True,
-                        help_text="The kind of file types referenced in any freeform html content in this block. Example: getting-started_x250.png",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "The kind of file types referenced in any freeform html"
+                            " content in this block. Example: getting-started_x250.png"
+                        ),
                         max_length=255,
                         null=True,
                         verbose_name="Asset Type",
@@ -194,7 +213,11 @@ class Migration(migrations.Migration):
                     "q_xml_filename",
                     models.CharField(
                         blank=True,
-                        help_text="the full path to the xml file for this block, if it exists. Example: html/030e35c4756a4ddc8d40b95fbbfff4d4.xml",  # noqa: B950
+                        help_text=(  # noqa: B950
+                            "the full path to the xml file for this block, if it"
+                            " exists. Example:"
+                            " html/030e35c4756a4ddc8d40b95fbbfff4d4.xml"
+                        ),
                         max_length=255,
                         null=True,
                         verbose_name="XML Filename",
@@ -205,7 +228,7 @@ class Migration(migrations.Migration):
                     models.DateTimeField(
                         blank=True,
                         db_index=True,
-                        help_text="The most recent publication or modification date of this block",
+                        help_text=("The most recent publication or modification date of this" " block"),
                         null=True,
                         verbose_name="Publication Date",
                     ),
@@ -218,7 +241,7 @@ class Migration(migrations.Migration):
                     "s_changed_by",
                     models.ForeignKey(
                         blank=True,
-                        help_text="the username of the person who most recently published or modified this block.",
+                        help_text=("the username of the person who most recently published or" " modified this block."),
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,

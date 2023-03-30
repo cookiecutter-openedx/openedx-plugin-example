@@ -30,11 +30,15 @@ from cms.djangoapps.contentstore.utils import get_lms_link_for_item
 try:
     # for olive and later
     from xmodule.modulestore.django import modulestore
-    from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.course_module import (
+        CourseBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 except ImportError:
     # for backward compatibility with nutmeg and earlier
     from common.lib.xmodule.xmodule.modulestore.django import modulestore
-    from common.lib.xmodule.xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.course_module import (
+        CourseBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 
 # our stuff
 from .models import CourseChangeLog

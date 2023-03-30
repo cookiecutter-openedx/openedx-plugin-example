@@ -71,10 +71,10 @@ def student_dashboard(request):
         log.info("student_dashboard() - initiating after referral {referer}".format(referer=referer.netloc))
 
     log.info(
-        "student_dashboard() - user {username} is accessing example via \
-                {platform}. Referer is {referer}. Received a language \
-                preference of {language_param} and a pre-enrollment \
-                course key of {enroll_in}".format(
+        "student_dashboard() - user {username} is accessing example via                "
+        " {platform}. Referer is {referer}. Received a language                "
+        " preference of {language_param} and a pre-enrollment                 course"
+        " key of {enroll_in}".format(
             username=username,
             platform=platform,
             referer=referer.netloc,
@@ -100,11 +100,9 @@ def student_dashboard(request):
             course_key = CourseKey.from_string(enroll_in)
         except Exception:  # noqa: B902
             log.warning(
-                "student_dashboard() received an invalid CourseKey string in \
-                    the enroll url param. Ignoring. value was: \
-                    {enroll_in}".format(
-                    enroll_in=enroll_in
-                )
+                "student_dashboard() received an invalid CourseKey string in           "
+                "          the enroll url param. Ignoring. value was:                  "
+                "   {enroll_in}".format(enroll_in=enroll_in)
             )
 
         if course_key:
@@ -112,11 +110,9 @@ def student_dashboard(request):
                 course = modulestore().get_course(course_key)
             except Exception as e:  # noqa: B902
                 log.warning(
-                    "student_dashboard() encountered a handled exception \
-                        while attempting to initialize course object for \
-                        course key {enroll_in}. Exception: {e}".format(
-                        enroll_in=enroll_in, e=e
-                    )
+                    "student_dashboard() encountered a handled exception               "
+                    "          while attempting to initialize course object for        "
+                    "                 course key {enroll_in}. Exception: {e}".format(enroll_in=enroll_in, e=e)
                 )
 
             try:
@@ -124,9 +120,8 @@ def student_dashboard(request):
                     CourseEnrollment.enroll(request.user, course_key=course_key)
                 else:
                     log.info(
-                        "student_dashboard() user {username} is already enrolled in course {enroll_in}.".format(
-                            username=request.user.username, enroll_in=enroll_in
-                        )
+                        "student_dashboard() user {username} is already enrolled in"
+                        " course {enroll_in}.".format(username=request.user.username, enroll_in=enroll_in)
                     )
 
                 if course.has_started():
@@ -138,18 +133,16 @@ def student_dashboard(request):
                     )
                 else:
                     log.info(
-                        "student_dashboard() course {enroll_in} has not yet \
-                            started. Redirecting the user to their \
-                            dashboard.".format(
-                            enroll_in=enroll_in
-                        )
+                        "student_dashboard() course {enroll_in} has not yet            "
+                        "                 started. Redirecting the user to their       "
+                        "                      dashboard.".format(enroll_in=enroll_in)
                     )
 
             except Exception as e:  # noqa: B902
                 log.warning(
-                    "student_dashboard() encountered a handled exception while\
-                     attempting to enroll user {username} in the course \
-                    {enroll_in}. Exception: {e}".format(
+                    "student_dashboard() encountered a handled exception while         "
+                    "            attempting to enroll user {username} in the course    "
+                    "                 {enroll_in}. Exception: {e}".format(
                         username=request.user.username, enroll_in=enroll_in, e=e
                     )
                 )

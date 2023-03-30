@@ -14,7 +14,11 @@ from django.apps import AppConfig
 
 # see: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins/
 from edx_django_utils.plugins import PluginSettings, PluginURLs
-from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType, PluginSignals
+from openedx.core.djangoapps.plugins.constants import (
+    ProjectType,
+    SettingsType,
+    PluginSignals,
+)
 
 
 # Signals (aka receivers) defined in https://github.com/openedx/openedx-events/blob/main/openedx_events/learning/signals.py
@@ -142,7 +146,8 @@ class CustomPluginConfig(AppConfig):
         log.info("{label} {version} is ready.".format(label=self.label, version=__version__))
         log.info(
             "{label} found the following Django signals: {signals}".format(
-                label=self.label, signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4)
+                label=self.label,
+                signals=json.dumps(OPENEDX_SIGNALS, cls=PluginJSONEncoder, indent=4),
             )
         )
         waffle_init()

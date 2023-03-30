@@ -25,7 +25,9 @@ try:
     # for olive and later
     # see: https://discuss.openedx.org/t/django-plugin-app-works-with-some-django-signals-but-not-others/5949/3
     from xmodule.modulestore.django import SignalHandler
-    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 except ImportError:
     # for backward compatibility with nutmeg and earlier
     from common.lib.xmodule.xmodule.modulestore.django import SignalHandler

@@ -16,7 +16,9 @@ try:
     from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 except ImportError:
     # for backward compatibility with nutmeg and earlier
-    from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+    from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
+        SharedModuleStoreTestCase,
+    )
 
 
 class TestAPIEndpoints(SharedModuleStoreTestCase, APITestCase):

@@ -48,11 +48,22 @@ from xblock.core import XBlock
 
 try:
     # for olive and later
-    from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
-    from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
-    from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
-    from xmodule.seq_module import SequenceBlock, SectionBlock  # lint-amnesty, pylint: disable=wrong-import-order
-    from xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.modulestore import (
+        ModuleStoreEnum,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.course_module import (
+        CourseBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.seq_module import (
+        SequenceBlock,
+        SectionBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+    from xmodule.vertical_block import (
+        VerticalBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
     from xmodule.unit_block import UnitBlock  # Units are verticals.
 except ImportError:
     # for backward compatibility with nutmeg and earlier
@@ -62,7 +73,9 @@ except ImportError:
     from common.lib.xmodule.xmodule.modulestore import (
         ModuleStoreEnum,
     )  # lint-amnesty, pylint: disable=wrong-import-order
-    from common.lib.xmodule.xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+    from common.lib.xmodule.xmodule.course_module import (
+        CourseBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
     from common.lib.xmodule.xmodule.seq_module import (
         SequenceBlock,
         SectionBlock,
@@ -556,7 +569,7 @@ def plugin_cms_course_audit_refresh(request, course_id: str, **kwargs):
     with task_lock(oid="plugin_cms_course_audit_refresh", course_id=course_id) as acquired:
         if acquired:
             _plugin_cms_course_audit_refresh(course_id=course_id)
-            message = "Report data refresh process was successfully initiated for course_key: {course_id}".format(
+            message = "Report data refresh process was successfully initiated for course_key:" " {course_id}".format(
                 course_id=course_id
             )
             status = 204
