@@ -30,12 +30,6 @@ repos:
       - id: trailing-whitespace
         files: \.(py|sh|rst|yml|yaml)$
   - repo: https://github.com/PyCQA/flake8
-    id: flake8
-    description: '`flake8` is a command-line utility for enforcing style consistency across Python projects.'
-    entry: flake8
-    language: python
-    types: [python]
-    require_serial: true
     rev: 6.0.0
     hooks:
       - id: flake8
@@ -46,7 +40,16 @@ repos:
             'flake8-comprehensions',
             'flake8-docstrings',
             'flake8-implicit-str-concat',
-            'pydocstyle>=5.0.0',
+            'pydocstyle',
+            'flake8-coding',
+            'flake8-debugger',
+            'flake8-deprecated',
+            'flake8-isort',
+            'flake8-pep3101',
+            'flake8-polyfill',
+            'flake8-print',
+            'flake8-quotes',
+            'flake8-string-format',
         ]
         exclude: ^tests/test_cases/no_closing_bracket\.py$
   - repo: https://github.com/rstcheck/rstcheck
