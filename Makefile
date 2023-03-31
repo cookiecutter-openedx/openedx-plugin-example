@@ -79,7 +79,7 @@ build:
 
 # -------------------------------------------------------------------------
 # upload to PyPi Test
-# https:// ?????
+# https://test.pypi.org/project/openedx-plugin-example/0.2.0/
 # -------------------------------------------------------------------------
 release-test:
 	make build
