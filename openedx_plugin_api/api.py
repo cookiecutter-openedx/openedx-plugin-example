@@ -60,7 +60,7 @@ except ImportError:
 # our stuff
 from .utils import get_course_info
 from .models import CoursePoints
-from .version import __version__
+from .__about__ import __version__
 
 User = get_user_model()
 

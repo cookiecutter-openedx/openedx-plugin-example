@@ -85,7 +85,6 @@ release-test:
 	make build
 	twine upload --verbose --skip-existing --repository testpypi dist/*
 
-
 # -------------------------------------------------------------------------
 # upload to PyPi
 # https://pypi.org/project/openedx-plugin-example/

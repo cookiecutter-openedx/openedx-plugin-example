@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.1.3] (2022-3-30)
+## [0.2.0] (2022-3-31)
+
+- publish to PyPi
+
+## [0.1.3] (2023-3-30)
 
 - add AGPLv3 license
 - make xmodule imports backward compatible to nutmeg and earlier
@@ -17,7 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - line entire code base for PEP 263 and B950 compliance
 - setup pyproject.toml for PyPi publishing
 
-## [0.1.2] (2022-3-29)
+## [0.1.2] (2023-3-29)
 
 - add a module level IS_READY boolean to prevent ready() from running multiple times during init
 
