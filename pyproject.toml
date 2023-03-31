@@ -28,7 +28,7 @@ version = "0.2.0"
 authors = [
   { name="Lawrence McDaniel", email="lpm0073@gmail.com" }
 ]
-description = "A Django plugin to enhance feature set of base Open edX platform"
+description = "A Django plugin to modify and enhance the feature set of the Open edX learning management system"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
