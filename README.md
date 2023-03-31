@@ -127,15 +127,15 @@ To get community support, go to the official Open edX discussion forum: [https:/
 
 ### Contributing
 
-We welcome contributions! openedx-plugin-example is part of the [cookiecutter-openedx project](https://github.com/cookiecutter-openedx). Pull requests are welcomed in all repos belonging to this organization. You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.
+We welcome contributions! openedx-plugin-example is part of the [cookiecutter-openedx](https://github.com/cookiecutter-openedx) project. Pull requests are welcome in all repos belonging to this organization. You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.
 
-### Local development
+### Getting Started With Local development
 
 * Use the same virtual environment that you use for edx-platform
-* Set your Python interpreter to 3.8x
+* Ensure that your Python interpreter to 3.8x
 * install black: <https://pypi.org/project/black/>
 * install flake8: <https://flake8.pycqa.org/en/latest/>
-* pip install flake8-coding
+* install flake8-coding: <https://pypi.org/project/flake8-coding/>
 
 ```bash
 # Run these from within your edx-platform virtual environment
@@ -155,7 +155,7 @@ pip install pre-commit black flake8
 pre-commit install
 ```
 
-### Local development good practices
+#### Local development good practices
 
 * run `black` on modified code before committing.
 * run `flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics`
