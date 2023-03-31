@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Oct-2021
@@ -13,22 +14,33 @@ from lxml.html import fromstring
 from os.path import basename
 from urllib.parse import urlparse
 
-# django
+# django stuff
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
-# common libs
+# open edx common libs
 from xblock.fields import Boolean, String
 from xblock.core import XBlock
 from opaque_keys.edx.keys import UsageKey
 
 
 # open edx stuff
-from xmodule.modulestore.django import modulestore
-from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
 from cms.djangoapps.contentstore.utils import get_lms_link_for_item
 
-# this repo
+try:
+    # for olive and later
+    from xmodule.modulestore.django import modulestore
+    from xmodule.course_module import (
+        CourseBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import modulestore
+    from common.lib.xmodule.xmodule.course_module import (
+        CourseBlock,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+
+# our stuff
 from .models import CourseChangeLog
 
 User = get_user_model()
@@ -42,7 +54,7 @@ def link_extractor(html: str):
     """
     try:
         doc = fromstring(html)
-    except Exception:
+    except Exception:  # noqa: B902
         return ""
 
     retval = []
@@ -63,7 +75,7 @@ def asset_extractor(html: str):
     """
     try:
         doc = fromstring(html)
-    except Exception:
+    except Exception:  # noqa: B902
         return ""
 
     retval = []
@@ -76,7 +88,7 @@ def asset_extractor(html: str):
 
 def get_grade_weight(xblock: XBlock, course: CourseBlock):
     """
-    retreive the problem weight from the grading policy
+    retrieve the problem weight from the grading policy
     based on Xblock type.
 
     raw_grader: [
@@ -158,7 +170,7 @@ def get_parent_location(category: String, block_key: UsageKey) -> UsageKey:
 
 def get_problem_type(xblock: XBlock) -> str:
     """
-    Xblock accomodates multiple problem types,
+    Xblock accommodates multiple problem types,
     but in our use case we are only interested
     in the first of these.
     """
@@ -179,7 +191,6 @@ def get_host_url(app="cms") -> str:
 
 
 def get_user(user_id):
-
     try:
         return User.objects.get(id=user_id)
     except User.DoesNotExist:
@@ -187,12 +198,11 @@ def get_user(user_id):
 
 
 def get_xblock_attribute(usage_key: UsageKey, attr: String):
-
     if usage_key:
         try:
             xblock = modulestore().get_item(usage_key)
             return xblock.__getattribute__(attr)
-        except Exception:
+        except Exception:  # noqa: B902
             return None
     return None
 

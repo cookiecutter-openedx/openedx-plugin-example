@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 oct-2021
@@ -9,20 +10,30 @@ for best practices on setting these up.
 
 Also see: https://docs.djangoproject.com/en/3.2/topics/signals/
 """
-# Python
+# Python stuff
 import logging
 
-# Django
+# Django stuff
 from django.dispatch import receiver
 from celery import shared_task
 from edx_django_utils.monitoring import set_code_owner_attribute
 
-# Open edX
-# see: https://discuss.openedx.org/t/django-plugin-app-works-with-some-django-signals-but-not-others/5949/3
-from xmodule.modulestore.django import SignalHandler
+# Open edX stuff
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+try:
+    # for olive and later
+    # see: https://discuss.openedx.org/t/django-plugin-app-works-with-some-django-signals-but-not-others/5949/3
+    from xmodule.modulestore.django import SignalHandler
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
+    from common.lib.xmodule.xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 
 # this repo
 from .auditor import (
@@ -81,7 +92,6 @@ def _plugin_handle_item_deleted(**kwargs):
     """
     usage_key = kwargs.get("usage_key")
     if usage_key:
-
         # Strip branch info
         usage_key = usage_key.for_branch(None)
         user_id = kwargs.get("user_id")

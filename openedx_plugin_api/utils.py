@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -7,19 +8,32 @@ date:           sep-2021
 usage:          utility and convenience functions for
                 openedx_plugin_api plugin
 """
+# python stuff
 from datetime import datetime
 from pytz import UTC
 import re
 
+# django stuff
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 
+# open edx stuff
 from openedx.core.djangoapps.user_api.accounts.utils import (
     retrieve_last_sitewide_block_completed,
 )
 from opaque_keys.edx.keys import CourseKey
 from common.djangoapps.util.date_utils import get_default_time_display
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+
+try:
+    # for olive and later
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
 
 
 def get_course_info(course_key: CourseKey):

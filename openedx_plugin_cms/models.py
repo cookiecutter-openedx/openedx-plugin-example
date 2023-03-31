@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Oct-2021
@@ -26,21 +27,24 @@ class CourseAudit(TimeStampedModel):
 
     a_order = models.IntegerField(
         verbose_name="Order",
-        help_text="the sequence in which this block is presented in the course, based on the outline format in Course Management Studio.",
+        help_text=(  # noqa: B950
+            "the sequence in which this block is presented in the course, based on the"
+            " outline format in Course Management Studio."
+        ),
         blank=True,
         null=True,
     )
     b_course = models.CharField(
         max_length=255,
         verbose_name="Course Display Name",
-        help_text="The display name of the course from Course Management Studio.",
+        help_text="The display name of the course from Course Management Studio.",  # noqa: B950
         blank=True,
         null=True,
     )
     c_module = models.CharField(
         max_length=255,
         verbose_name="Course Module",
-        help_text="The display name of the Course Module (aka Chapter) in Course Management Studio.",
+        help_text=("The display name of the Course Module (aka Chapter) in Course Management" " Studio."),  # noqa: B950
         blank=True,
         null=True,
     )
@@ -54,14 +58,18 @@ class CourseAudit(TimeStampedModel):
     e_unit = models.CharField(
         max_length=255,
         verbose_name="Course Unit",
-        help_text="The display name of the Course Unit (aka Subsection) in Course Management Studio.",
+        help_text=(  # noqa: B950
+            "The display name of the Course Unit (aka Subsection) in Course Management" " Studio."
+        ),
         blank=True,
         null=True,
     )
     e2_block_type = models.CharField(
         max_length=255,
         verbose_name="Block Type",
-        help_text="Type of XBlock. Usually chapter, sequential, vertical, html, discussion, or problem.",
+        help_text=(  # noqa: B950
+            "Type of XBlock. Usually chapter, sequential, vertical, html, discussion," " or problem."
+        ),
         blank=True,
         null=True,
     )
@@ -94,7 +102,10 @@ class CourseAudit(TimeStampedModel):
     i_component_type = models.CharField(
         max_length=255,
         verbose_name="Component Type",
-        help_text="For problem types only: the kind of Xblock used. Examples: imageresponse, customresponse, optionresponse, formularesponse, numericalresponse.",
+        help_text=(  # noqa: B950
+            "For problem types only: the kind of Xblock used. Examples: imageresponse,"
+            " customresponse, optionresponse, formularesponse, numericalresponse."
+        ),
         blank=True,
         null=True,
     )
@@ -106,7 +117,7 @@ class CourseAudit(TimeStampedModel):
     )
     k_problem_weight = models.FloatField(
         verbose_name="Problem Weight",
-        help_text="The point potential of this problem based on the grading policy for the course.",
+        help_text=("The point potential of this problem based on the grading policy for the" " course."),  # noqa: B950
         blank=True,
         null=True,
     )
@@ -118,14 +129,17 @@ class CourseAudit(TimeStampedModel):
     )
     m_external_links = models.TextField(
         verbose_name="External Links",
-        help_text="A list of all links to sites outside of this Open edX platform installation",
+        help_text=("A list of all links to sites outside of this Open edX platform" " installation"),  # noqa: B950
         blank=True,
         null=True,
     )
     n_asset_type = models.TextField(
         max_length=255,
         verbose_name="Asset Type",
-        help_text="The kind of file types referenced in any freeform html content in this block. Example: getting-started_x250.png",
+        help_text=(  # noqa: B950
+            "The kind of file types referenced in any freeform html content in this"
+            " block. Example: getting-started_x250.png"
+        ),
         blank=True,
         null=True,
     )
@@ -144,7 +158,10 @@ class CourseAudit(TimeStampedModel):
     q_xml_filename = models.CharField(
         max_length=255,
         verbose_name="XML Filename",
-        help_text="the full path to the xml file for this block, if it exists. Example: html/030e35c4756a4ddc8d40b95fbbfff4d4.xml",
+        help_text=(  # noqa: B950
+            "the full path to the xml file for this block, if it exists. Example:"
+            " html/030e35c4756a4ddc8d40b95fbbfff4d4.xml"
+        ),
         blank=True,
         null=True,
     )
@@ -158,7 +175,7 @@ class CourseAudit(TimeStampedModel):
     s_changed_by = models.ForeignKey(
         User,
         verbose_name="Changed By",
-        help_text="the username of the person who most recently published or modified this block.",
+        help_text=("the username of the person who most recently published or modified this" " block."),  # noqa: B950
         on_delete=models.CASCADE,
         db_index=True,
         blank=True,
@@ -190,7 +207,9 @@ class CourseChangeLog(TimeStampedModel):
         max_length=255,
         db_index=True,
         verbose_name="Location Usage Key",
-        help_text="Example: block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b",
+        help_text=(  # noqa: B950
+            "Example:" " block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b"
+        ),
     )
     display_name = models.CharField(max_length=255)
     ordinal_position = models.IntegerField(blank=True, null=True)
@@ -205,7 +224,10 @@ class CourseChangeLog(TimeStampedModel):
         verbose_name="LMS URL",
         blank=True,
         null=True,
-        help_text="Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b",
+        help_text=(
+            "Example:"
+            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_1fef54c2b23b"  # noqa: B950
+        ),
     )
     visible = models.BooleanField(default=True, verbose_name="Is Visible to Students")
     category = models.CharField(
@@ -223,28 +245,37 @@ class CourseChangeLog(TimeStampedModel):
     parent_location = UsageKeyField(max_length=255, db_index=True, blank=True, null=True)
     parent_url = models.URLField(
         max_length=255,
-        help_text="The Usage Key for the Parent object in which this block is contained.",
+        help_text=("The Usage Key for the Parent object in which this block is contained."),
         blank=True,
         null=True,
     )
     chapter_location = UsageKeyField(max_length=255, db_index=True, blank=True, null=True)
     chapter_url = models.URLField(
         max_length=255,
-        help_text="The Usage Key for the Chapter in which this block is contained. Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/graded_interactions",
+        help_text=(  # noqa: B950
+            "The Usage Key for the Chapter in which this block is contained. Example:"
+            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/graded_interactions"
+        ),
         blank=True,
         null=True,
     )
     sequential_location = UsageKeyField(max_length=255, db_index=True, blank=True, null=True)
     sequential_url = models.URLField(
         max_length=255,
-        help_text="The Usage Key for the Section in which this block is contained. Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/basic_questions",
+        help_text=(  # noqa: B950
+            "The Usage Key for the Section in which this block is contained. Example:"
+            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/basic_questions"
+        ),
         blank=True,
         null=True,
     )
     vertical_location = UsageKeyField(max_length=255, db_index=True, blank=True, null=True)
     vertical_url = models.URLField(
         max_length=255,
-        help_text="The Usage Key for the Vertical in which this block is contained. Example: https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/vertical_d32bf9b2242c",
+        help_text=(  # noqa: B950
+            "The Usage Key for the Vertical in which this block is contained. Example:"
+            " https://dev.engineplatform.co.uk/courses/course-v1:edX+DemoX+Demo_Course/jump_to_id/vertical_d32bf9b2242c"
+        ),
         blank=True,
         null=True,
     )
@@ -263,20 +294,30 @@ class CourseChangeLog(TimeStampedModel):
     source_version = UsageKeyField(max_length=255, blank=True, null=True)
     update_version = UsageKeyField(
         max_length=255,
-        help_text="Guid for the structure where this XBlock got its current field values. May point to a structure not in this structure's history (e.g., to a draft branch from which this version was published).",
+        help_text=(  # noqa: B950
+            "Guid for the structure where this XBlock got its current field values. May"
+            " point to a structure not in this structure's history (e.g., to a draft"
+            " branch from which this version was published)."
+        ),
         blank=True,
         null=True,
     )
     previous_version = UsageKeyField(
         max_length=255,
-        help_text="Guid for the structure which previously changed this XBlock. (Will be the previous value of 'update_version'.)",
+        help_text=(  # noqa: B950
+            "Guid for the structure which previously changed this XBlock. (Will be the"
+            " previous value of 'update_version'.)"
+        ),
         blank=True,
         null=True,
     )
 
     original_usage = UsageKeyField(
         max_length=255,
-        help_text="If this block has been copied from a library using copy_from_template, points to the original block in the library",
+        help_text=(  # noqa: B950
+            "If this block has been copied from a library using copy_from_template,"
+            " points to the original block in the library"
+        ),
         null=True,
         blank=True,
     )

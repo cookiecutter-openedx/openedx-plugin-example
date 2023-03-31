@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com
@@ -22,12 +23,10 @@ class MobileApiRedirectMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-
         if request.path.startswith(MOBILE_USER_API_URL) and waffle_switches[OVERRIDE_MOBILE_USER_API_URL]:
             log.info(
-                "openedx_plugin_api.middleware.APIRedirectMiddleware.__call__() redirecting host: {host} path: {path}".format(
-                    host=request.META["HTTP_HOST"], path=request.path
-                )
+                "openedx_plugin_api.middleware.APIRedirectMiddleware.__call__()"
+                " redirecting host: {host} path: {path}".format(host=request.META["HTTP_HOST"], path=request.path)
             )
             return redirect("/openedx_plugin/api/mobile/user")
 

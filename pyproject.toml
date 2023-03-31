@@ -14,3 +14,61 @@ exclude = '''
   | dist
 )/
 '''
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta:__legacy__"
+
+#------------------------------------------------------------------------------
+# PyPi meta data
+#------------------------------------------------------------------------------
+[project]
+name = "openedx-plugin-example"
+version = "0.1.3"
+authors = [
+  { name="Lawrence McDaniel", email="lpm0073@gmail.com" }
+]
+description = "A Django plugin to enhance feature set of base Open edX platform"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "Django>=3.2,<=3.3",
+  "validators",
+  "django-environ"
+]
+
+keywords = ["Python", "Django", "Open edX", "Plugin", "REST API"]
+
+[project.urls]
+Homepage = "https://github.com/cookiecutter-openedx/openedx-plugin-example"
+"Bug Tracker" = "https://github.com/cookiecutter-openedx/openedx-plugin-example/issues"
+Repository = "https://github.com/cookiecutter-openedx/openedx-plugin-example"
+
+#------------------------------------------------------------------------------
+# see: https://setuptools.pypa.io/en/latest/userguide/dependency_management.html
+#------------------------------------------------------------------------------
+[project.optional-dependencies]
+local = [
+    "pre-commit",
+    "black",
+    "flake8",
+    "ipython"
+]
+
+#------------------------------------------------------------------------------
+# see: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
+#------------------------------------------------------------------------------
+[project.entry-points."lms.djangoapp"]
+memberpress_client = "memberpress_client.apps:MemberPressPluginConfig"
+openedx_plugin = "openedx_plugin.apps:CustomPluginConfig"
+openedx_plugin_api = "openedx_plugin_api.apps:CustomPluginAPIConfig"
+openedx_plugin_mobile_api = "openedx_plugin_mobile_api.apps:MobileApiConfig"
+
+[project.entry-points."cms.djangoapp"]
+openedx_plugin_cms = "openedx_plugin_cms.apps:CustomPluginCMSConfig"

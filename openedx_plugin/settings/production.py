@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Common Pluggable Django App settings
 """

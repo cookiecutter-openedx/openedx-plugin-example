@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -30,7 +31,7 @@ class MobileApiConfig(AppConfig):
     name = "openedx_plugin_mobile_api"
     verbose_name = "Modified LMS Mobile REST API Endpoint"
 
-    # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html
+    # See: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/edx_django_utils.plugins.html      # noqa: B950
     plugin_app = {
         # mcdaniel Sep-2021
         # this is how you inject a python list of urls into lms.urls.py

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Oct-2021
@@ -5,12 +6,12 @@ Oct-2021
 View to dump log data to a simple row-column paginated layout.
 see: https://docs.djangoproject.com/en/2.2/topics/pagination/
 """
-# Python
+# Python stuff
 import csv
 from typing import List
 import logging
 
-# Django
+# Django stuff
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
@@ -18,13 +19,19 @@ from django.http import HttpResponse
 from six import StringIO
 
 
-# Open edX
+# Open edX stuff
 from common.djangoapps.util.views import ensure_valid_course_key
 from common.djangoapps.edxmako.shortcuts import render_to_response
 from opaque_keys.edx.keys import CourseKey
-from xmodule.course_module import CourseSummary
 
-# This repo
+try:
+    # for olive and later
+    from xmodule.course_module import CourseSummary
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.course_module import CourseSummary
+
+# our stuff
 from openedx_plugin_cms.models import CourseChangeLog
 from openedx_plugin_cms.utils import get_xblock_attribute
 
@@ -34,7 +41,6 @@ MAX_ROWS_PER_PAGE = 50
 
 
 def get_csv_url(course_id=None, page_number=None):
-
     if course_id:
         url = "/plugin_cms/courses/{course_id}/log/csv/".format(course_id=course_id)
     else:

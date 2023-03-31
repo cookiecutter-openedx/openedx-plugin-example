@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 import logging
 
@@ -66,7 +67,7 @@ class Command(BaseCommand):
         access.status = ApiAccessRequest.APPROVED
         access.website = OPENEDX_COMPLETE_DOMAIN_NAME
         access.site = site
-        access.reason = "Created from bootsrap script"
+        access.reason = "Created from bootstrap script"
         access.save()
         application, _ = Application.objects.get_or_create(
             user=user,

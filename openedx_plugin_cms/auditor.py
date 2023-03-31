@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Lawrence McDaniel - https://lawrencemcdaniel.com
 Oct-2021
@@ -9,23 +10,33 @@ from datetime import datetime
 import json
 import logging
 
-# django
+# django stuff
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
-# common libs
+# open edx common libs
 from opaque_keys.edx.keys import CourseKey, UsageKey
 from xblock.core import XBlock
 
-# open edx
+# open edx stuff
 from cms.djangoapps.contentstore.utils import (
     get_lms_link_for_item,
     is_currently_visible_to_students,
 )
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from openedx.core.djangoapps.content.block_structure.api import get_course_in_cache
 
-# this repo
+try:
+    # for olive and later
+    from xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+except ImportError:
+    # for backward compatibility with nutmeg and earlier
+    from common.lib.xmodule.xmodule.modulestore.django import (
+        modulestore,
+    )  # lint-amnesty, pylint: disable=wrong-import-order
+
+# our stuff
 from .utils import (
     round_seconds,
     get_user,
@@ -174,7 +185,6 @@ def eval_course_block_changes(course_key: CourseKey, user: User) -> None:
     #
     # block_key is opaque_keys.edx.locator.BlockUsageLocator
     for block_key in collected_block_structure.topological_traversal():
-
         # xblock is also a BlockUsageLocator, but it's fully
         # initialized (the data contents at the block location are also initialized)
         xblock = store.get_item(block_key)

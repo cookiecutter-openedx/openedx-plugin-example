@@ -117,6 +117,7 @@ tutor local run cms ./manage.py cms openedx_plugin_cms_init
 * Set your Python interpreter to 3.8x
 * install black: <https://pypi.org/project/black/>
 * install flake8: <https://flake8.pycqa.org/en/latest/>
+* pip install flake8-coding
 
 ```bash
 # Run these from within your edx-platform virtual environment

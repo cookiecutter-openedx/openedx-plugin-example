@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com
@@ -38,24 +39,22 @@ def set_language_preference(request):
     language_param = request.GET.get("language")
     if language_param:
         log.info(
-            "set_language_preference() found language url param of {language_param} in the request object".format(
-                language_param=language_param
-            )
+            "set_language_preference() found language url param of            "
+            " {language_param} in the request object".format(language_param=language_param)
         )
 
     preferred_language = get_user_preference(request.user, LANGUAGE_KEY)
     if preferred_language:
         log.info(
-            "set_language_preference() found an existing saved language preference for user {username} of {preferred_language}. Ignoring url param.".format(
-                username=request.user.username, preferred_language=preferred_language
-            )
+            "set_language_preference() found an existing saved language            "
+            " preference for user {username} of {preferred_language}.            "
+            " Ignoring url param.".format(username=request.user.username, preferred_language=preferred_language)
         )
         return None
     else:
         log.info(
-            "set_language_preference() no language preference set for user {username}".format(
-                username=request.user.username
-            )
+            "set_language_preference() no language preference set for user            "
+            " {username}".format(username=request.user.username)
         )
 
     languages = released_languages()
@@ -68,7 +67,8 @@ def set_language_preference(request):
             log.info("set_language_preference() no available language, exiting.")
             return None
         log.info(
-            "openedx_plugin.utils.set_language_preference() (2) detected language param={language_param}. closest installed={closest_lang}".format(
+            "openedx_plugin.utils.set_language_preference() (2) detected            "
+            " language param={language_param}. closest installed={closest_lang}".format(
                 language_param=language_param, closest_lang=closest_lang
             )
         )
@@ -76,26 +76,25 @@ def set_language_preference(request):
         return None
     else:
         log.info(
-            "set_language_preference() no language param found in the request header for user {username}".format(
-                username=request.user.username
-            )
+            "set_language_preference() no language param found in the request          "
+            "   header for user {username}".format(username=request.user.username)
         )
 
     # 3.) try infer a language preference from the referring host
     referer = urlparse(request.META.get("HTTP_REFERER", "Direct"))
     referer_domain = referer.netloc
     log.info(
-        "set_language_preference() analyzing http referer {referer} with domain {domain}".format(
-            referer=referer, domain=referer_domain
-        )
+        "set_language_preference() analyzing http referer {referer} with         domain"
+        " {domain}".format(referer=referer, domain=referer_domain)
     )
     if referer_domain and referer_domain[:2].lower() == "mx":
         closest_lang = get_closest_released_language("es_MX")
         if not closest_lang:
-            log.info("set_language_preference() no available language, quiting.")
+            log.info("set_language_preference() no available language, quitting.")
             return None
         log.info(
-            "openedx_plugin.utils.set_language_preference() (3) detected referer_domain={referer_domain}. closest installed={closest_lang}".format(
+            "openedx_plugin.utils.set_language_preference() (3) detected            "
+            " referer_domain={referer_domain}. closest installed={closest_lang}".format(
                 referer_domain=referer_domain, closest_lang=closest_lang
             )
         )

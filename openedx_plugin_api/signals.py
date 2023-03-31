@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 written by:     Lawrence McDaniel
                 https://lawrencemcdaniel.com
@@ -31,7 +32,6 @@ def listen_for_passing_grade(sender, user, course_id, **kwargs):  # pylint: disa
     Listen for a signal indicating that the user has passed a course run.
     """
     log.info(
-        "Enrolled student {username} has achieved a passing grade in the course {course_id} [{kwargs}]".format(
-            username=user.username, course_id=course_id, kwargs=kwargs
-        )
+        "Enrolled student {username} has achieved a passing grade in the course"
+        " {course_id} [{kwargs}]".format(username=user.username, course_id=course_id, kwargs=kwargs)
     )
