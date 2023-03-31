@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - enhance setup.up setup() meta data
 - bump classifier from alpha to beta
 - refactor in order to make repo more condusive to uploading to PyPi
+- version bumps to black, flake8 and their supporting plugins
+- line entire code base for PEP 263 and B950 compliance
+- setup pyproject.toml for PyPi publishing
 
 ## [0.1.2] (2022-3-29)
 
