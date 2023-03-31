@@ -117,6 +117,18 @@ tutor local run cms ./manage.py cms openedx_plugin_cms_init
 
 * Look for app startup entries in the LMS app log for diagnostics information about the state of each waffle switch ![app logs](https://raw.githubusercontent.com/cookiecutter-openedx/openedx-plugin-example/main/doc/openedx_plugin_waffle_app_log.png)
 
+### Documentation
+
+Documentation is available here: [Documentation](https://github.com/cookiecutter-openedx/openedx-plugin-example)
+
+### Support
+
+To get community support, go to the official Open edX discussion forum: [https://discuss.openedx.org](https://discuss.openedx.org).
+
+### Contributing
+
+We welcome contributions! openedx-plugin-example is part of the [cookiecutter-openedx project](https://github.com/cookiecutter-openedx). Pull requests are welcomed in all repos belonging to this organization. You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.
+
 ### Local development
 
 * Use the same virtual environment that you use for edx-platform
