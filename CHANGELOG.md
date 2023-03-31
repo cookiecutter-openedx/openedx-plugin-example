@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.2.0] (2022-3-31)
 
 - publish to PyPi
+- add Makefile
+- refactor version modules
+- add shields to README
+- add meta data to pyproject.toml
 
 ## [0.1.3] (2023-3-30)
 
