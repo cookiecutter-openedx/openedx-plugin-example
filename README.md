@@ -11,28 +11,28 @@ A curated collection of code samples for extending the functionality of an Open 
 
 Technical features that are showcased in this repo include:
 
-* Semantic version control
-* Pre-commit with linting by flake8 and black, both of which are configured to match the opinionated styling that you'll find in Open edX repositories
-* pip configuration, requirements, constraints, setup.py, pyproject.toml
-* How to bundle multiple plugins in a single pip package
-* How to redirect Open edX urls in lms and cms to endpoints created in this plugin
-* How to automatically initialize Django model data during app startup
-* Adding unit tests to plugin code
-* Django app setup
 * Open edX Django configuration settings
 * Open edX Django urls
 * Open edX Django logging
 * Open edX Django signals
 * Open edX Django RestFramework custom api
+* Django app setup
 * Django models
-* Django templating
+* Django and Mako templating
 * Django static assets
 * Django Admin
 * Django middleware
 * Django manage.py custom commands
+* Django Waffle flags
 * Python environment variables
-* Waffle flags
-* Setting up your repo to publish to PyPi
+* How to bundle multiple plugins in a single pip package
+* How to redirect Open edX urls in lms and cms to endpoints created in this plugin
+* How to automatically initialize Django model data during app startup
+* Adding unit tests to plugin code
+* Semantic version control
+* Pre-commit with linting by flake8 and black, both of which are configured to match the opinionated styling that you'll find in Open edX repositories
+* pip configuration, requirements, constraints, setup.py, pyproject.toml
+* Publishing to PyPi
 
 ## Open edX Plugins in this Repository
 
@@ -41,7 +41,7 @@ Technical features that are showcased in this repo include:
 Demonstrates how to create an all-in-one Open edX plugin, with a heterogeneous collection of custom feature additions, including:
 
 * A custom third party authentication [Oauth2 client backend](./openedx_plugin/wordpress_oauth2_backend.py).
-* Extending [new user registration](./openedx_plugin/student/registration.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
+* Extending [new user registration](./openedx_plugin/signals.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
 * Extending the [login functionality](./openedx_plugin/student/session.py)
 * Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
 * Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
