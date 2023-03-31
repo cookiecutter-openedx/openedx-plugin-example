@@ -68,7 +68,7 @@ class MobileApiConfig(AppConfig):
         if IS_READY:
             return
 
-        from .version import __version__
+        from .__about__ import __version__
         from .waffle import waffle_init
 
         log.info("{label} {version} is ready.".format(label=self.label, version=__version__))
