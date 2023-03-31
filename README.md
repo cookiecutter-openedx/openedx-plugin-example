@@ -1,23 +1,23 @@
 # Open edX Plugin Examples
 
-[![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 [![Source code](https://img.shields.io/static/v1?logo=github&label=Git&style=flat-square&color=brightgreen&message=Source%20code)](https://github.com/cookiecutter-openedx/openedx-plugin-example)
 [![Forums](https://img.shields.io/static/v1?logo=discourse&label=Forums&style=flat-square&color=000000&message=discuss.openedx.org)](https://discuss.openedx.org/tag/cookiecutter)
 [![Documentation](https://img.shields.io/static/v1?&label=Documentation&style=flat-square&color=000000&message=Documentation)](https://github.com/cookiecutter-openedx/openedx-plugin-example)
 [![PyPI releases](https://img.shields.io/pypi/v/openedx-plugin-example?logo=python&logoColor=white)](https://pypi.org/project/openedx-plugin-example)
 [![AGPL License](https://img.shields.io/github/license/overhangio/tutor.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+[![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
 A curated collection of code samples for extending the functionality of an Open edX installation using its built-in plugin architecture.
 
 Technical features that are showcased in this repo include:
 
-* semantic version control
-* pre-commit with linting by flake8 and black, both of which are configured to match the opinionated styling that you'll find in Open edX repositories
+* Semantic version control
+* Pre-commit with linting by flake8 and black, both of which are configured to match the opinionated styling that you'll find in Open edX repositories
 * pip configuration, requirements, constraints, setup.py, pyproject.toml
 * How to bundle multiple plugins in a single pip package
 * How to redirect Open edX urls in lms and cms to endpoints created in this plugin
 * How to automatically initialize Django model data during app startup
-* adding unit tests to plugin code
+* Adding unit tests to plugin code
 * Django app setup
 * Open edX Django configuration settings
 * Open edX Django urls
@@ -32,6 +32,7 @@ Technical features that are showcased in this repo include:
 * Django manage.py custom commands
 * Python environment variables
 * Waffle flags
+* Setting up your repo to publish to PyPi
 
 ## Open edX Plugins in this Repository
 
