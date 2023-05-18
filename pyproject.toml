@@ -24,7 +24,8 @@ build-backend = "setuptools.build_meta:__legacy__"
 #------------------------------------------------------------------------------
 [project]
 name = "openedx-plugin-example"
-version = "0.2.0"
+version = "0.2.1"
+license = {file = "LICENSE.txt"}
 authors = [
   { name="Lawrence McDaniel", email="lpm0073@gmail.com" }
 ]
