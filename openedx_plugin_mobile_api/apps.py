@@ -7,16 +7,23 @@ date:           dec-2022
 
 usage:          Django app and Open edX plugin configuration
 """
+# python stuff
 import logging
 
+# django stuff
 from django.apps import AppConfig
 from django.conf import settings
 
+# open edx stuff
 from edx_django_utils.plugins import PluginSettings, PluginURLs
 from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 
+# our stuff
+from .const import PLUGIN_URL_PREFIX
+
 log = logging.getLogger(__name__)
 IS_READY = False
+OPENEDX_MOBILE_API_PREFIX_RE = "/api/mobile/(?P<api_version>v(1|0.5))/"
 
 
 class MobileApiConfig(AppConfig):
@@ -44,7 +51,11 @@ class MobileApiConfig(AppConfig):
         PluginURLs.CONFIG: {
             ProjectType.LMS: {
                 PluginURLs.NAMESPACE: name,
-                PluginURLs.REGEX: "^openedx_plugin/api/mobile/",
+                # a regular expression that exactly matches the original
+                # edx-platform prefix for the mobile api and that is
+                # further prefixed as follows:
+                #             "^openedx_plugin/api/mobile/(?P<api_version>v(1|0.5))/"
+                PluginURLs.REGEX: "^" + PLUGIN_URL_PREFIX + OPENEDX_MOBILE_API_PREFIX_RE,
                 PluginURLs.RELATIVE_PATH: "urls",
             },
         },
