@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from rest_framework import generics
 from rest_framework.decorators import api_view
 
-from ..decorators import mobile_view
+from lms.djangoapps.mobile_api.decorators import mobile_view
 from .serializers import UserSerializer
 
 User = get_user_model()
