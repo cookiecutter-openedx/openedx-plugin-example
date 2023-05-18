@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.2.0] (2022-3-31)
+## [0.2.1] (2023-5-18)
+
+- refactor openedx_plugin_mobile_api.middleware
+- add secure-logger
+
+## [0.2.0] (2023-3-31)
 
 - publish to PyPi
 - add Makefile
