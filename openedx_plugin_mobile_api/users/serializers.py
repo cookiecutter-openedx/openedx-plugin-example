@@ -13,7 +13,8 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     """
-    Scaffolded from https://github.com/openedx/edx-platform/blob/open-release/nutmeg.master/lms/djangoapps/mobile_api/users/serializers.py#L130  # noqa: B950
+    Scaffolded from
+    https://github.com/openedx/edx-platform/blob/open-release/nutmeg.master/lms/djangoapps/mobile_api/users/serializers.py#L130  # noqa: B950
 
     you'll need to do the following:
     # -----------------------------------------
