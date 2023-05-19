@@ -13,7 +13,7 @@ Usage:
 pip install openedx-plugin-example
 ```
 
-A curated collection of code samples for extending the functionality of an Open edX installation using its built-in plugin architecture.
+An Open edX plugin showcasing a curated collection of code samples for extending the functionality of an Open edX installation using the built-in plugin architecture. This plugin can be installed in any Open edX installation version Juniper or later, independent of the installation method. This plugin currently runs in native builds, tutor installations, and Cookiecutter-openedx Kubernetes, amongst other proprietary installation methodologies.
 
 Technical features that are showcased in this repo include:
 
