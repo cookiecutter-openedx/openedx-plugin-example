@@ -13,10 +13,17 @@ Usage:
 pip install openedx-plugin-example
 ```
 
-An Open edX plugin showcasing a curated collection of code samples for extending the functionality of an Open edX installation using the built-in plugin architecture. This plugin can be installed in any Open edX installation version Juniper or later, independent of the installation method. This plugin currently runs in native builds, tutor installations, and Cookiecutter-openedx Kubernetes, amongst other proprietary installation methodologies.
+An Open edX plugin showcasing a curated collection of code samples for extending and modifying the stock functionality of an Open edX installation using the built-in plugin architecture. This plugin can be installed in any Open edX installation version Juniper or later, independent of the installation method. This plugin currently runs in native builds, tutor installations, and Cookiecutter-openedx Kubernetes, amongst other proprietary installation methodologies.
 
-Technical features that are showcased in this repo include:
+Open edX official documentation recommends that you leverage its plugin architecture rather than fork its code repositories. This project provides more than two dozen code examples to help you accomplish this.
 
+Technical features and coding techniques that are showcased in this repo include:
+
+* Iterate and introspect structured course content
+* Custom oauth backend that seamlessly integrates with Open edX third party authentication
+* Custom url to auto-enroll students in a course
+* Automatically detect and adapt to the browser OS locale setting
+* Usage examples of Open edX's extensive library of Python decorators
 * Open edX Django configuration settings
 * Open edX Django urls
 * Open edX Django logging
