@@ -7,15 +7,15 @@
 [![AGPL License](https://img.shields.io/github/license/overhangio/tutor.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
+An Open edX plugin showcasing a curated collection of code samples for extending and modifying the stock functionality of an Open edX installation using the built-in plugin architecture. This plugin can be installed in any Open edX installation version Juniper or later, independent of the installation method. This plugin currently runs in native builds, tutor installations, and Cookiecutter-openedx Kubernetes, amongst other proprietary installation methodologies.
+
+Open edX official documentation recommends that you leverage its plugin architecture rather than fork its code repositories. This project provides more than two dozen code examples to help you accomplish this.
+
 Usage:
 
 ```bash
 pip install openedx-plugin-example
 ```
-
-An Open edX plugin showcasing a curated collection of code samples for extending and modifying the stock functionality of an Open edX installation using the built-in plugin architecture. This plugin can be installed in any Open edX installation version Juniper or later, independent of the installation method. This plugin currently runs in native builds, tutor installations, and Cookiecutter-openedx Kubernetes, amongst other proprietary installation methodologies.
-
-Open edX official documentation recommends that you leverage its plugin architecture rather than fork its code repositories. This project provides more than two dozen code examples to help you accomplish this.
 
 Technical features and coding techniques that are showcased in this repo include:
 
