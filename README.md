@@ -7,6 +7,12 @@
 [![AGPL License](https://img.shields.io/github/license/overhangio/tutor.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
+Usage:
+
+```bash
+pip install openedx-plugin-example
+```
+
 A curated collection of code samples for extending the functionality of an Open edX installation using its built-in plugin architecture.
 
 Technical features that are showcased in this repo include:
@@ -88,8 +94,7 @@ See [Installing extra xblocks and requirements](https://docs.tutor.overhang.io/c
 
 ```bash
 tutor config save       # to ensure that tutor's root folder system has been created
-echo "git+https://github.com/lpm0073/openedx-plugin-example.git" >> "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
-cat "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
+echo "openedx-plugin-example" >> "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
 tutor images build openedx
 tutor local quickstart
 
