@@ -11,7 +11,7 @@ An Open edX plugin showcasing a curated collection of code samples for extending
 
 Open edX official documentation recommends that you leverage its plugin architecture rather than fork its code repositories. This project provides more than two dozen code examples to help you accomplish this.
 
-[<img src="https://i3.ytimg.com/vi/4TcSrEzciHA/maxresdefault.jpg" width="50%">](https://www.youtube.com/watch?v=4TcSrEzciHA "Open edX Example Plugin")
+[![Watch the video](https://i3.ytimg.com/vi/4TcSrEzciHA/maxresdefault.jpg)](https://www.youtube.com/watch?v=4TcSrEzciHA)
 
 Usage:
 
