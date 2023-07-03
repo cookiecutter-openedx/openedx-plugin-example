@@ -12,13 +12,12 @@ CLIENT_SECRET="set-me-please"
 GRANT_TYPE="password"
 
 # get a bearer token
-curl -X POST -d "grant_type=${GRANT_TYPE}&username=${USER}&password=${PASSWORD}" -u"${CLIENT_ID}:${CLIENT_SECRET}" $AUTH_URL
-
-# expected result:
+# expected return value:
 # ------------------------------
 # {"access_token": "some-token-value", "expires_in": 36000, "token_type": "Bearer", "scope": "read write USER_EMAIL profile", "refresh_token": "some-token-value"}
 
-TOKEN="set-me-from-curl-results:access_token"
+ACCESS_TOKEN=$(curl -X POST -d "grant_type=${GRANT_TYPE}&username=${USER}&password=${PASSWORD}" -u"${CLIENT_ID}:${CLIENT_SECRET}" $AUTH_URL | jq .access_token)
+TOKEN="${ACCESS_TOKEN}:access_token"
 
 # ---------------------------------------------------------------------
 # API TESTS
