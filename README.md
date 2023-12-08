@@ -57,7 +57,7 @@ Demonstrates how to create an all-in-one Open edX plugin, with a heterogeneous c
 
 * A custom third party authentication [Oauth2 client backend](./openedx_plugin/wordpress_oauth2_backend.py).
 * Extending [new user registration](./openedx_plugin/signals.py) functionality. Demonstrates how to leverage Django Signals to extend basic native Open edX operations.
-* Extending the openedx feature set with [Django Signal](./openedx_plugin/signals.py)
+* Extending the openedx feature set with [Django Signals](./openedx_plugin/signals.py)
 * Implementing a [rest api](./openedx_plugin/api/README.md) from scratch that is accessible from an LMS url.
 * Advanced Internationalization: [customizing static page links](./openedx_plugin/locale/README.md) based on the language locale setting
 
