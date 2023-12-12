@@ -392,7 +392,6 @@ class CourseBulkEmailAPIView(APIView):
 
 class RefreshToken(APIView):
     def post(self, request):
-        token = request.data.get("token")
         username = request.data.get("username")
         user = User.objects.get(username=username)
         token = create_jwt_for_user(user)
