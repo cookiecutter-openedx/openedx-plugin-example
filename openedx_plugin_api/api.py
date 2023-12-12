@@ -26,7 +26,7 @@ from social_django.models import UserSocialAuth
 # open edx stuff
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.enrollments import api
-from common.djangoapps.student.models import CourseEnrollment
+from common.djangoapps.student.models import CourseEnrollment, email_exists_or_retired
 from common.djangoapps.student.roles import CourseDataResearcherRole
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from common.djangoapps.course_modes.models import CourseMode
@@ -472,3 +472,35 @@ class DiscussionForum(APIView):
             page += 1
 
         return Response(results, content_type="application/json")
+
+class UsersProfileUpdateView(APIView):
+    """
+    Update all the details of the user's profile.
+    """
+    def post(self, request):
+       data = request.POST.copy()
+       username = data.get("username")
+
+       if not username:
+           return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={"message": "Username must be passed to update the profile."},
+            )
+       try:
+            user = User.objects.get(username=username)
+            email = data.get("email", user.email)
+            if not email == user.email:
+                if email_exists_or_retired(email):
+                    return Response(
+                        status=status.HTTP_400_BAD_REQUEST,
+                        data={"message": f"An account with the email ID: '{email}' already exists."},
+                    )
+            user.email = email
+            user.profile.name = data.get("name", user.profile.name)
+            user.save()
+            user.profile.save()
+       except User.DoesNotExist:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={"message": f"No user '{username}' found with given username."},
+            )

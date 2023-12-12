@@ -33,6 +33,7 @@ if waffle_switches[API_META]:
 if waffle_switches[API_USERS]:
     urlpatterns += [
         path("users/", api.UsersAPIView.as_view(), name="openedx_plugin_api_users"),
+        path("users/update/", api.UsersProfileUpdateView.as_view(), name="openedx_plugin_api_users_update"),
     ]
 
 if waffle_switches[API_TOKEN]:
