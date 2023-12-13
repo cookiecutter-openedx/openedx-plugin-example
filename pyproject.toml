@@ -79,7 +79,6 @@ local = [
 # see: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
 #------------------------------------------------------------------------------
 [project.entry-points."lms.djangoapp"]
-memberpress_client = "memberpress_client.apps:MemberPressPluginConfig"
 openedx_plugin = "openedx_plugin.apps:CustomPluginConfig"
 openedx_plugin_api = "openedx_plugin_api.apps:CustomPluginAPIConfig"
 openedx_plugin_mobile_api = "openedx_plugin_mobile_api.apps:MobileApiConfig"
