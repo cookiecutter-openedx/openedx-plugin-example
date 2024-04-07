@@ -99,7 +99,7 @@ Implements a modified version of the Open edX LMS Mobile REST API. This plugin i
 
 ### Install using Tutor
 
-See [Installing extra xblocks and requirements](https://docs.tutor.overhang.io/configuration.html)
+See [Installing extra xblocks and requirements](https://docs.tutor.edly.io/configuration.html#installing-extra-xblocks-and-requirements)
 
 ```bash
 tutor config save       # to ensure that tutor's root folder system has been created
@@ -125,7 +125,7 @@ tutor local run cms ./manage.py cms openedx_plugin_cms_init
 
 ### Notes About Django-Waffle
 
-* Each of these four Open edX plugins use [django-waffle](https://waffle.readthedocs.io/en/stable/) to toggle features on and off. While edx-platform also uses waffle switches, you should note that they separately manage a wrapper project named [edx-toggles](https://github.com/django-waffle/), and therefore the source code in this repo interacts with both of these.
+* Each of these four Open edX plugins use [django-waffle](https://waffle.readthedocs.io/en/stable/) to toggle features on and off. While edx-platform also uses waffle switches, you should note that they separately manage a wrapper project named [edx-toggles](https://edx.readthedocs.io/projects/edx-toggles/en/latest/readme.html), and therefore the source code in this repo interacts with both of these.
 
 * Waffle switches in each of these four plugins are automatically initialized. You'll therefore find the switches in the LMS Django Admin console (admin/waffle/switch/) of your Open edX installation. Additionally, you'll find the raw MySL database records in the waffle_switch table ![MySQL records](https://raw.githubusercontent.com/cookiecutter-openedx/openedx-plugin-example/main/doc/openedx_plugin_waffle_mysql.png)
 
