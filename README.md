@@ -105,7 +105,7 @@ See [Installing extra xblocks and requirements](https://docs.tutor.edly.io/confi
 tutor config save       # to ensure that tutor's root folder system has been created
 echo "openedx-plugin-example" >> "$(tutor config printroot)/env/build/openedx/requirements/private.txt"
 tutor images build openedx
-tutor local quickstart
+tutor local launch
 
 # you'll also need to run this on your very first install
 # -----------------------------------------------------------------------------
